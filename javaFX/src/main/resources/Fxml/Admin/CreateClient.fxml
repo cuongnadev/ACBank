@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="create_client_container" stylesheets="@../../Styles/CreateClient.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.Admin.CreateClientController">
+   <Text layoutX="51.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Client Account" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+   <VBox fillWidth="false" layoutX="14.0" layoutY="38.0" prefHeight="719.0" prefWidth="425.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="40.0">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name*:" />
+      <TextField fx:id="fName__fld" />
+      <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name*:" />
+      <TextField fx:id="lName_fld" layoutX="10.0" layoutY="28.0" />
+      <Text layoutX="10.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password*:" />
+      <TextField fx:id="password_fld" layoutX="10.0" layoutY="71.0" />
+      <Text layoutX="10.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payee Address*:" />
+      <CheckBox fx:id="pAddress_box" mnemonicParsing="false" />
+      <Label fx:id="pAddress_lbl" styleClass="payee_address_lbl" />
+      <Label text="Accounts:" />
+      <CheckBox fx:id="ch_acc_box" layoutX="10.0" layoutY="157.0" mnemonicParsing="false" text="Add Checking Account" />
+      <Label layoutX="10.0" layoutY="175.0" text="Checking Account Balance:" />
+      <TextField fx:id="ch_amount_fld" layoutX="10.0" layoutY="112.0" />
+      <CheckBox fx:id="sv_acc_box" layoutX="10.0" layoutY="191.0" mnemonicParsing="false" text="Add Saving Account" />
+      <Label layoutX="10.0" layoutY="205.0" text="Saving Account Balance:" />
+      <TextField fx:id="sv_amount_fld" layoutX="10.0" layoutY="224.0" />
+      <Button fx:id="create_client_btn" mnemonicParsing="false" text="Create New Client" />
+      <Label fx:id="error_lbl" layoutX="10.0" layoutY="268.0" styleClass="erorr_lbl" text="erorr:" />
+   </VBox>
+   <Line endX="7.399993896484375" endY="-266.8752746582031" layoutX="439.0" layoutY="131.0" startX="7.399993896484375" startY="182.82473754882812" AnchorPane.topAnchor="40.0" />
+   <Text layoutX="457.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit customer information" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+   <Text layoutX="616.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:" AnchorPane.rightAnchor="164.0" AnchorPane.topAnchor="134.0" />
+   <TextField fx:id="lNameEdit_fld" layoutX="531.0" layoutY="177.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="168.0" />
+   <Text layoutX="617.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" AnchorPane.rightAnchor="168.0" AnchorPane.topAnchor="218.0" />
+   <TextField fx:id="passwordEdit_fld" layoutX="531.0" layoutY="275.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="252.0" />
+   <Text layoutX="622.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payyee Address*:" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="300.0">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Text>
+   <TextField fx:id="pAddressEdit_fld" layoutX="531.0" layoutY="377.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="368.0" />
+   <Button fx:id="edit_customer_btn" layoutX="531.0" layoutY="455.0" mnemonicParsing="false" text="Edit customer" AnchorPane.rightAnchor="70.0" />
+   <Text layoutX="620.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" AnchorPane.rightAnchor="164.0" AnchorPane.topAnchor="50.0" />
+   <TextField fx:id="fNameEdit_fld" layoutX="528.0" layoutY="87.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="84.0" />
+</AnchorPane>
