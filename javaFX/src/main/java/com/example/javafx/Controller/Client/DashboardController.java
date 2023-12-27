@@ -163,6 +163,7 @@ public class DashboardController implements Initializable {
                                 transaction_listview.getItems().setAll(transactions);
 
                                 inBienLai(RanDomIDBienLai(pAddress , payeeAddress) , pAddress , payeeAddress , resultSet.getString("AccountNumber") , resultSet1.getString("AccountNumber") , amount , LocalDate.now().toString() , message );
+                                showAlert("Successful money transfer");
                                 setDataLabel();
                             }
                         }
