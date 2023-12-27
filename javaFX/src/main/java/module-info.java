@@ -9,6 +9,7 @@ module com.example.javafx {
     requires kernel;
     requires layout;
 
+
     exports com.example.javafx;
     opens com.example.javafx to javafx.fxml;
     exports com.example.javafx.Controller;

@@ -4,11 +4,15 @@ import com.example.javafx.Models.Model;
 import com.example.javafx.Models.Transaction;
 import com.example.javafx.View.TransactionCellFactory;
 
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.properties.HorizontalAlignment;
+
+
+import com.itextpdf.layout.properties.TextAlignment;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -222,21 +226,54 @@ public class DashboardController implements Initializable {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new FileOutputStream(path)));
             Document document = new Document(pdfDocument);
 
-            Paragraph para0 =  new Paragraph("-----------------------------------------------------------------");
-            Paragraph para1 =  new Paragraph("           NGAN HANG DOI MOI VA SANG TAO VIET NAM                ").setHorizontalAlignment(HorizontalAlignment.CENTER);
-            Paragraph para15 = new Paragraph("                           ACBANK                                ").setHorizontalAlignment(HorizontalAlignment.CENTER);
-            Paragraph para2 =  new Paragraph("                    Money Transfer Receipt                       ").setHorizontalAlignment(HorizontalAlignment.CENTER);
-            Paragraph para3 =  new Paragraph("-----------------------------------------------------------------");
-            Paragraph para35 = new Paragraph("ID Receipt: "+IDBienLai+"                                        ");
-            Paragraph para4 =  new Paragraph("Sender: "+sender+"                                               ");
-            Paragraph para45 = new Paragraph("AccountNumber Sender: "+numberSender+"                           ");
-            Paragraph para5 =  new Paragraph("                    ***** Giao Dich *****                        ").setHorizontalAlignment(HorizontalAlignment.CENTER);
-            Paragraph para55 = new Paragraph("Receiver: "+receiver+"                                           ");
-            Paragraph para6 =  new Paragraph("AccountNumber Receiver: "+numberReceiver+"                       ");
-            Paragraph para65 = new Paragraph("Amount: "+amount+"                                               ");
-            Paragraph para7 =  new Paragraph("Date: "+date+"                                                   ");
-            Paragraph para75 = new Paragraph("                     ****"+message+"****                         ").setHorizontalAlignment(HorizontalAlignment.CENTER);
-            Paragraph para8 =  new Paragraph("-----------------------------------------------------------------");
+            Paragraph para0 =  new Paragraph("----------------------------------------------------------------------------------------------------------------------------------")
+                    .setTextAlignment(TextAlignment.CENTER);
+            Paragraph para1 =  new Paragraph("          NGAN HANG PHUNG SU NHAN BAN VA KHAI PHONG              ")
+                    .setFontColor(new DeviceRgb(0,0,0))
+                    .setBold()
+                    .setFontSize(20)
+                    .setTextAlignment(TextAlignment.CENTER);
+
+            Paragraph para15 = new Paragraph("                           VKUBANK                                ")
+                    .setFontColor(new DeviceRgb(30,130,70))
+                    .setBold()
+                    .setFontSize(26)
+                    .setTextAlignment(TextAlignment.CENTER);
+            Paragraph para2 =  new Paragraph("                    Money Transfer Receipt                       ")
+                    .setFontColor(new DeviceRgb(0,0,0))
+                    .setItalic()
+                    .setFontSize(20)
+                    .setTextAlignment(TextAlignment.CENTER);
+            Paragraph para3 =  new Paragraph("----------------------------------------------------------------------------------------------------------------------------------")
+                    .setTextAlignment(TextAlignment.CENTER);
+            Paragraph para35 = new Paragraph("ID Receipt: "+IDBienLai+"                                        ")
+                    .setFontSize(15);
+            Paragraph para4 =  new Paragraph("Sender: "+sender+"                                               ")
+                    .setFontSize(15);
+            Paragraph para45 = new Paragraph("AccountNumber Sender: "+numberSender+"                           ")
+                    .setFontSize(15);
+            Paragraph para5 =  new Paragraph("                    ***** Giao Dich *****                        ")
+                    .setFontColor(new DeviceRgb(0,0,0))
+                    .setItalic()
+                    .setFontSize(18)
+                    .setTextAlignment(TextAlignment.CENTER);
+            Paragraph para55 = new Paragraph("Receiver: "+receiver+"                                           ")
+                    .setFontSize(15);
+            Paragraph para6 =  new Paragraph("AccountNumber Receiver: "+numberReceiver+"                       ")
+                    .setFontSize(15);
+            Paragraph para65 = new Paragraph("Amount: "+amount+"$                                               ")
+                    .setBold()
+                    .setFontSize(18);
+            Paragraph para7 =  new Paragraph("Date: "+date+"                                                   ")
+                    .setFontSize(15)
+                    .setItalic();
+            Paragraph para75 = new Paragraph("                     ****"+message+"****                         ")
+                    .setFontColor(new DeviceRgb(0,0,0))
+                    .setItalic()
+                    .setFontSize(18)
+                    .setTextAlignment(TextAlignment.CENTER);
+            Paragraph para8 =  new Paragraph("----------------------------------------------------------------------------------------------------------------------------------")
+                    .setTextAlignment(TextAlignment.CENTER);
 
             document.add(para0);
             document.add(para1);
