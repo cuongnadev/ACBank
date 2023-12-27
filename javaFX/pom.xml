@@ -48,6 +48,25 @@
 
 
     <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>kernel</artifactId>
+      <version>7.2.3</version> <!-- Đảm bảo kiểm tra phiên bản mới nhất -->
+    </dependency>
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>layout</artifactId>
+      <version>7.2.3</version> <!-- Đảm bảo kiểm tra phiên bản mới nhất -->
+    </dependency>
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>io</artifactId>
+      <version>7.2.3</version> <!-- Đảm bảo kiểm tra phiên bản mới nhất -->
+    </dependency>
+
+
+
+
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.version}</version>
@@ -58,7 +77,7 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>  </dependencies>
+    </dependency>   </dependencies>
 
   <build>
     <plugins>

@@ -6,6 +6,9 @@ module com.example.javafx {
     requires java.sql;
     requires org.xerial.sqlitejdbc;
 
+    requires kernel;
+    requires layout;
+
     exports com.example.javafx;
     opens com.example.javafx to javafx.fxml;
     exports com.example.javafx.Controller;
@@ -13,4 +16,5 @@ module com.example.javafx {
     exports com.example.javafx.Controller.Admin;
     exports com.example.javafx.Models;
     exports com.example.javafx.View;
+
 }

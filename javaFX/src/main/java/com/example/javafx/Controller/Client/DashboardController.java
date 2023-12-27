@@ -1,21 +1,28 @@
 package com.example.javafx.Controller.Client;
 
-import com.example.javafx.Controller.LoginController;
-import com.example.javafx.Models.DatabaseDriver;
 import com.example.javafx.Models.Model;
 import com.example.javafx.Models.Transaction;
 import com.example.javafx.View.TransactionCellFactory;
+
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.properties.HorizontalAlignment;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
+
+import java.io.FileOutputStream;
 import java.net.URL;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -59,7 +66,6 @@ public class DashboardController implements Initializable {
                 if (pAddress.equals(resultSet.getString("PayeeAddress"))
                         && password.equals(resultSet.getString("Password"))){
                     String LName = resultSet.getString("LastName");
-                    System.out.println(LName);
                     user_name.setText("Hi, "+ LName);
                 }
             }
@@ -151,6 +157,9 @@ public class DashboardController implements Initializable {
                                 // Làm mới transaction listview
                                 List<Transaction> transactions = getTransactionOfSQLiteLimit(4);
                                 transaction_listview.getItems().setAll(transactions);
+
+                                inBienLai(RanDomIDBienLai(pAddress , payeeAddress) , pAddress , payeeAddress , resultSet.getString("AccountNumber") , resultSet1.getString("AccountNumber") , amount , LocalDate.now().toString() , message );
+                                setDataLabel();
                             }
                         }
                     }catch (SQLException e){
@@ -205,4 +214,56 @@ public class DashboardController implements Initializable {
         transaction_listview.getItems().setAll(transactions);
         transaction_listview.setCellFactory(listView -> new TransactionCellFactory());
     }
+    public void inBienLai(String IDBienLai , String sender , String receiver , String numberSender , String numberReceiver , double amount , String date , String message ){
+        //in file pdf
+        String path = "D:\\Learning\\javaFXtutorials\\BienLai\\" + IDBienLai + ".pdf";
+
+        try {
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new FileOutputStream(path)));
+            Document document = new Document(pdfDocument);
+
+            Paragraph para0 =  new Paragraph("-----------------------------------------------------------------");
+            Paragraph para1 =  new Paragraph("           NGAN HANG DOI MOI VA SANG TAO VIET NAM                ").setHorizontalAlignment(HorizontalAlignment.CENTER);
+            Paragraph para15 = new Paragraph("                           ACBANK                                ").setHorizontalAlignment(HorizontalAlignment.CENTER);
+            Paragraph para2 =  new Paragraph("                    Money Transfer Receipt                       ").setHorizontalAlignment(HorizontalAlignment.CENTER);
+            Paragraph para3 =  new Paragraph("-----------------------------------------------------------------");
+            Paragraph para35 = new Paragraph("ID Receipt: "+IDBienLai+"                                        ");
+            Paragraph para4 =  new Paragraph("Sender: "+sender+"                                               ");
+            Paragraph para45 = new Paragraph("AccountNumber Sender: "+numberSender+"                           ");
+            Paragraph para5 =  new Paragraph("                    ***** Giao Dich *****                        ").setHorizontalAlignment(HorizontalAlignment.CENTER);
+            Paragraph para55 = new Paragraph("Receiver: "+receiver+"                                           ");
+            Paragraph para6 =  new Paragraph("AccountNumber Receiver: "+numberReceiver+"                       ");
+            Paragraph para65 = new Paragraph("Amount: "+amount+"                                               ");
+            Paragraph para7 =  new Paragraph("Date: "+date+"                                                   ");
+            Paragraph para75 = new Paragraph("                     ****"+message+"****                         ").setHorizontalAlignment(HorizontalAlignment.CENTER);
+            Paragraph para8 =  new Paragraph("-----------------------------------------------------------------");
+
+            document.add(para0);
+            document.add(para1);
+            document.add(para15);
+            document.add(para2);
+            document.add(para3);
+            document.add(para35);
+            document.add(para4);
+            document.add(para45);
+            document.add(para5);
+            document.add(para55);
+            document.add(para6);
+            document.add(para65);
+            document.add(para7);
+            document.add(para75);
+            document.add(para8);
+
+            document.close();
+        } catch (Exception e2) {
+            e2.printStackTrace();
+        }
+    }
+
+    private String RanDomIDBienLai(String sender , String receiver){
+        Random random = new Random();
+        int ranDomNumber = random.nextInt(1000);
+        return "BienLai_" + Character.toUpperCase(sender.charAt(1)) + Character.toUpperCase(receiver.charAt(1)) + ranDomNumber;
+    }
+
 }

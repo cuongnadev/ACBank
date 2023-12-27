@@ -69,8 +69,6 @@ public class Model {
                 this.client.lastNameProperty().set(resultSet.getString("LastName"));
                 this.client.pAddressProperty().set(resultSet.getString("PayeeAddress"));
                 this.client.passwordProperty().set(resultSet.getString("Password"));
-                System.out.println("firstname :"+ resultSet.getString("FirstName"));
-                System.out.println("lastname :"+ resultSet.getString("LastName"));
                 String[] dataParts = resultSet.getString("Date").split("-");
                 LocalDate date = LocalDate.of(Integer.parseInt(dataParts[0]) , Integer.parseInt(dataParts[1]) , Integer.parseInt(dataParts[2]));
                 this.client.dateCreatedProperty().set(String.valueOf(date));
