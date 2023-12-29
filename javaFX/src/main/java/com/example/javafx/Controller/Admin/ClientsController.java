@@ -28,8 +28,6 @@ public class ClientsController implements Initializable {
     public List<Client> getClientOfSQLite() {
         clients_listview.getItems().clear();
         ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
-        ResultSet resultSet2 = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
 
         List<Client> clients = new ArrayList<>();
         try {

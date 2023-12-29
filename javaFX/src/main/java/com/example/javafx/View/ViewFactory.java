@@ -2,13 +2,9 @@ package com.example.javafx.View;
 
 import com.example.javafx.Controller.Admin.AdminController;
 import com.example.javafx.Controller.Admin.ClientsController;
-import com.example.javafx.Controller.Admin.CreateClientController;
-import com.example.javafx.Controller.Client.AccountsController;
-import com.example.javafx.Controller.Client.ClientController;
-import com.example.javafx.Controller.Client.DashboardController;
-import com.example.javafx.Controller.Client.TransactionsController;
+import com.example.javafx.Controller.Admin.ReceiptController;
+import com.example.javafx.Controller.Client.*;
 import com.example.javafx.Controller.LoginController;
-import com.example.javafx.Models.Model;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +25,8 @@ public class ViewFactory {
     private DashboardController dashboardController;
     private AccountsController accountsController;
     private TransactionsController transactionsController;
-    private CreateClientController createClientController;
+    private ReceiptController receiptController;
+    private SignInController signInController;
     //getter & setter
 
     public LoginController getLoginController(){
@@ -55,12 +52,20 @@ public class ViewFactory {
         this.transactionsController = transactionsController;
     }
 
-    public CreateClientController getCreateClientController() {
-        return createClientController;
+    public ReceiptController getReceiptController() {
+        return receiptController;
     }
 
-    public void setCreateClientController(CreateClientController createClientController) {
-        this.createClientController = createClientController;
+    public void setReceiptController(ReceiptController receiptController) {
+        this.receiptController = receiptController;
+    }
+
+    public SignInController getSignInController() {
+        return signInController;
+    }
+
+    public void setSignInController(SignInController signInController) {
+        this.signInController = signInController;
     }
 
     // Admin View
@@ -125,6 +130,13 @@ public class ViewFactory {
         loader.setController(clientController);
         createStage(loader);
     }
+    public void showSignInWindow(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/SignIn.fxml"));
+        SignInController signInController = new SignInController();
+        loader.setController(signInController);
+        createStage(loader);
+    }
+
 
 
     /*
@@ -133,10 +145,10 @@ public class ViewFactory {
     public ObjectProperty<AdminMenuOptions> getAdminSelectedMenuItem(){
         return adminSelectedMenuItem;
     }
-    public AnchorPane getCreateClientView(){
+    public AnchorPane getReceiptView(){
         if (createClientView == null){
             try {
-                createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/CreateClient.fxml")).load();
+                createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Receipts.fxml")).load();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -172,6 +184,7 @@ public class ViewFactory {
         loader.setController(adminController);
         createStage(loader);
     }
+
 
 
 

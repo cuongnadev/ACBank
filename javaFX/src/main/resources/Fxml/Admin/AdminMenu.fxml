@@ -10,22 +10,22 @@
    <AnchorPane prefHeight="730.0" prefWidth="160.0" styleClass="left_container">
       <VBox prefHeight="80.0" prefWidth="160.0" styleClass="title_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <FontIcon iconLiteral="fa-bank" iconSize="30" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="VKUBank" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ACBank" />
       </VBox>
       <VBox layoutY="142.0" prefHeight="400.0" prefWidth="160.0" styleClass="menu_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-         <Button fx:id="create_client_btn" mnemonicParsing="false" styleClass="menu_container" text="Create Client">
+         <Button fx:id="clients_btn" mnemonicParsing="false" text="Clients">
             <graphic>
-               <FontIcon iconLiteral="fa-plus" iconSize="20" />
+               <FontIcon iconLiteral="fa-list" iconSize="20" />
             </graphic>
          </Button>
-         <Button fx:id="clients_btn" mnemonicParsing="false" text="Clients">
+         <Button fx:id="receipts_btn" mnemonicParsing="false" text="Receipt">
             <graphic>
                <FontIcon iconLiteral="fa-list" iconSize="20" />
             </graphic>
          </Button>
          <Button fx:id="deposit_btn" mnemonicParsing="false" text="Deposit">
             <graphic>
-               <FontIcon iconLiteral="fa-money" iconSize="20" />
+               <FontIcon iconLiteral="fa-search" iconSize="20" />
             </graphic>
          </Button>
          <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout">

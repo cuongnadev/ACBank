@@ -3,6 +3,7 @@ package com.example.javafx.Controller;
 import com.example.javafx.Models.Model;
 import com.example.javafx.View.AccountType;
 import javafx.collections.FXCollections;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -18,6 +19,7 @@ public class LoginController implements Initializable {
     public PasswordField password_fid;
     public Button login_btn;
     public Label error_lbl;
+    public Button sign_in_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -36,6 +38,15 @@ public class LoginController implements Initializable {
         });
         login_btn.setOnAction(event -> onLogin());
         Model.getInstance().getViewFactory().setLoginController(this);
+        sign_in_btn.setOnAction(event -> onSignIn());
+    }
+
+    private void onSignIn() {
+        try {
+            Model.getInstance().getViewFactory().showSignInWindow();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void onLogin(){

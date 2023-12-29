@@ -1,0 +1,31 @@
+package com.example.javafx.View;
+
+import com.example.javafx.Controller.Admin.ClientCellController;
+import com.example.javafx.Controller.Admin.ReceiptCellController;
+import com.example.javafx.Controller.Admin.ReceiptController;
+import com.example.javafx.Models.Client;
+import com.example.javafx.Models.Receipt;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListCell;
+
+public class ReceiptCellFactory extends ListCell<Receipt> {
+    @Override
+    protected void updateItem(Receipt receipt, boolean empty) {
+        super.updateItem(receipt, empty);
+        if(empty){
+            setText(null);
+            setGraphic(null);
+        }else{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/ReceiptCell.fxml"));
+            ReceiptCellController controller = new ReceiptCellController(receipt);
+            loader.setController(controller);
+
+            setText(null);
+            try {
+                setGraphic(loader.load());
+            }catch (Exception e ){
+                e.printStackTrace();
+            }
+        }
+    }
+}

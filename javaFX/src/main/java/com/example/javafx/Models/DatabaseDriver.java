@@ -111,6 +111,18 @@ public class DatabaseDriver {
         return resultSet;
     }
 
+    public ResultSet getReceiptData(){
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = this.con.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Receipt");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
 
     //Update
 
@@ -317,8 +329,31 @@ public class DatabaseDriver {
         }
     }
 
-    // Drop
+    public void insertReceiver (Receipt receipt){
+        String insertQuery = "INSERT INTO Receipt (IDBienLai , Sender , Receiver , Amount , Date) VALUES (?, ?, ?, ? ,?)";
+        try {
+            PreparedStatement pstm = con.prepareStatement(insertQuery);
+            pstm.setString(1, receipt.IDReceiptProperty().get());
+            pstm.setString(2, receipt.senderProperty().get());
+            pstm.setString(3, receipt.recerverProperty().get());
+            pstm.setDouble(4, receipt.amountProperty().get());
+            pstm.setString(5, receipt.dateProperty().get());
 
+            int rowsAffected = pstm.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Receipt inserted successfully.");
+            } else {
+                System.out.println("Failed to insert receipt.");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Error inserting receipt.");
+        }
+    }
+
+
+    // Drop
     public void DropClient (String pAddress ){
         String insertQuery = "DELETE FROM Clients WHERE PayeeAddress= ?";
         try {
@@ -382,6 +417,23 @@ public class DatabaseDriver {
                 System.out.println("Transaction Drop successfully.");
             } else {
                 System.out.println("Failed to Drop Transaction.");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void DropReceipt (String IDBienLai ){
+        String insertQuery = "DELETE FROM Receipt WHERE IDBienLai= ?";
+        try {
+            PreparedStatement pstm = con.prepareStatement(insertQuery);
+            pstm.setString(1 , IDBienLai);
+            int rowsAffected = pstm.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Receipt Drop successfully.");
+            } else {
+                System.out.println("Failed to Drop Receipt.");
             }
         }catch (SQLException e){
             e.printStackTrace();

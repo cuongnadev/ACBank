@@ -1,4 +1,4 @@
-package com.example.javafx.Controller.Admin;
+package com.example.javafx.Controller.Client;
 
 import com.example.javafx.Models.CheckingAccount;
 import com.example.javafx.Models.Client;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-public class CreateClientController implements Initializable {
+public class SignInController implements Initializable {
     public TextField fName__fld;
     public TextField lName_fld;
     public TextField password_fld;
@@ -40,7 +40,7 @@ public class CreateClientController implements Initializable {
         create_client_btn.setOnAction(event -> onCreate());
         pAddress_box.setOnAction(event -> onpAddressBox());
         edit_customer_btn.setOnAction(event -> onEdit());
-        Model.getInstance().getViewFactory().setCreateClientController(this);
+        Model.getInstance().getViewFactory().setSignInController(this);
     }
 
     private void onEdit() {

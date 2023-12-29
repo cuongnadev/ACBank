@@ -1,6 +1,7 @@
 package com.example.javafx.Controller.Client;
 
 import com.example.javafx.Models.Model;
+import com.example.javafx.Models.Receipt;
 import com.example.javafx.Models.Transaction;
 import com.example.javafx.View.TransactionCellFactory;
 
@@ -113,14 +114,14 @@ public class DashboardController implements Initializable {
         try {
             amount = Double.parseDouble(amount_fld.getText().trim());
         } catch (NumberFormatException e) {
-            showAlert("Invalid amount. Please enter a valid number.");
+            showAlertErorr("Invalid amount. Please enter a valid number.");
             return;
         }
         String message = massage_fld.getText().trim();
 
         // Step 2: Xác thực dữ liệu
         if (payeeAddress.isEmpty() || amount <= 0) {
-            showAlert("Please enter valid Payee or Amount.");
+            showAlertErorr("Please enter valid Payee or Amount.");
             return;
         }
 
@@ -134,7 +135,7 @@ public class DashboardController implements Initializable {
                 if (pAddress.equals(resultSet.getString("Owner"))) {
                     double senderBalance = resultSet.getDouble("Balance");
                     if (senderBalance < amount) {
-                        showAlert("Insufficient funds. Please check your balance.");
+                        showAlertErorr("Insufficient funds. Please check your balance.");
                         return;
                     }
                     // Truy xuất thông tin tài khoản của người nhận thanh toán
@@ -162,8 +163,13 @@ public class DashboardController implements Initializable {
                                 List<Transaction> transactions = getTransactionOfSQLiteLimit(4);
                                 transaction_listview.getItems().setAll(transactions);
 
-                                inBienLai(RanDomIDBienLai(pAddress , payeeAddress) , pAddress , payeeAddress , resultSet.getString("AccountNumber") , resultSet1.getString("AccountNumber") , amount , LocalDate.now().toString() , message );
-                                showAlert("Successful money transfer");
+                                String IDBienLai = RanDomIDBienLai(pAddress , payeeAddress);
+
+                                Receipt receipt = new Receipt(IDBienLai , pAddress , payeeAddress , amount ,LocalDate.now().toString() );
+                                Model.getInstance().getDatabaseDriver().insertReceiver(receipt);
+
+                                inBienLai( IDBienLai, pAddress , payeeAddress , resultSet.getString("AccountNumber") , resultSet1.getString("AccountNumber") , amount , LocalDate.now().toString() , message );
+                                showAlertSuccessful("Successful money transfer");
                                 setDataLabel();
                             }
                         }
@@ -175,9 +181,10 @@ public class DashboardController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert("An error occurred while processing the transaction.");
+            showAlertErorr("An error occurred while processing the transaction.");
         }
     }
+
 
 
     private List<Transaction> getTransactionOfSQLiteLimit(int limit) {
@@ -208,12 +215,6 @@ public class DashboardController implements Initializable {
         return transactions.subList(0, Math.min(limit, transactions.size()));
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
     public void refreshDataTransaction(){
         List<Transaction> transactions = getTransactionOfSQLiteLimit(4);
         transaction_listview.getItems().setAll(transactions);
@@ -229,13 +230,13 @@ public class DashboardController implements Initializable {
 
             Paragraph para0 =  new Paragraph("----------------------------------------------------------------------------------------------------------------------------------")
                     .setTextAlignment(TextAlignment.CENTER);
-            Paragraph para1 =  new Paragraph("          NGAN HANG PHUNG SU NHAN BAN VA KHAI PHONG              ")
+            Paragraph para1 =  new Paragraph("               NGAN HANG DOI MOI VA SANG TAO               ")
                     .setFontColor(new DeviceRgb(0,0,0))
                     .setBold()
                     .setFontSize(20)
                     .setTextAlignment(TextAlignment.CENTER);
 
-            Paragraph para15 = new Paragraph("                           VKUBANK                                ")
+            Paragraph para15 = new Paragraph("                           ACBANK                                ")
                     .setFontColor(new DeviceRgb(30,130,70))
                     .setBold()
                     .setFontSize(26)
@@ -298,10 +299,22 @@ public class DashboardController implements Initializable {
         }
     }
 
+    private void showAlertErorr(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     private String RanDomIDBienLai(String sender , String receiver){
         Random random = new Random();
         int ranDomNumber = random.nextInt(1000);
         return "BienLai_" + Character.toUpperCase(sender.charAt(1)) + Character.toUpperCase(receiver.charAt(1)) + ranDomNumber;
     }
 
+    private void showAlertSuccessful(String successfulMoneyTransfer) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setContentText(successfulMoneyTransfer);
+        alert.showAndWait();
+    }
 }

@@ -18,13 +18,13 @@
 .client_cell_container HBox Label {
     -fx-text-fill: #444444;
     -fx-font-family: "Calibri Light";
-    -fx-font-size: 1.5em;
+    -fx-font-size: 1.2em;
 }
 
 .acc_display_lbl {
     -fx-font-family: Calibri;
     -fx-font-weight: bold;
-    -fx-font-size: 1.1em;
+    -fx-font-size: 1.8em;
 }
 
 .delete_btn {

@@ -12,24 +12,25 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AdminMenuController implements Initializable {
-    public Button create_client_btn;
+
     public Button clients_btn;
     public Button deposit_btn;
     public Button logout_btn;
+    public Button receipts_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addListeners();
     }
     private void addListeners(){
-        create_client_btn.setOnAction(event -> onCreateClient());
+        receipts_btn.setOnAction(event -> onReceipt());
         clients_btn.setOnAction(event -> onClients());
         deposit_btn.setOnAction(event -> onDeposit());
         logout_btn.setOnAction(event -> onLogOut());
     }
-    private void onCreateClient(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CREATE_CLIENT);
-        Model.getInstance().getViewFactory().getCreateClientController().refreshLabel();
+    private void onReceipt(){
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.RECEIPT);
+        Model.getInstance().getViewFactory().getReceiptController().refreshReceiptListView();
     }
     private void onClients(){
         Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CLIENTS);
