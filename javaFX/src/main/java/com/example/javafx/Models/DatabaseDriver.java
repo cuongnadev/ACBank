@@ -123,6 +123,18 @@ public class DatabaseDriver {
         return resultSet;
     }
 
+    public ResultSet getSignUpAccountData(){
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = this.con.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM SignUpAccount");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
 
     //Update
 
@@ -147,6 +159,7 @@ public class DatabaseDriver {
             System.out.println("Error updating First Name.");
         }
     }
+
 
     public void updateLNameClients (String pAddress ,String name){
         String updateQuery = "update Clients set LastName  = ? where PayeeAddress = ?;";
@@ -352,8 +365,54 @@ public class DatabaseDriver {
         }
     }
 
+    public void insertSignUp (String FirstName , String LastName , String Password , String PayeeAddress , Double CheckingAmount , Double SavingAmount , String Date , String CheckingNumber , String SavingNumber){
+        String insertQuery = "INSERT INTO SignUpAccount (FirstName , LastName , Password , PayeeAddress , CheckingAmount , SavingAmount , Date , CheckingNumber , SavingNumber) VALUES (? ,? ,? ,? ,? , ?, ?, ? ,?)";
+        try {
+            PreparedStatement pstm = con.prepareStatement(insertQuery);
+            pstm.setString(1, FirstName);
+            pstm.setString(2, LastName);
+            pstm.setString(3, Password);
+            pstm.setString(4, PayeeAddress);
+            pstm.setDouble(5, CheckingAmount);
+            pstm.setDouble(6, SavingAmount);
+            pstm.setString(7, Date);
+            pstm.setString(8, CheckingNumber);
+            pstm.setString(9, SavingNumber);
+
+            int rowsAffected = pstm.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("SignUpAccount inserted successfully.");
+            } else {
+                System.out.println("Failed to insert SignUpAccount.");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Error inserting SignUpAccount.");
+        }
+    }
+
+
 
     // Drop
+
+    public void DropSignUpAccount (String pAddress ){
+        String insertQuery = "DELETE FROM SignUpAccount WHERE PayeeAddress= ?";
+        try {
+            PreparedStatement pstm = con.prepareStatement(insertQuery);
+            pstm.setString(1 , pAddress);
+            int rowsAffected = pstm.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("SignUp Drop successfully.");
+            } else {
+                System.out.println("Failed to Drop SignUp.");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public void DropClient (String pAddress ){
         String insertQuery = "DELETE FROM Clients WHERE PayeeAddress= ?";
         try {

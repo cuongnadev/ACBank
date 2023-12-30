@@ -9,9 +9,9 @@
 }
 
 .create_client_container VBox {
-    -fx-border-width: 0 0 0 1;
+    -fx-border-width: 0 1 0 1;
     -fx-border-color: #000000;
-    -fx-padding: 10;
+    -fx-padding: 20;
     -fx-spacing: 15;
 }
 

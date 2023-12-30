@@ -3,6 +3,7 @@ package com.example.javafx.View;
 import com.example.javafx.Controller.Admin.AdminController;
 import com.example.javafx.Controller.Admin.ClientsController;
 import com.example.javafx.Controller.Admin.ReceiptController;
+import com.example.javafx.Controller.Admin.SignUpListController;
 import com.example.javafx.Controller.Client.*;
 import com.example.javafx.Controller.LoginController;
 import javafx.beans.property.ObjectProperty;
@@ -26,7 +27,8 @@ public class ViewFactory {
     private AccountsController accountsController;
     private TransactionsController transactionsController;
     private ReceiptController receiptController;
-    private SignInController signInController;
+    private SignUpController signUpController;
+    private SignUpListController signUpListController;
     //getter & setter
 
     public LoginController getLoginController(){
@@ -60,12 +62,19 @@ public class ViewFactory {
         this.receiptController = receiptController;
     }
 
-    public SignInController getSignInController() {
-        return signInController;
+    public SignUpListController getSignUpListController(){
+        return this.signUpListController ;
+    }
+    public void setSignUpListController (SignUpListController signUpListController){
+        this.signUpListController = signUpListController;
     }
 
-    public void setSignInController(SignInController signInController) {
-        this.signInController = signInController;
+    public SignUpController getSignUpController() {
+        return signUpController;
+    }
+
+    public void setSignUpController(SignUpController signUpController) {
+        this.signUpController = signUpController;
     }
 
     // Admin View
@@ -73,6 +82,7 @@ public class ViewFactory {
     private AnchorPane createClientView;
     private AnchorPane clientsView;
     private AnchorPane depositView;
+    private AnchorPane signUpListView;
 
 
 
@@ -130,10 +140,10 @@ public class ViewFactory {
         loader.setController(clientController);
         createStage(loader);
     }
-    public void showSignInWindow(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/SignIn.fxml"));
-        SignInController signInController = new SignInController();
-        loader.setController(signInController);
+    public void showSignUpWindow(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/SignUp.fxml"));
+        SignUpController signUpController = new SignUpController();
+        loader.setController(signUpController);
         createStage(loader);
     }
 
@@ -145,6 +155,18 @@ public class ViewFactory {
     public ObjectProperty<AdminMenuOptions> getAdminSelectedMenuItem(){
         return adminSelectedMenuItem;
     }
+
+    public AnchorPane getSignUpListView(){
+        if (signUpListView == null){
+            try {
+                signUpListView = new FXMLLoader(getClass().getResource("/Fxml/Admin/SignUpList.fxml")).load();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return signUpListView;
+    }
+
     public AnchorPane getReceiptView(){
         if (createClientView == null){
             try {
@@ -205,7 +227,7 @@ public class ViewFactory {
         stage.setScene(scene);
         stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/icon.png"))));
         stage.setResizable(false);
-        stage.setTitle("VKUBank");
+        stage.setTitle("ACBank");
         stage.show();
     }
 

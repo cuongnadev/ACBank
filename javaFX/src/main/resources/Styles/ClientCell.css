@@ -39,3 +39,16 @@
 .delete_btn:hover {
     -fx-cursor: hand;
 }
+
+.duyet_btn {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #0870af;
+}
+
+.duyet_btn FontIcon {
+    -fx-fill: #ffffff;
+}
+
+.duyet_btn:hover {
+    -fx-cursor: hand;
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="50.0" prefWidth="750.0" styleClass="client_cell_container" stylesheets="@../../Styles/ClientCell.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <FontIcon iconLiteral="fa-drivers-license-o" iconSize="20" layoutX="14.0" layoutY="19.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+   <HBox layoutX="106.0" layoutY="-25.0" prefHeight="40.0" prefWidth="550.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="5.0">
+      <Label fx:id="fName_lbl" text="Chien" />
+      <Label fx:id="lName_lbl" layoutX="10.0" layoutY="10.0" text="DoanVan" />
+      <Label fx:id="pAddress_lbl" layoutX="40.0" layoutY="10.0" text="\@dvChien" />
+      <Label fx:id="ch_acc_lbl" layoutX="89.0" layoutY="10.0" styleClass="acc_display_lbl" text="12345678" />
+      <Label fx:id="sv_acc_lbl" layoutX="144.0" layoutY="10.0" styleClass="acc_display_lbl" text="001" />
+      <Label fx:id="date_lbl" layoutX="196.0" layoutY="10.0" text="2023-12-03" />
+   </HBox>
+   <Button fx:id="delete_btn" layoutX="684.0" layoutY="13.0" mnemonicParsing="false" styleClass="delete_btn" text="Delete" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="12.0">
+      <graphic>
+         <FontIcon iconLiteral="far-window-close" iconSize="15" />
+      </graphic>
+   </Button>
+   <Button fx:id="duyet_btn" layoutX="586.0" layoutY="12.0" mnemonicParsing="false" styleClass="duyet_btn" text="Duyệt">
+      <graphic>
+         <FontIcon iconLiteral="fa-check-square-o" iconSize="15" />
+      </graphic>
+   </Button>
+</AnchorPane>

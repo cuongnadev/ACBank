@@ -12,7 +12,8 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="login_container" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.LoginController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="login_container" stylesheets="@../Styles/login.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.LoginController">
    <VBox prefHeight="400.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.8000000000000114" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
       <VBox prefHeight="120.0" prefWidth="200.0" styleClass="login_logo_container">
          <children>
@@ -38,7 +39,7 @@
       <Label text="Password:" />
       <PasswordField fx:id="password_fid" prefWidth="310.0" styleClass="input_field" />
       <Button fx:id="login_btn" mnemonicParsing="false" text="Login" />
-      <Button fx:id="sign_in_btn" mnemonicParsing="false" text="Sign in" />
+      <Button fx:id="sign_in_btn" mnemonicParsing="false" text="Sign Up" />
       <Label fx:id="error_lbl" styleClass="error_lbl" />
    </VBox>
 </AnchorPane>

@@ -43,7 +43,7 @@ public class LoginController implements Initializable {
 
     private void onSignIn() {
         try {
-            Model.getInstance().getViewFactory().showSignInWindow();
+            Model.getInstance().getViewFactory().showSignUpWindow();
         }catch (Exception e){
             e.printStackTrace();
         }
