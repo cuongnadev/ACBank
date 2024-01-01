@@ -9,31 +9,17 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="deposit_container" stylesheets="@../../Styles/Deposit.css"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.javafx.Controller.Admin.DepositController">
-   <VBox layoutX="15.0" layoutY="90.0" prefHeight="570.0" prefWidth="820.0" AnchorPane.leftAnchor="15.0"
-         AnchorPane.topAnchor="100.0">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="deposit_container" stylesheets="@../../Styles/Clients.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.Admin.DepositController">
+   <VBox layoutX="15.0" layoutY="90.0" prefHeight="570.0" prefWidth="820.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="100.0">
       <HBox alignment="CENTER" prefHeight="60.0" prefWidth="820.0" styleClass="search_box">
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search By Payee Address:"/>
-         <TextField fx:id="pAddress_fld"/>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search By Payee Address:" />
+         <TextField fx:id="pAddress_fld" />
          <Button fx:id="search_btn" mnemonicParsing="false" text="Search">
             <graphic>
-               <FontIcon iconColor="WHITE" iconLiteral="fa-search" iconSize="20"/>
+               <FontIcon iconColor="WHITE" iconLiteral="fa-search" iconSize="20" />
             </graphic>
          </Button>
       </HBox>
-      <ListView fx:id="result_listview" prefHeight="200.0" prefWidth="820.0"/>
-      <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="315.0" prefWidth="100.0" styleClass="deposit_box">
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Deposit Section"/>
-         <Text layoutX="377.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount:"/>
-         <TextField fx:id="amount_fld"/>
-         <Button fx:id="deposit_btn" mnemonicParsing="false" text="Deposit">
-            <graphic>
-               <FontIcon iconColor="WHITE" iconLiteral="fa-money" iconSize="20"/>
-            </graphic>
-         </Button>
-      </VBox>
+      <ListView fx:id="result_listview" prefHeight="200.0" prefWidth="820.0" />
    </VBox>
 </AnchorPane>

@@ -21,37 +21,12 @@ public class DepositController implements Initializable {
     public Button search_btn;
     public ListView<Client> result_listview;
     public TextField amount_fld;
-    public Button deposit_btn;
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         search_btn.setOnAction(event -> onSearch());
-        deposit_btn.setOnAction(event -> onDeposit());
-    }
-
-    private void onDeposit() {
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
-        // Step 1: Lấy dữ liệu từ field
-        String payeeAddress = pAddress_fld.getText().trim();
-        double amount;
-        try {
-            amount = Double.parseDouble(amount_fld.getText().trim());
-        } catch (NumberFormatException e) {
-            showAlert("Invalid amount. Please enter a valid number.");
-            return;
-        }
-        try {
-            while (resultSet.next()){
-                if (payeeAddress.equals(resultSet.getString("Owner"))){
-                    //Cập nhật số dư tài khoản mới được gửi tiền vào
-                    Model.getInstance().getDatabaseDriver().updateAccountBalance(payeeAddress , resultSet.getDouble("Balance") + amount);
-                    showAlert("Deposited $" + amount + "to " + payeeAddress);
-                }
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
 
     }
 

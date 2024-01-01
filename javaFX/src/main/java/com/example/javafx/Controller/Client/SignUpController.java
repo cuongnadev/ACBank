@@ -7,6 +7,7 @@ import com.example.javafx.Models.SavingAccount;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -51,6 +52,7 @@ public class SignUpController implements Initializable {
     }
 
     private void onCreate() {
+        Stage stage = (Stage) error_lbl.getScene().getWindow();
         //Lấy dữ liệu đầu vào từ field
         String firstName = fName__fld.getText().trim();
         String lastName = lName_fld.getText().trim();
@@ -84,6 +86,11 @@ public class SignUpController implements Initializable {
             error_lbl.setText("Client Create Successfully.");
             error_lbl.setTextFill(Color.BLUE);
             showAlertSuccessful("Account created successfully, please wait for admin approval");
+
+            //Close the SinUp stage
+            Model.getInstance().getViewFactory().closeStage(stage);
+            //Open the login window
+            Model.getInstance().getViewFactory().showLoginWindow();
 
         }
     }

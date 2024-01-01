@@ -38,12 +38,16 @@ public class LoginController implements Initializable {
         });
         login_btn.setOnAction(event -> onLogin());
         Model.getInstance().getViewFactory().setLoginController(this);
-        sign_in_btn.setOnAction(event -> onSignIn());
+        sign_in_btn.setOnAction(event -> onSignUp());
     }
 
-    private void onSignIn() {
+    private void onSignUp() {
+        Stage stage = (Stage) error_lbl.getScene().getWindow();
         try {
             Model.getInstance().getViewFactory().showSignUpWindow();
+
+            //Close the login stage
+            Model.getInstance().getViewFactory().closeStage(stage);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -57,7 +61,6 @@ public class LoginController implements Initializable {
             Model.getInstance().evaluateClientCred(payee_address_fid.getText() , password_fid.getText());
             if (Model.getInstance().getClientLoginSuccessFlag()){
                 Model.getInstance().getViewFactory().showClientWindow();
-
 
                 //Close the login stage
                 Model.getInstance().getViewFactory().closeStage(stage);
