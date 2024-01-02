@@ -23,14 +23,14 @@
                <FontIcon iconLiteral="fa-list" iconSize="20" />
             </graphic>
          </Button>
-         <Button fx:id="deposit_btn" mnemonicParsing="false" text="Deposit">
-            <graphic>
-               <FontIcon iconLiteral="fa-search" iconSize="20" />
-            </graphic>
-         </Button>
          <Button fx:id="signuplist_btn" layoutX="30.0" layoutY="140.0" mnemonicParsing="false" text="SignUpList">
             <graphic>
                <FontIcon iconLiteral="fa-address-book-o" iconSize="20" />
+            </graphic>
+         </Button>
+         <Button fx:id="search_btn" mnemonicParsing="false" text="Search">
+            <graphic>
+               <FontIcon iconLiteral="fa-search" iconSize="20" />
             </graphic>
          </Button>
          <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout">

@@ -1,9 +1,6 @@
 package com.example.javafx.View;
 
-import com.example.javafx.Controller.Admin.AdminController;
-import com.example.javafx.Controller.Admin.ClientsController;
-import com.example.javafx.Controller.Admin.ReceiptController;
-import com.example.javafx.Controller.Admin.SignUpListController;
+import com.example.javafx.Controller.Admin.*;
 import com.example.javafx.Controller.Client.*;
 import com.example.javafx.Controller.LoginController;
 import javafx.beans.property.ObjectProperty;
@@ -15,7 +12,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ViewFactory {
+    public ViewFactory(){
+        this.loginAccountType = AccountType.CLIENT;
+        this.clientSelectedMenuItem = new SimpleObjectProperty<>();
+        this.adminSelectedMenuItem = new SimpleObjectProperty<>();
+    }
+
     private AccountType loginAccountType;
+
     //Client View
     private final ObjectProperty<ClientMenuOptions> clientSelectedMenuItem;
     private AnchorPane dashboardView;
@@ -29,68 +33,78 @@ public class ViewFactory {
     private ReceiptController receiptController;
     private SignUpController signUpController;
     private SignUpListController signUpListController;
+    private Check_SavingsListController check_savingsListController;
+
     //getter & setter
 
+    //Login
     public LoginController getLoginController(){
         return this.loginController;
     }
     public void setLoginController(LoginController loginController){
         this.loginController = loginController;
     }
+    //Clients
     public ClientsController getClientsController(){return this.clientsController; }
     public void setClientsController (ClientsController clientsController){this.clientsController = clientsController; }
+    //Dashboard
     public DashboardController getDashboardController (){return this.dashboardController;}
     public void setDashboardController(DashboardController dashboardController){this.dashboardController = dashboardController;}
+    //Accounts
     public AccountsController getAccountsController () {
         return this.accountsController;
     }
     public void setAccountsController(AccountsController accountsController) {
         this.accountsController = accountsController;
     }
+    //Transactions
     public TransactionsController getTransactionsController() {
         return this.transactionsController;
     }
     public void setTransactionsController(TransactionsController transactionsController) {
         this.transactionsController = transactionsController;
     }
-
+    //Receipts
     public ReceiptController getReceiptController() {
         return receiptController;
     }
-
     public void setReceiptController(ReceiptController receiptController) {
         this.receiptController = receiptController;
     }
-
+    //SignUpList
     public SignUpListController getSignUpListController(){
         return this.signUpListController ;
     }
     public void setSignUpListController (SignUpListController signUpListController){
         this.signUpListController = signUpListController;
     }
-
+    //SignUp
     public SignUpController getSignUpController() {
         return signUpController;
     }
-
     public void setSignUpController(SignUpController signUpController) {
         this.signUpController = signUpController;
     }
+
+    //Search Check_Sav
+    public Check_SavingsListController getCheck_SavingsListController (){
+        return this.check_savingsListController;
+    }
+    public void setCheck_savingsListController(Check_SavingsListController check_savingsListController){
+        this.check_savingsListController = check_savingsListController;
+    }
+
+
 
     // Admin View
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private AnchorPane createClientView;
     private AnchorPane clientsView;
-    private AnchorPane depositView;
+    private AnchorPane savingsListView;
     private AnchorPane signUpListView;
 
 
 
-    public ViewFactory(){
-        this.loginAccountType = AccountType.CLIENT;
-        this.clientSelectedMenuItem = new SimpleObjectProperty<>();
-        this.adminSelectedMenuItem = new SimpleObjectProperty<>();
-    }
 
     public AccountType getLoginAccountType(){
         return loginAccountType;
@@ -189,15 +203,15 @@ public class ViewFactory {
         return clientsView;
     }
 
-    public AnchorPane getDepositView() {
-        if (depositView == null){
+    public AnchorPane getCheck_SavingsListView() {
+        if (savingsListView == null){
             try {
-                depositView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit.fxml")).load();
+                savingsListView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Check_SavingsList.fxml")).load();
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
-        return depositView;
+        return savingsListView;
     }
 
     public void showAdminWindow(){

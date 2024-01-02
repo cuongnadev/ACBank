@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 public class AdminMenuController implements Initializable {
 
     public Button clients_btn;
-    public Button deposit_btn;
+    public Button search_btn;
     public Button logout_btn;
     public Button receipts_btn;
     public Button signuplist_btn;
@@ -26,7 +26,7 @@ public class AdminMenuController implements Initializable {
     private void addListeners(){
         receipts_btn.setOnAction(event -> onReceipt());
         clients_btn.setOnAction(event -> onClients());
-        deposit_btn.setOnAction(event -> onDeposit());
+        search_btn.setOnAction(event -> onSearch_Check_Sav());
         logout_btn.setOnAction(event -> onLogOut());
         signuplist_btn.setOnAction(event -> onSignUpList());
     }
@@ -44,8 +44,9 @@ public class AdminMenuController implements Initializable {
         Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CLIENTS);
         Model.getInstance().getViewFactory().getClientsController().refreshClientsListView();
     }
-    private void onDeposit(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.DEPOSIT);
+    private void onSearch_Check_Sav(){
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.SAVINGSLIST);
+        Model.getInstance().getViewFactory().getCheck_SavingsListController().refreshData();
     }
     private void onLogOut(){
         Model.getInstance().getViewFactory().showLoginWindow();
