@@ -227,19 +227,19 @@ public class DatabaseDriver {
         }
     }
 
-    public void updateSavingBalance (String owner, double newBalance) {
-        String updateQuery = "update SavingsAccounts set Balance = ? where Owner = ?;";
+    public void updateSavingBalance (String sav_Num, double newBalance) {
+        String updateQuery = "update SavingsAccounts set Balance = ? where AccountNumber = ?;";
 
         try {
             PreparedStatement pstm = con.prepareStatement(updateQuery);
 
             pstm.setDouble(1, newBalance);
-            pstm.setString(2, owner);
+            pstm.setString(2, sav_Num);
 
             int rowsAffected = pstm.executeUpdate();
 
             if (rowsAffected == 0) {
-                System.out.println("No account found for owner: " + owner);
+                System.out.println("No account found for SavingNumber: " + sav_Num);
             } else {
                 System.out.println("Saving balance updated successfully.");
             }

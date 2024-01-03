@@ -25,7 +25,7 @@ public class ReceiptController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Receipt> receipts = getClientOfSQLite();
+        List<Receipt> receipts = getReceiptOfSQLite();
         receipts_listview.getItems().addAll(receipts);
         receipts_listview.setCellFactory(listView -> new ReceiptCellFactory());
         Model.getInstance().getViewFactory().setReceiptController(this);
@@ -59,7 +59,7 @@ public class ReceiptController implements Initializable {
         }
     }
 
-    public List<Receipt> getClientOfSQLite() {
+    public List<Receipt> getReceiptOfSQLite() {
         receipts_listview.getItems().clear();
         ResultSet resultSet = Model.getInstance().getDatabaseDriver().getReceiptData();
 
@@ -91,7 +91,7 @@ public class ReceiptController implements Initializable {
     }
     public void refreshReceiptListView() {
         receipts_listview.getItems().clear();
-        List<Receipt> receipts = getClientOfSQLite();
+        List<Receipt> receipts = getReceiptOfSQLite();
         receipts_listview.getItems().setAll(receipts);
         receipts_listview1.getItems().clear();
         IDReceipt_fld.setText("");

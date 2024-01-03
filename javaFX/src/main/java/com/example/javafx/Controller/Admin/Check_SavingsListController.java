@@ -18,7 +18,7 @@ public class Check_SavingsListController implements Initializable {
     public TextField pAddress_fld;
     public Button search_btn;
     public ListView<CheckingAccount> result_listview;
-    public ListView result_listview1;
+    public ListView<SavingAccount> result_listview1;
 
 
     @Override

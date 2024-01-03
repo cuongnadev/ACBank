@@ -22,13 +22,13 @@ public class SignUpListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<SignUp> receipts = getClientOfSQLite();
+        List<SignUp> receipts = getSignUpOfSQLite();
         signUp_listview.getItems().addAll(receipts);
         signUp_listview.setCellFactory(listView -> new SignUpCellFactory());
         Model.getInstance().getViewFactory().setSignUpListController(this);
     }
 
-    public List<SignUp> getClientOfSQLite() {
+    public List<SignUp> getSignUpOfSQLite() {
         signUp_listview.getItems().clear();
         ResultSet resultSet = Model.getInstance().getDatabaseDriver().getSignUpAccountData();
 
@@ -57,7 +57,7 @@ public class SignUpListController implements Initializable {
     }
     public void refreshSignUpListView() {
         signUp_listview.getItems().clear();
-        List<SignUp> signUps = getClientOfSQLite();
+        List<SignUp> signUps = getSignUpOfSQLite();
         signUp_listview.getItems().setAll(signUps);
     }
 }

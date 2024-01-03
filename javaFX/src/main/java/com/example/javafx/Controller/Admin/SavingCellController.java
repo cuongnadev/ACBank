@@ -1,10 +1,8 @@
 package com.example.javafx.Controller.Admin;
 
-import com.example.javafx.Models.CheckingAccount;
 import com.example.javafx.Models.SavingAccount;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ResourceBundle;

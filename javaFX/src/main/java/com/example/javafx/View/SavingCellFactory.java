@@ -1,8 +1,6 @@
 package com.example.javafx.View;
 
-import com.example.javafx.Controller.Admin.CheckingCellController;
 import com.example.javafx.Controller.Admin.SavingCellController;
-import com.example.javafx.Models.CheckingAccount;
 import com.example.javafx.Models.SavingAccount;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;

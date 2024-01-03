@@ -42,7 +42,7 @@ public class ClientMenuController implements Initializable {
     }
     private void onAccounts (){
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(ClientMenuOptions.ACCOUNT);
-        Model.getInstance().getViewFactory().getAccountsController().sefreshDataLabel();
+        Model.getInstance().getViewFactory().getAccountsController().refreshDataLabel();
     }
     private void onLogOut(){
         Model.getInstance().getViewFactory().getLoginController().resetLoginClientForm();
