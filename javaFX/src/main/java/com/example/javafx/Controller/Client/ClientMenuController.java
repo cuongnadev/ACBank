@@ -49,6 +49,7 @@ public class ClientMenuController implements Initializable {
     }
     private void onProfile() {
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(ClientMenuOptions.PROFILE);
+        Model.getInstance().getViewFactory().getProfileController().setdataLabel();
     }
     private void onLogOut(){
         Model.getInstance().getViewFactory().getLoginController().resetLoginClientForm();

@@ -33,8 +33,9 @@ public class ProfileController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setdataLabel();
         edit_btn.setOnAction(event -> onEdit());
+        Model.getInstance().getViewFactory().setProfileController(this);
     }
-    private void setdataLabel() {
+    public void setdataLabel() {
         String pAddress = Model.getInstance().getClient().pAddressProperty().get();
         String password = Model.getInstance().getClient().passwordProperty().get();
         ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
@@ -76,13 +77,39 @@ public class ProfileController implements Initializable {
             }
             income_lbl.setText(String.valueOf(income));
             expense_lbl.setText(String.valueOf(expense));
+            fName_fld.setText("");
+            lName_fld.setText("");
+            password_fld.setText("");
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
 
     private void onEdit() {
-        //
+        String pAddress = Model.getInstance().getClient().pAddressProperty().get();
+        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
+
+            try {
+                while (resultSet.next()){
+                    if(pAddress.equals(resultSet.getString("PayeeAddress"))){
+                        if (!(fName_fld.getText().trim().isEmpty())){
+                            Model.getInstance().getDatabaseDriver().updateFNameClients(pAddress , fName_fld.getText());
+                        }
+                        if (!(lName_fld.getText().trim().isEmpty())){
+                            Model.getInstance().getDatabaseDriver().updateLNameClients(pAddress , lName_fld.getText());
+                        }
+                        if (!(password_fld.getText().trim().isEmpty())){
+                            Model.getInstance().getDatabaseDriver().updatepasswordClients(pAddress , password_fld.getText());
+                        }
+                        setdataLabel();
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+
     }
 
 }

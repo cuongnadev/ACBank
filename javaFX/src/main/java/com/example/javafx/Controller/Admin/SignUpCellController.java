@@ -4,11 +4,13 @@ import com.example.javafx.Models.*;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SignUpCellController implements Initializable {
@@ -78,6 +80,7 @@ public class SignUpCellController implements Initializable {
 
     public void showAlertSuccessful(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Message");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
@@ -94,16 +97,33 @@ public class SignUpCellController implements Initializable {
 
     public void onDelete(){
         ResultSet resultSet = Model.getInstance().getDatabaseDriver().getSignUpAccountData();
-        try {
-            // Xóa client
-            while (resultSet.next()){
-                if (pAddress_lbl.getText().equals(resultSet.getString("PayeeAddress"))){
-                    Model.getInstance().getDatabaseDriver().DropSignUpAccount(pAddress_lbl.getText());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to DELETE Client "+pAddress_lbl.getText()+"?");
+
+        Optional<ButtonType> option = alert.showAndWait();
+        if(option.get().equals(ButtonType.OK)){
+            try {
+                // Xóa client
+                while (resultSet.next()){
+                    if (pAddress_lbl.getText().equals(resultSet.getString("PayeeAddress"))){
+                        Model.getInstance().getDatabaseDriver().DropSignUpAccount(pAddress_lbl.getText());
+                    }
                 }
+                Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
+            }catch (SQLException e){
+                e.printStackTrace();
             }
-            Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
-        }catch (SQLException e){
-            e.printStackTrace();
+            alert =new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Successfully Deleted!");
+            alert.showAndWait();
+
+        }else {
+            return;
         }
+
     }
 }
