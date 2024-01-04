@@ -1,0 +1,47 @@
+
+.profile_view_container {
+    -fx-background-color: #eeeeee;
+}
+
+.profile_view_container Text {
+    -fx-fill: #888888;
+    -fx-font-size: 1.8em;
+    -fx-font-family: "Calibri Light";
+    -fx-alignment: center;
+}
+
+.profile_view_container VBox {
+    -fx-border-width: 0 1 0 1 ;
+    -fx-border-color: #888888;
+    -fx-padding: 10;
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}
+
+.profile_view_container VBox Text {
+    -fx-font-size: 1.6em;
+}
+
+.profile_view_container VBox Label {
+    -fx-font-size: 1.6em;
+    -fx-font-weight: bold;
+}
+
+.profile_view_container TextField {
+    -fx-pref-width: 250;
+    -fx-pref-height: 35;
+    -fx-border-color: #ffffff;
+
+}
+.profile_view_container Button {
+    -fx-background-color: linear-gradient(to right , #132a13 , #253f25);
+    -fx-effect: dropshadow(three-pass-box , #aaaaaa , 3 , 0 , 0 ,3);
+    -fx-pref-width: 250;
+    -fx-font-size: 1.5em;
+    -fx-font-family: "Calibri Light";
+    -fx-text-fill: #ffffff;
+}
+
+.profile_view_container Button:hover {
+    -fx-cursor: hand;
+}

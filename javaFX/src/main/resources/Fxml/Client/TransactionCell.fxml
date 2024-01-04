@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -11,14 +12,19 @@
       <FontIcon fx:id="in_icon" iconLiteral="fas-long-arrow-alt-right" iconSize="17" layoutX="10.0" layoutY="21.0" />
       <FontIcon fx:id="out_icon" iconLiteral="fas-long-arrow-alt-left" iconSize="17" />
    </VBox>
-   <Label fx:id="trans_date_lbl" layoutX="96.0" layoutY="22.0" styleClass="trans_date_lbl" text="2023-12-3" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="22.0" />
-   <Label fx:id="sender_lbl" layoutX="185.0" layoutY="22.0" styleClass="trans_pAddress_lbl" text="Cuong" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="22.0" />
-   <Line endY="20.0" layoutX="324.0" layoutY="20.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="20.0" />
-   <Label fx:id="receiver_lbl" layoutX="332.0" layoutY="22.0" styleClass="trans_pAddress_lbl" text="Chien" AnchorPane.leftAnchor="358.0" AnchorPane.topAnchor="22.0" />
-   <Label fx:id="amount_lbl" layoutX="487.0" layoutY="16.0" styleClass="trans_amount_lbl" text="2000" AnchorPane.rightAnchor="14.200000000000045" AnchorPane.topAnchor="16.0">
+   <Label fx:id="trans_date_lbl" layoutX="72.0" layoutY="22.0" styleClass="trans_date_lbl" text="2023-12-3" AnchorPane.leftAnchor="72.0" AnchorPane.topAnchor="22.0" />
+   <Label fx:id="sender_lbl" layoutX="161.0" layoutY="22.0" styleClass="trans_pAddress_lbl" text="Cuong" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="22.0" />
+   <Line endY="20.0" layoutX="260.0" layoutY="18.0" AnchorPane.leftAnchor="259.5" AnchorPane.topAnchor="17.5" />
+   <Label fx:id="receiver_lbl" layoutX="296.0" layoutY="22.0" styleClass="trans_pAddress_lbl" text="Chien" AnchorPane.leftAnchor="296.0" AnchorPane.topAnchor="22.0" />
+   <Label fx:id="amount_lbl" layoutX="412.0" layoutY="15.0" styleClass="trans_amount_lbl" text="2000" AnchorPane.rightAnchor="89.19999999999999" AnchorPane.topAnchor="15.0">
       <graphic>
          <FontIcon iconLiteral="fa-dollar" iconSize="12" />
       </graphic>
    </Label>
-   <FontIcon fx:id="message_icon" iconColor="#132a13" iconLiteral="fa-bell" iconSize="15" layoutX="428.0" layoutY="36.0" AnchorPane.rightAnchor="80.0" />
+   <FontIcon fx:id="message_icon" iconColor="#132a13" iconLiteral="fa-bell" iconSize="15" layoutX="356.0" layoutY="36.0" text="" AnchorPane.rightAnchor="179.0" />
+   <Button fx:id="print_btn" layoutX="493.0" layoutY="15.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="33.0">
+      <graphic>
+         <FontIcon iconLiteral="fa-print" />
+      </graphic>
+   </Button>
 </AnchorPane>

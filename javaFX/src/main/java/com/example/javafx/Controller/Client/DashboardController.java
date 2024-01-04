@@ -165,8 +165,7 @@ public class DashboardController implements Initializable {
 
                                 String IDBienLai = RanDomIDBienLai(pAddress , payeeAddress);
 
-                                Receipt receipt = new Receipt(IDBienLai , pAddress , payeeAddress , amount ,LocalDate.now().toString() );
-                                Model.getInstance().getDatabaseDriver().insertReceiver(receipt);
+                                Model.getInstance().getDatabaseDriver().insertReceiver(IDBienLai, pAddress , payeeAddress , resultSet.getString("AccountNumber") , resultSet1.getString("AccountNumber") , amount , LocalDate.now().toString() , message );
 
                                 inBienLai( IDBienLai, pAddress , payeeAddress , resultSet.getString("AccountNumber") , resultSet1.getString("AccountNumber") , amount , LocalDate.now().toString() , message );
                                 showAlertSuccessful("Successful money transfer");

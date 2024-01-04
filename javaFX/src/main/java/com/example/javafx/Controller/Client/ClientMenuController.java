@@ -29,7 +29,10 @@ public class ClientMenuController implements Initializable {
         transaction_btn.setOnAction(event -> onTransactions());
         account_btn.setOnAction(event -> onAccounts());
         logout_btn.setOnAction(event -> onLogOut());
+        profile_btn.setOnAction(event -> onProfile());
     }
+
+
 
     private void onDashboard (){
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(ClientMenuOptions.DASHBOARD);
@@ -43,6 +46,9 @@ public class ClientMenuController implements Initializable {
     private void onAccounts (){
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(ClientMenuOptions.ACCOUNT);
         Model.getInstance().getViewFactory().getAccountsController().refreshDataLabel();
+    }
+    private void onProfile() {
+        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(ClientMenuOptions.PROFILE);
     }
     private void onLogOut(){
         Model.getInstance().getViewFactory().getLoginController().resetLoginClientForm();

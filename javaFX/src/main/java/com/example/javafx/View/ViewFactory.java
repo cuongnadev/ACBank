@@ -25,10 +25,12 @@ public class ViewFactory {
     private AnchorPane dashboardView;
     private AnchorPane transactionsView;
     private AnchorPane accountsView;
+    private AnchorPane profileView;
     private LoginController loginController;
     private ClientsController clientsController;
     private DashboardController dashboardController;
     private AccountsController accountsController;
+    private ProfileController profileController;
     private TransactionsController transactionsController;
     private ReceiptController receiptController;
     private SignUpController signUpController;
@@ -57,6 +59,17 @@ public class ViewFactory {
     public void setAccountsController(AccountsController accountsController) {
         this.accountsController = accountsController;
     }
+
+    //Profile
+
+    public ProfileController getProfileController() {
+        return profileController;
+    }
+
+    public void setProfileController(ProfileController profileController) {
+        this.profileController = profileController;
+    }
+
     //Transactions
     public TransactionsController getTransactionsController() {
         return this.transactionsController;
@@ -148,6 +161,17 @@ public class ViewFactory {
         }
         return accountsView;
     }
+    public AnchorPane getProfileView(){
+        if (profileView == null){
+            try {
+                profileView = new FXMLLoader(getClass().getResource("/Fxml/Client/Profile.fxml")).load();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return profileView;
+    }
+
     public void showClientWindow(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/Client.fxml"));
         ClientController clientController = new ClientController();

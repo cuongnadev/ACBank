@@ -36,6 +36,17 @@
 .trans_amount_lbl FontIcon {
     -fx-fill: #ffffff;
 }
+Button {
+    -fx-background-color: gray;
+    -fx-effect: dropshadow(three-pass-box,#aaaaaa , 3 , 0 ,0 ,3);
+    -fx-font-size: 1.2em;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Calibri Light";
+    -fx-pref-width: 10;
+}
+Button:hover {
+    -fx-cursor: hand;
+}
 
 
 

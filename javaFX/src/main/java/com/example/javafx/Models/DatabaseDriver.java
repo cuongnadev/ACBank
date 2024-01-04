@@ -342,15 +342,18 @@ public class DatabaseDriver {
         }
     }
 
-    public void insertReceiver (Receipt receipt){
-        String insertQuery = "INSERT INTO Receipt (IDBienLai , Sender , Receiver , Amount , Date) VALUES (?, ?, ?, ? ,?)";
+    public void insertReceiver (String IDBienLai , String sender , String receiver , String numberSender , String numberReceiver , double amount , String date , String message ){
+        String insertQuery = "INSERT INTO Receipt (IDBienLai , Sender , Receiver , NumberSender , NumberReceiver , Amount , Date , Message ) VALUES (?, ?, ?, ?, ?, ?, ? ,?)";
         try {
             PreparedStatement pstm = con.prepareStatement(insertQuery);
-            pstm.setString(1, receipt.IDReceiptProperty().get());
-            pstm.setString(2, receipt.senderProperty().get());
-            pstm.setString(3, receipt.recerverProperty().get());
-            pstm.setDouble(4, receipt.amountProperty().get());
-            pstm.setString(5, receipt.dateProperty().get());
+            pstm.setString(1, IDBienLai);
+            pstm.setString(2, sender);
+            pstm.setString(3, receiver);
+            pstm.setString(4, numberSender);
+            pstm.setString(5, numberReceiver);
+            pstm.setDouble(6, amount);
+            pstm.setString(7, date);
+            pstm.setString(8, message);
 
             int rowsAffected = pstm.executeUpdate();
 
