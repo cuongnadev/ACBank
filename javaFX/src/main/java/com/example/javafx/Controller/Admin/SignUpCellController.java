@@ -54,6 +54,7 @@ public class SignUpCellController implements Initializable {
                             if (resultSet1.getString("PayeeAddress").equals(resultSet.getString("PayeeAddress"))){
                                 Model.getInstance().getDatabaseDriver().insertCheckingAccount(checkingAccount);
                                 Model.getInstance().getDatabaseDriver().insertSavingAccount(savingAccount);
+                                Model.getInstance().getDatabaseDriver().DropSignUpAccount(pAddress_lbl.getText());
                                 showAlertSuccessful("Client Create Successfully");
                             }
                         }
@@ -61,7 +62,7 @@ public class SignUpCellController implements Initializable {
                         e.printStackTrace();
                         showAlert("Error adding client. Please try again.");
                     }
-                    onDelete();
+                    Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
                 }
             }
             Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();

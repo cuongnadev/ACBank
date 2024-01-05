@@ -221,7 +221,7 @@ public class DashboardController implements Initializable {
     }
     public void inBienLai(String IDBienLai , String sender , String receiver , String numberSender , String numberReceiver , double amount , String date , String message ){
         //in file pdf
-        String path = "D:\\Learning\\javaFXtutorials\\BienLai\\" + IDBienLai + ".pdf";
+        String path = "D:\\BaiTapLon\\javaFXtutorials\\BienLai\\" + IDBienLai + ".pdf";
 
         try {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new FileOutputStream(path)));
