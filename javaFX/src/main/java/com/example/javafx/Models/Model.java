@@ -3,6 +3,7 @@ package com.example.javafx.Models;
 import com.example.javafx.View.AccountType;
 import com.example.javafx.View.ViewFactory;
 
+import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 
@@ -104,5 +105,24 @@ public class Model {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static String HashPassword(String password){
+        try {
+            MessageDigest pass = MessageDigest.getInstance("MD5");
+            pass.update(password.getBytes());
+            byte[] hashedBytes = pass.digest();
+
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

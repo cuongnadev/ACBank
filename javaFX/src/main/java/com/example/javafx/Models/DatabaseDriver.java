@@ -27,9 +27,10 @@ public class DatabaseDriver {
     public ResultSet getClientData (String pAddress , String password){
         Statement statement;
         ResultSet resultSet = null;
+        String pword = Model.HashPassword(password);
         try {
             statement = this.con.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Clients WHERE PayeeAddress='"+pAddress+"' AND Password='"+password+"';");
+            resultSet = statement.executeQuery("SELECT * FROM Clients WHERE PayeeAddress='"+pAddress+"' AND Password='"+pword+"';");
         }catch (SQLException e){
             e.printStackTrace();
         }

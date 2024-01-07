@@ -63,7 +63,7 @@ public class Check_SavingsListController implements Initializable {
             }
             if (check == false){
                 showAlert("Error! Enter payee address no valid.");
-                pAddress_fld.setText("");
+                refreshData();
             }
         } catch (SQLException e) {
             e.printStackTrace();
