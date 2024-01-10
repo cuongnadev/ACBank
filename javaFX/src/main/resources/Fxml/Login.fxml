@@ -12,26 +12,21 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="login_container" stylesheets="@../Styles/login.css"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.LoginController">
+<AnchorPane prefHeight="439.0" prefWidth="600.0" styleClass="login_container" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.LoginController">
    <VBox prefHeight="400.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.8000000000000114" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
       <VBox prefHeight="120.0" prefWidth="200.0" styleClass="login_logo_container">
-         <children>
-            <FontIcon iconLiteral="fa-bank" styleClass="iconFX" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ACBank" />
-         </children>
+         <FontIcon iconLiteral="fa-bank" styleClass="iconFX" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ACBank" />
       </VBox>
-      <VBox prefHeight="280.0" prefWidth="200.0" styleClass="login_logo_container">
-         <children>
-            <ImageView fitHeight="175.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/peoplebank.png" />
-               </image>
-            </ImageView>
-         </children>
+      <VBox prefHeight="320.0" prefWidth="200.0" styleClass="login_logo_container">
+         <ImageView fitHeight="175.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Images/peoplebank.png" />
+            </image>
+         </ImageView>
       </VBox>
    </VBox>
-   <VBox fillWidth="false" layoutX="235.0" layoutY="23.0" prefHeight="350.0" prefWidth="330.0" styleClass="login_form_container" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="24.0">
+   <VBox fillWidth="false" layoutX="238.0" layoutY="16.0" prefHeight="390.0" prefWidth="330.0" styleClass="login_form_container" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="16.0">
       <Label id="choice-prompt-text" text="Choose Your Account Type:" />
       <ChoiceBox fx:id="acc_selector" prefWidth="70.0" styleClass="account_selector" />
       <Label fx:id="payee_address_lbl" text="Payee Address:" />
@@ -40,6 +35,7 @@
       <PasswordField fx:id="password_fid" prefWidth="310.0" styleClass="input_field" />
       <Button fx:id="login_btn" mnemonicParsing="false" text="Login" />
       <Button fx:id="sign_in_btn" mnemonicParsing="false" text="Sign Up" />
-      <Label fx:id="error_lbl" styleClass="error_lbl" />
+      <Label fx:id="forgot_pass_lbl" text="Forgot password?" />
+      <Label fx:id="error_lbl" layoutX="20.0" layoutY="363.0" prefHeight="19.0" prefWidth="172.0" styleClass="error_lbl" />
    </VBox>
 </AnchorPane>

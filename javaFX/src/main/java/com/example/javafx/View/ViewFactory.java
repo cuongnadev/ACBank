@@ -27,6 +27,7 @@ public class ViewFactory {
     private AnchorPane accountsView;
     private AnchorPane profileView;
     private LoginController loginController;
+    private ForgotPassListController forgotPassListController;
     private ClientsController clientsController;
     private DashboardController dashboardController;
     private AccountsController accountsController;
@@ -126,6 +127,13 @@ public class ViewFactory {
         this.loginAccountType = loginAccountType;
     }
 
+    public ForgotPassListController getForgotPassListController() {
+        return forgotPassListController;
+    }
+
+    public void setForgotPassListController(ForgotPassListController forgotPassListController) {
+        this.forgotPassListController = forgotPassListController;
+    }
 
     /*
     * Client Views Section
@@ -182,6 +190,18 @@ public class ViewFactory {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/SignUp.fxml"));
         SignUpController signUpController = new SignUpController();
         loader.setController(signUpController);
+        createStage(loader);
+    }
+    public void showForgotPassWindow(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/ForgotPass.fxml"));
+        ForgotPassController Controller = new ForgotPassController();
+        loader.setController(Controller);
+        createStage(loader);
+    }
+    public void showForgotPassList(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/ForgotPassList.fxml"));
+        ForgotPassListController Controller = new ForgotPassListController();
+        loader.setController(Controller);
         createStage(loader);
     }
 

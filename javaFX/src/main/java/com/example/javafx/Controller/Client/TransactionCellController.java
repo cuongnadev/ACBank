@@ -11,11 +11,13 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.TextAlignment;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -45,7 +47,12 @@ public class TransactionCellController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDataToLabels();
-        message_icon.setOnMouseClicked(mouseEvent -> showMessage());
+        message_icon.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                showMessage();
+            }
+        });
         in_out_icon();
         print_btn.setOnAction(event -> onPrint());
     }

@@ -58,41 +58,47 @@ public class SignUpController implements Initializable {
         String lastName = lName_fld.getText().trim();
         String password = password_fld.getText().trim();
         String pAddress = pAddress_lbl.getText().trim();
+        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
         double chAccBalance = 0;
         double svAccBalance = 0;
         try {
-            if (ch_acc_box.isSelected()){
+            if (ch_acc_box.isSelected()) {
                 chAccBalance = Double.parseDouble(ch_amount_fld.getText().trim());
             }
-            if (sv_acc_box.isSelected()){
+            if (sv_acc_box.isSelected()) {
                 svAccBalance = Double.parseDouble(sv_amount_fld.getText().trim());
             }
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         }
         //Kiểm tra dữ liệu
-        if (firstName.isEmpty() || lastName.isEmpty()){
-            showAlert("Please enter valid FirstName or LastName.");
-        }else if (password.isEmpty()){
-            showAlert("Please enter password.");
-        } else if (chAccBalance < 0 || svAccBalance < 0){
-            showAlert("Please enter valid Balance.");
-        } else {
-            // Thêm client mới vào hàng chờ chờ admin duyệt
-            String CheckingNumber = "3021 " + RanDomNumber();
-            String SavingNumber = "3021 " + RanDomNumber();
-            String pword = Model.HashPassword(password);
-            Model.getInstance().getDatabaseDriver().insertSignUp(firstName ,lastName , pword ,pAddress , chAccBalance ,
-                                                svAccBalance ,LocalDate.now().toString() , CheckingNumber ,SavingNumber);
-            error_lbl.setText("Client Create Successfully.");
-            error_lbl.setTextFill(Color.BLUE);
-            showAlertSuccessful("Account created successfully, please wait for admin approval");
+        try {
+            if (pAddress.equals(resultSet.getString("PayeeAddress"))) {
+                showAlert("PayeeAddress already exists!");
+            } else if (firstName.isEmpty() || lastName.isEmpty()) {
+                showAlert("Please enter valid FirstName or LastName.");
+            } else if (password.isEmpty()) {
+                showAlert("Please enter password.");
+            } else if (chAccBalance < 0 || svAccBalance < 0) {
+                showAlert("Please enter valid Balance.");
+            } else {
+                // Thêm client mới vào hàng chờ chờ admin duyệt
+                String CheckingNumber = "3021 " + RanDomNumber();
+                String SavingNumber = "3021 " + RanDomNumber();
+                String pword = Model.HashPassword(password);
+                Model.getInstance().getDatabaseDriver().insertSignUp(firstName, lastName, pword, pAddress, chAccBalance,
+                        svAccBalance, LocalDate.now().toString(), CheckingNumber, SavingNumber);
+                error_lbl.setText("Client Create Successfully.");
+                error_lbl.setTextFill(Color.BLUE);
+                showAlertSuccessful("Account created successfully, please wait for admin approval");
 
-            //Close the SinUp stage
-            Model.getInstance().getViewFactory().closeStage(stage);
-            //Open the login window
-            Model.getInstance().getViewFactory().showLoginWindow();
-
+                //Close the SinUp stage
+                Model.getInstance().getViewFactory().closeStage(stage);
+                //Open the login window
+                Model.getInstance().getViewFactory().showLoginWindow();
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
         }
     }
     private String RanDomAddress(String firstName , String lastName){

@@ -3,9 +3,11 @@ package com.example.javafx.Controller;
 import com.example.javafx.Models.Model;
 import com.example.javafx.View.AccountType;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -20,6 +22,7 @@ public class LoginController implements Initializable {
     public Button login_btn;
     public Label error_lbl;
     public Button sign_in_btn;
+    public Label forgot_pass_lbl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,6 +42,20 @@ public class LoginController implements Initializable {
         login_btn.setOnAction(event -> onLogin());
         Model.getInstance().getViewFactory().setLoginController(this);
         sign_in_btn.setOnAction(event -> onSignUp());
+        forgot_pass_lbl.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Stage stage = (Stage) error_lbl.getScene().getWindow();
+                try {
+                    Model.getInstance().getViewFactory().showForgotPassWindow();
+
+                    //Close the login stage
+                    Model.getInstance().getViewFactory().closeStage(stage);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void onSignUp() {

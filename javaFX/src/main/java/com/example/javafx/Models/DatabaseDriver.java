@@ -112,6 +112,7 @@ public class DatabaseDriver {
         return resultSet;
     }
 
+    //Receipt select
     public ResultSet getReceiptData(){
         Statement statement;
         ResultSet resultSet = null;
@@ -124,12 +125,26 @@ public class DatabaseDriver {
         return resultSet;
     }
 
+    //SignUp select
     public ResultSet getSignUpAccountData(){
         Statement statement;
         ResultSet resultSet = null;
         try {
             statement = this.con.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM SignUpAccount");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    //ForgotPass select
+    public ResultSet getForgotPass (){
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = this.con.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM ForgotPass");
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -253,6 +268,30 @@ public class DatabaseDriver {
 
 
     //Insert
+
+    public void insertForgotPass(ForgotPass forgotPass) {
+        String insertQuery = "INSERT INTO ForgotPass (PayeeAddress, Date) VALUES (?, ?);";
+        try {
+            PreparedStatement pstm = con.prepareStatement(insertQuery);
+
+            pstm.setString(1, forgotPass.pAddressProperty().get());
+            pstm.setString(2, forgotPass.dateProperty().get());
+
+
+            int rowsAffected = pstm.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("ForgotPass inserted successfully.");
+            } else {
+                System.out.println("Failed to insert ForgotPass.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error inserting ForgotPass.");
+        }
+    }
+
     public void insertTransaction(Transaction transaction) {
         String insertQuery = "INSERT INTO Transactions (Sender, Receiver, Amount, Date, Message) VALUES (?, ?, ?, ?, ?);";
         try {
@@ -400,10 +439,27 @@ public class DatabaseDriver {
 
     // Drop
 
-    public void DropSignUpAccount (String pAddress ){
-        String insertQuery = "DELETE FROM SignUpAccount WHERE PayeeAddress= ?";
+    public void DropForgotPass (String pAddress ){
+        String dropQuery = "DELETE FROM ForgotPass WHERE PayeeAddress= ?";
         try {
-            PreparedStatement pstm = con.prepareStatement(insertQuery);
+            PreparedStatement pstm = con.prepareStatement(dropQuery);
+            pstm.setString(1 , pAddress);
+            int rowsAffected = pstm.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("ForgotPass Drop successfully.");
+            } else {
+                System.out.println("Failed to Drop ForgotPass.");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void DropSignUpAccount (String pAddress ){
+        String dropQuery = "DELETE FROM SignUpAccount WHERE PayeeAddress= ?";
+        try {
+            PreparedStatement pstm = con.prepareStatement(dropQuery);
             pstm.setString(1 , pAddress);
             int rowsAffected = pstm.executeUpdate();
 
@@ -418,9 +474,9 @@ public class DatabaseDriver {
     }
 
     public void DropClient (String pAddress ){
-        String insertQuery = "DELETE FROM Clients WHERE PayeeAddress= ?";
+        String dropQuery = "DELETE FROM Clients WHERE PayeeAddress= ?";
         try {
-            PreparedStatement pstm = con.prepareStatement(insertQuery);
+            PreparedStatement pstm = con.prepareStatement(dropQuery);
             pstm.setString(1 , pAddress);
             int rowsAffected = pstm.executeUpdate();
 
@@ -435,9 +491,9 @@ public class DatabaseDriver {
     }
 
     public void DropCheckingAccount (String pAddress ){
-        String insertQuery = "DELETE FROM CheckingAccounts WHERE Owner= ?";
+        String dropQuery = "DELETE FROM CheckingAccounts WHERE Owner= ?";
         try {
-            PreparedStatement pstm = con.prepareStatement(insertQuery);
+            PreparedStatement pstm = con.prepareStatement(dropQuery);
             pstm.setString(1 , pAddress);
             int rowsAffected = pstm.executeUpdate();
 
@@ -452,9 +508,9 @@ public class DatabaseDriver {
     }
 
     public void DropSavingAccount (String pAddress ){
-        String insertQuery = "DELETE FROM SavingsAccounts WHERE Owner= ?";
+        String dropQuery = "DELETE FROM SavingsAccounts WHERE Owner= ?";
         try {
-            PreparedStatement pstm = con.prepareStatement(insertQuery);
+            PreparedStatement pstm = con.prepareStatement(dropQuery);
             pstm.setString(1 , pAddress);
             int rowsAffected = pstm.executeUpdate();
 
@@ -469,9 +525,9 @@ public class DatabaseDriver {
     }
 
     public void DropTransaction (String pAddress ){
-        String insertQuery = "DELETE FROM Transactions WHERE Sender= ? or  Receiver= ?";
+        String dropQuery = "DELETE FROM Transactions WHERE Sender= ? or  Receiver= ?";
         try {
-            PreparedStatement pstm = con.prepareStatement(insertQuery);
+            PreparedStatement pstm = con.prepareStatement(dropQuery);
             pstm.setString(1 , pAddress);
             pstm.setString(2 ,pAddress);
             int rowsAffected = pstm.executeUpdate();
@@ -487,9 +543,9 @@ public class DatabaseDriver {
     }
 
     public void DropReceipt (String IDBienLai ){
-        String insertQuery = "DELETE FROM Receipt WHERE IDBienLai= ?";
+        String dropQuery = "DELETE FROM Receipt WHERE IDBienLai= ?";
         try {
-            PreparedStatement pstm = con.prepareStatement(insertQuery);
+            PreparedStatement pstm = con.prepareStatement(dropQuery);
             pstm.setString(1 , IDBienLai);
             int rowsAffected = pstm.executeUpdate();
 

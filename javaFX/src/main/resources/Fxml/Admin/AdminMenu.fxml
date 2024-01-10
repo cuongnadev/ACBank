@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
@@ -11,6 +12,7 @@
       <VBox prefHeight="80.0" prefWidth="160.0" styleClass="title_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <FontIcon iconLiteral="fa-bank" iconSize="30" />
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ACBank" />
+         <FontIcon fx:id="reportPass_icon" iconLiteral="fa-bell" iconSize="15" />
       </VBox>
       <VBox layoutY="142.0" prefHeight="400.0" prefWidth="160.0" styleClass="menu_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <Button fx:id="clients_btn" mnemonicParsing="false" text="Clients">
@@ -38,6 +40,12 @@
                <FontIcon iconLiteral="fas-external-link-alt" iconSize="20" />
             </graphic>
          </Button>
+      </VBox>
+      <VBox layoutX="14.0" layoutY="516.0" prefHeight="206.0" prefWidth="130.0" styleClass="report_container">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Đổi Mới Và Sáng Tạo" />
+            <Label text="Tài chính không chỉ là số liệu trên giấy tờ, mà là hành trình của giấc mơ và ước mơ của bạn. Chúng tôi không chỉ là ngân hàng, mà là đối tác đồng hành, luôn bên bạn để biến ước mơ thành hiện thực" />
+         </children>
       </VBox>
    </AnchorPane>
 </VBox>

@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="478.0" prefWidth="723.0" styleClass="create_client_container" stylesheets="@../../Styles/CreateClient.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="458.0" prefWidth="723.0" styleClass="create_client_container" stylesheets="@../../Styles/CreateClient.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <Text layoutX="51.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Client Account" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-   <VBox fillWidth="false" layoutX="14.0" layoutY="40.0" prefHeight="394.0" prefWidth="370.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="349.0" AnchorPane.topAnchor="40.0">
+   <VBox fillWidth="false" layoutX="14.0" layoutY="40.0" prefHeight="394.0" prefWidth="360.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="349.0" AnchorPane.topAnchor="40.0">
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name*:" />
       <TextField fx:id="fName__fld" />
       <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name*:" />

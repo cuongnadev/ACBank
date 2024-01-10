@@ -8,8 +8,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="180.0" styleClass="main_menu_container" stylesheets="@../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.javafx.Controller.Client.ClientMenuController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="180.0" styleClass="main_menu_container" stylesheets="@../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.Client.ClientMenuController">
    <AnchorPane prefHeight="730.0" prefWidth="160.0" styleClass="left_container">
       <VBox prefHeight="80.0" prefWidth="160.0" styleClass="title_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <FontIcon iconLiteral="fa-bank" iconSize="40" />
@@ -43,14 +42,9 @@
             </graphic>
          </Button>
       </VBox>
-      <VBox prefHeight="120.0" prefWidth="100.0" styleClass="report_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report Suggestion/Bug?" />
-         <Label text="Use this to report any erros or suggestions " />
-         <Button fx:id="report_btn" mnemonicParsing="false" text="Report">
-            <graphic>
-               <FontIcon iconLiteral="fas-plus" />
-            </graphic>
-         </Button>
+      <VBox layoutX="15.2" prefHeight="166.0" prefWidth="130.0" styleClass="report_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Đổi Mới Và Sáng Tạo" />
+         <Label text="ACBank không chỉ là nơi để giữ tiền mà còn là điểm đến an tâm, nơi tạo nên những kế hoạch tài chính đầy ý nghĩa cho cuộc sống của bạn^.^" />
       </VBox>
    </AnchorPane>
 </VBox>
