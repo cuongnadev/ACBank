@@ -99,7 +99,8 @@ public class ProfileController implements Initializable {
                             Model.getInstance().getDatabaseDriver().updateLNameClients(pAddress , lName_fld.getText());
                         }
                         if (!(password_fld.getText().trim().isEmpty())){
-                            Model.getInstance().getDatabaseDriver().updatepasswordClients(pAddress , password_fld.getText());
+                            String pass = Model.HashPassword(password_fld.getText());
+                            Model.getInstance().getDatabaseDriver().updatepasswordClients(pAddress , pass);
                         }
                         setdataLabel();
                     }
