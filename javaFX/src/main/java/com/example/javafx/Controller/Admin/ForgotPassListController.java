@@ -36,7 +36,8 @@ public class ForgotPassListController implements Initializable {
             while (resultSet.next()) {
                 ForgotPass pass = new ForgotPass(
                         resultSet.getString("PayeeAddress"),
-                        resultSet.getString("Date"));
+                        resultSet.getString("Date"),
+                        resultSet.getString("Email"));
 
                 List.add(pass);
             }

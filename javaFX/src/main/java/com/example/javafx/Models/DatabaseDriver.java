@@ -270,12 +270,13 @@ public class DatabaseDriver {
     //Insert
 
     public void insertForgotPass(ForgotPass forgotPass) {
-        String insertQuery = "INSERT INTO ForgotPass (PayeeAddress, Date) VALUES (?, ?);";
+        String insertQuery = "INSERT INTO ForgotPass (PayeeAddress, Date , Email) VALUES (?, ?, ?);";
         try {
             PreparedStatement pstm = con.prepareStatement(insertQuery);
 
             pstm.setString(1, forgotPass.pAddressProperty().get());
             pstm.setString(2, forgotPass.dateProperty().get());
+            pstm.setString(3,forgotPass.emailProperty().get());
 
 
             int rowsAffected = pstm.executeUpdate();

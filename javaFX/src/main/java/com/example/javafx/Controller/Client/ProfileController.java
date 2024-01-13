@@ -50,7 +50,7 @@ public class ProfileController implements Initializable {
                         password.equals(resultSet.getString("Password"))){
                     firstName_lbl.setText(resultSet.getString("FirstName"));
                     lastName_lbl.setText(resultSet.getString("LastName"));
-                    password_lbl.setText(resultSet.getString("Password"));
+                    password_lbl.setText("******");
                     pAddress_lbl.setText(resultSet.getString("PayeeAddress"));
                     date_lbl.setText(resultSet.getString("Date"));
                 }

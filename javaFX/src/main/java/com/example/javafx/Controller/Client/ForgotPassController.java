@@ -20,6 +20,7 @@ public class ForgotPassController implements Initializable {
     public TextField pAddress_fld;
     public Button send_btn;
     public Label label_lbl;
+    public TextField email_fld;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,7 +50,7 @@ public class ForgotPassController implements Initializable {
                     pAddress_fld.setText("");
                 } else {
                     Stage stage = (Stage) label_lbl.getScene().getWindow();
-                    ForgotPass forgotPass = new ForgotPass(pAddress_fld.getText(), LocalDate.now().toString());
+                    ForgotPass forgotPass = new ForgotPass(pAddress_fld.getText(), LocalDate.now().toString(),email_fld.getText() );
                     Model.getInstance().getDatabaseDriver().insertForgotPass(forgotPass);
                     showAlertSuccessful("The request has been successful, please wait for admin approval");
                     //Close the SinUp stage
@@ -81,7 +82,7 @@ public class ForgotPassController implements Initializable {
                         pAddress_fld.setText("");
                     } else {
                         Stage stage = (Stage) label_lbl.getScene().getWindow();
-                        ForgotPass forgotPass = new ForgotPass(pAddress_fld.getText(), LocalDate.now().toString());
+                        ForgotPass forgotPass = new ForgotPass(pAddress_fld.getText(), LocalDate.now().toString() , email_fld.getText());
                         Model.getInstance().getDatabaseDriver().insertForgotPass(forgotPass);
                         showAlertSuccessful("The request has been successful, please wait for admin approval");
                         //Close the SinUp stage

@@ -9,8 +9,8 @@
 <AnchorPane prefHeight="50.0" prefWidth="750.0" styleClass="client_cell_container" stylesheets="@../../Styles/ClientCell.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <FontIcon iconLiteral="fa-drivers-license-o" iconSize="20" layoutX="22.0" layoutY="33.0" text="" />
     <HBox layoutX="64.0" layoutY="5.0" prefHeight="40.0" prefWidth="452.0">
-        <Label fx:id="pAddress_lbl" layoutX="40.0" layoutY="10.0" text="\@dvChien" />
-        <Label layoutX="89.0" layoutY="10.0" styleClass="acc_display_lbl" text="Please reset my password" />
+        <Label fx:id="pAddress_lbl" layoutX="40.0" layoutY="10.0" styleClass="acc_display_lbl" text="\@dvChien" />
+        <Label fx:id="email_lbl" layoutX="89.0" layoutY="10.0" text="Please reset my password" />
         <Label fx:id="date_lbl" layoutX="196.0" layoutY="10.0" text="2023-12-03" />
     </HBox>
     <Button fx:id="no_btn" layoutX="684.0" layoutY="12.0" mnemonicParsing="false" styleClass="delete_btn" text="No">
