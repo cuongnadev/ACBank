@@ -68,8 +68,8 @@ public class Model {
             if(resultSet.isBeforeFirst()){
                 this.client.firstNameProperty().set(resultSet.getString("FirstName"));
                 this.client.lastNameProperty().set(resultSet.getString("LastName"));
-                this.client.pAddressProperty().set(resultSet.getString("PayeeAddress"));
-                this.client.passwordProperty().set(resultSet.getString("Password"));
+                this.client.pAddressProperty().set(pAddress);
+                this.client.passwordProperty().set(password);
                 String[] dataParts = resultSet.getString("Date").split("-");
                 LocalDate date = LocalDate.of(Integer.parseInt(dataParts[0]) , Integer.parseInt(dataParts[1]) , Integer.parseInt(dataParts[2]));
                 this.client.dateCreatedProperty().set(String.valueOf(date));

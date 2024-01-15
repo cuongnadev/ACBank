@@ -49,19 +49,6 @@
     <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
 
 
-    <!-- Thư viện logging SLF4J -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>2.0.7</version> <!-- Sử dụng phiên bản mới nhất -->
-    </dependency>
-    <!-- Implementation của SLF4J, ví dụ: Logback -->
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.4.8</version> <!-- Sử dụng phiên bản mới nhất -->
-    </dependency>
-
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
@@ -84,6 +71,8 @@
       <artifactId>io</artifactId>
       <version>7.2.3</version> <!-- Đảm bảo kiểm tra phiên bản mới nhất -->
     </dependency>
+
+
 
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
     <dependency>

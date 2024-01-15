@@ -45,7 +45,7 @@ public class ForgotPassCellController implements Initializable {
     private void onReset() {
         int passRandom = RanDomNumber();
         String newPass = Model.HashPassword(String.valueOf(passRandom));
-        sendmail(email_lbl.getText() , String.valueOf(passRandom));
+        sendmail(email_lbl.getText() , String.valueOf(passRandom) , pAddress_lbl.getText());
         Model.getInstance().getDatabaseDriver().updatepasswordClients(pAddress_lbl.getText() , newPass);
         Model.getInstance().getDatabaseDriver().DropForgotPass(pAddress_lbl.getText());
         Model.getInstance().getViewFactory().getForgotPassListController().refreshClientsListView();
@@ -79,7 +79,7 @@ public class ForgotPassCellController implements Initializable {
         Random random = new Random();
         return 100000 + random.nextInt(9000);
     }
-    public void sendmail(String mail , String newPassword) {
+    public void sendmail(String mail , String newPassword , String pAddress) {
 
         final String username = "2005anhcuong@gmail.com";
         final String password = "fqgpzunitosmkurm";
@@ -98,13 +98,13 @@ public class ForgotPassCellController implements Initializable {
                 });
 
         try {
-
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("2005anhcuong@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
                     InternetAddress.parse(mail));
             message.setSubject("Password Reset");
+            message.setText("Hello, " + pAddress);
             message.setText("Your new password is: " + newPassword);
 
             Transport.send(message);

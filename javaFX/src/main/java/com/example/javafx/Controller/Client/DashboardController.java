@@ -69,7 +69,7 @@ public class DashboardController implements Initializable {
         try {
             while (resultSet.next()) {
                 if (pAddress.equals(resultSet.getString("PayeeAddress"))
-                        && password.equals(resultSet.getString("Password"))){
+                        && Model.HashPassword(password).equals(resultSet.getString("Password"))){
                     String LName = resultSet.getString("LastName");
                     user_name.setText("Hi, "+ LName);
                 }
@@ -86,7 +86,7 @@ public class DashboardController implements Initializable {
                 }
             }
             while (resultSet2.next()){
-                if (pAddress.equals(resultSet2.getString("Owner"))){
+                if (pAddress.equals(resultSet2.getString("Owner")) ){
                     saving_acc_num.setText(resultSet2.getString("AccountNumber"));
                     saving_bal.setText(resultSet2.getString("Balance"));
 

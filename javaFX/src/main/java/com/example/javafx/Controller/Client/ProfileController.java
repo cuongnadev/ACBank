@@ -47,10 +47,10 @@ public class ProfileController implements Initializable {
         try {
             while (resultSet.next()){
                 if(pAddress.equals(resultSet.getString("PayeeAddress"))&&
-                        password.equals(resultSet.getString("Password"))){
+                        Model.HashPassword(password).equals(resultSet.getString("Password"))){
                     firstName_lbl.setText(resultSet.getString("FirstName"));
                     lastName_lbl.setText(resultSet.getString("LastName"));
-                    password_lbl.setText("******");
+                    password_lbl.setText(password);
                     pAddress_lbl.setText(resultSet.getString("PayeeAddress"));
                     date_lbl.setText(resultSet.getString("Date"));
                 }

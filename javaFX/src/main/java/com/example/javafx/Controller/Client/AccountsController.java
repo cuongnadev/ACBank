@@ -106,7 +106,7 @@ public class AccountsController implements Initializable {
         try {
             while (resultSet.next()) {
                 if (pAddress.equals(resultSet.getString("PayeeAddress"))
-                        && password.equals(resultSet.getString("Password"))){
+                        && Model.HashPassword(password).equals(resultSet.getString("Password"))){
                     ch_acc_date.setText( resultSet.getString("Date"));
                     break;
                 }
