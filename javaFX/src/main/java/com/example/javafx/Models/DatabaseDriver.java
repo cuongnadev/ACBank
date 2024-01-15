@@ -109,6 +109,18 @@ public class DatabaseDriver {
         return resultSet;
     }
 
+    public ResultSet getSavingAccountsDataBalanceMax (String  pAddress){
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = this.con.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM SavingsAccounts WHERE Owner = '"+pAddress+"';");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
     //Receipt select
     public ResultSet getReceiptData(){
         Statement statement;

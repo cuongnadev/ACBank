@@ -63,6 +63,7 @@ public class AccountsController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        savingAccounts.sort((t1, t2) -> (String.valueOf(t2.balanceProperty().get()).compareTo(String.valueOf(t1.balanceProperty().get()))));
         return savingAccounts;
     }
 

@@ -62,7 +62,7 @@ public class DashboardController implements Initializable {
         String password = Model.getInstance().getClient().passwordProperty().get();
         ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
         ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
-        ResultSet resultSet2 = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
+        ResultSet resultSet2 = Model.getInstance().getDatabaseDriver().getSavingAccountsDataBalanceMax(pAddress);
         ResultSet resultSet3 = Model.getInstance().getDatabaseDriver().getTransactionData();
         double income = 0;
         double expense = 0;
@@ -85,11 +85,12 @@ public class DashboardController implements Initializable {
 
                 }
             }
+            Double max = -1.0;
             while (resultSet2.next()){
-                if (pAddress.equals(resultSet2.getString("Owner")) ){
+                if (resultSet2.getDouble("Balance") > max ){
+                    max = resultSet2.getDouble("Balance");
                     saving_acc_num.setText(resultSet2.getString("AccountNumber"));
                     saving_bal.setText(resultSet2.getString("Balance"));
-
                 }
             }
             while (resultSet3.next()){
