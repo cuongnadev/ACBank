@@ -23,7 +23,6 @@ public class DatabaseDriver {
     /*
     * Client Select
     * */
-
     public ResultSet getClientData (String pAddress , String password){
         Statement statement;
         ResultSet resultSet = null;
@@ -36,7 +35,6 @@ public class DatabaseDriver {
         }
         return resultSet;
     }
-
     public ResultSet getClientsData (){
         Statement statement;
         ResultSet resultSet = null;
@@ -79,7 +77,6 @@ public class DatabaseDriver {
         }
         return resultSet;
     }
-
 
 
     /*
@@ -152,8 +149,8 @@ public class DatabaseDriver {
     }
 
 
-    //Update
 
+    //Update
     public void updateFNameClients (String pAddress ,String name){
         String updateQuery = "update Clients set FirstName  = ? where PayeeAddress = ?;";
 
@@ -175,8 +172,6 @@ public class DatabaseDriver {
             System.out.println("Error updating First Name.");
         }
     }
-
-
     public void updateLNameClients (String pAddress ,String name){
         String updateQuery = "update Clients set LastName  = ? where PayeeAddress = ?;";
 
@@ -198,7 +193,6 @@ public class DatabaseDriver {
             System.out.println("Error updating Last Name.");
         }
     }
-
     public void updatepasswordClients (String pAddress ,String password){
         String updateQuery = "update Clients set Password  = ? where PayeeAddress = ?;";
 
@@ -220,7 +214,6 @@ public class DatabaseDriver {
             System.out.println("Error updating Password.");
         }
     }
-
     public void updateAccountBalance (String owner, double newBalance) {
         String updateQuery = "update CheckingAccounts set Balance = ? where Owner = ?;";
 
@@ -242,7 +235,6 @@ public class DatabaseDriver {
             System.out.println("Error updating checking balance.");
         }
     }
-
     public void updateSavingBalance (String sav_Num, double newBalance) {
         String updateQuery = "update SavingsAccounts set Balance = ? where AccountNumber = ?;";
 
@@ -268,7 +260,6 @@ public class DatabaseDriver {
 
 
     //Insert
-
     public void insertForgotPass(ForgotPass forgotPass) {
         String insertQuery = "INSERT INTO ForgotPass (PayeeAddress, Date , Email) VALUES (?, ?, ?);";
         try {
@@ -292,7 +283,6 @@ public class DatabaseDriver {
             System.out.println("Error inserting ForgotPass.");
         }
     }
-
     public void insertTransaction(Transaction transaction) {
         String insertQuery = "INSERT INTO Transactions (Sender, Receiver, Amount, Date, Message) VALUES (?, ?, ?, ?, ?);";
         try {
@@ -316,7 +306,6 @@ public class DatabaseDriver {
             System.out.println("Error inserting transaction.");
         }
     }
-
     public void insertClient(Client client){
         String insertQuery = "INSERT INTO Clients (FirstName , LastName , PayeeAddress , Password , Date) VALUES (?, ?, ?, ?, ?)";
         try {
@@ -360,7 +349,6 @@ public class DatabaseDriver {
             System.out.println("Error inserting checkingAccount.");
         }
     }
-
     public void insertSavingAccount(SavingAccount savingAccount){
         String insertQuery = "INSERT INTO SavingsAccounts (Owner , AccountNumber , WithdrawalLimit , Balance) VALUES (?, ?, ?, ?)";
         try {
@@ -382,7 +370,6 @@ public class DatabaseDriver {
             System.out.println("Error inserting savingAccount.");
         }
     }
-
     public void insertReceiver (String IDBienLai , String sender , String receiver , String numberSender , String numberReceiver , double amount , String date , String message ){
         String insertQuery = "INSERT INTO Receipt (IDBienLai , Sender , Receiver , NumberSender , NumberReceiver , Amount , Date , Message ) VALUES (?, ?, ?, ?, ?, ?, ? ,?)";
         try {
@@ -408,7 +395,6 @@ public class DatabaseDriver {
             System.out.println("Error inserting receipt.");
         }
     }
-
     public void insertSignUp (String FirstName , String LastName , String Password , String PayeeAddress , Double CheckingAmount , Double SavingAmount , String Date , String CheckingNumber , String SavingNumber){
         String insertQuery = "INSERT INTO SignUpAccount (FirstName , LastName , Password , PayeeAddress , CheckingAmount , SavingAmount , Date , CheckingNumber , SavingNumber) VALUES (? ,? ,? ,? ,? , ?, ?, ? ,?)";
         try {
@@ -439,7 +425,6 @@ public class DatabaseDriver {
 
 
     // Drop
-
     public void DropForgotPass (String pAddress ){
         String dropQuery = "DELETE FROM ForgotPass WHERE PayeeAddress= ?";
         try {
@@ -456,7 +441,6 @@ public class DatabaseDriver {
             e.printStackTrace();
         }
     }
-
     public void DropSignUpAccount (String pAddress ){
         String dropQuery = "DELETE FROM SignUpAccount WHERE PayeeAddress= ?";
         try {
@@ -473,7 +457,6 @@ public class DatabaseDriver {
             e.printStackTrace();
         }
     }
-
     public void DropClient (String pAddress ){
         String dropQuery = "DELETE FROM Clients WHERE PayeeAddress= ?";
         try {
@@ -490,7 +473,6 @@ public class DatabaseDriver {
             e.printStackTrace();
         }
     }
-
     public void DropCheckingAccount (String pAddress ){
         String dropQuery = "DELETE FROM CheckingAccounts WHERE Owner= ?";
         try {
@@ -507,7 +489,6 @@ public class DatabaseDriver {
             e.printStackTrace();
         }
     }
-
     public void DropSavingAccount (String pAddress ){
         String dropQuery = "DELETE FROM SavingsAccounts WHERE Owner= ?";
         try {
@@ -524,7 +505,6 @@ public class DatabaseDriver {
             e.printStackTrace();
         }
     }
-
     public void DropTransaction (String pAddress ){
         String dropQuery = "DELETE FROM Transactions WHERE Sender= ? or  Receiver= ?";
         try {
@@ -542,7 +522,6 @@ public class DatabaseDriver {
             e.printStackTrace();
         }
     }
-
     public void DropReceipt (String IDBienLai ){
         String dropQuery = "DELETE FROM Receipt WHERE IDBienLai= ?";
         try {
@@ -560,3 +539,4 @@ public class DatabaseDriver {
         }
     }
 }
+//ok...
