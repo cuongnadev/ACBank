@@ -12,22 +12,19 @@
 <AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="clients_container" stylesheets="@../../Styles/Clients.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.Admin.ReceiptController">
    <Text layoutX="3.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Receipts" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
    <ListView fx:id="receipts_listview" layoutX="23.0" layoutY="36.0" prefHeight="350.0" prefWidth="800.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="40.0" />
-   <AnchorPane layoutX="4.0" layoutY="414.0" prefHeight="335.0" prefWidth="850.0" styleClass="clients_container"
-               AnchorPane.bottomAnchor="0.7999999999999545" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-      <ListView fx:id="receipts_listview1" layoutX="14.0" layoutY="60.0" prefHeight="200.0" prefWidth="800.0"
-                AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="14.0">
+   <AnchorPane layoutX="4.0" layoutY="414.0" prefHeight="335.0" prefWidth="850.0" styleClass="clients_container" AnchorPane.bottomAnchor="0.7999999999999545" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ListView fx:id="receipts_listview1" layoutX="14.0" layoutY="60.0" prefHeight="200.0" prefWidth="800.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="14.0">
          <styleClass>
-            <String fx:value="list-cell"/>
-            <String fx:value="list-view"/>
+            <String fx:value="list-cell" />
+            <String fx:value="list-view" />
          </styleClass>
       </ListView>
-      <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="60.0" prefWidth="800.0" styleClass="search_box"
-            stylesheets="@../../Styles/Clients.css" AnchorPane.topAnchor="0.0">
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search By Payee Address:"/>
-         <TextField fx:id="IDReceipt_fld"/>
+      <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="60.0" prefWidth="800.0" styleClass="search_box" stylesheets="@../../Styles/Clients.css" AnchorPane.topAnchor="0.0">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search By Receipts ID:" />
+         <TextField fx:id="IDReceipt_fld" />
          <Button fx:id="search_btn" mnemonicParsing="false" text="Search">
             <graphic>
-               <FontIcon iconColor="WHITE" iconLiteral="fa-search" iconSize="20"/>
+               <FontIcon iconColor="WHITE" iconLiteral="fa-search" iconSize="20" />
             </graphic>
          </Button>
       </HBox>

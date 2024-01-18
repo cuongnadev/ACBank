@@ -104,8 +104,7 @@ public class ForgotPassCellController implements Initializable {
                     Message.RecipientType.TO,
                     InternetAddress.parse(mail));
             message.setSubject("Password Reset");
-            message.setText("Hello, " + pAddress);
-            message.setText("Your new password is: " + newPassword);
+            message.setText("Hello, " + pAddress + "\nYour new password is: " + newPassword);
 
             Transport.send(message);
 

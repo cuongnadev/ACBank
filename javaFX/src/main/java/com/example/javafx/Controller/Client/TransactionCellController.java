@@ -87,7 +87,7 @@ public class TransactionCellController implements Initializable {
                     }
 
                     //in file pdf
-                    String path = "D:\\BaiTapLon\\javaFXtutorials\\PrintBienLai\\" + IDBienLai + ".pdf";
+                    String path = "D:\\BaiTapLon\\javaFXtutorials\\ClientBienLai\\" + IDBienLai + ".pdf";
 
                     try {
                         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new FileOutputStream(path)));

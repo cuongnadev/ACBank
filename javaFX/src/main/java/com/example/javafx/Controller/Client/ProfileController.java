@@ -58,6 +58,7 @@ public class ProfileController implements Initializable {
             while (resultSet1.next()){
                 if (pAddress.equals(resultSet1.getString("Owner"))){
                     ch_acc_num_lbl.setText(resultSet1.getString("AccountNumber"));
+                    bal_lbl.setText(resultSet1.getString("Balance"));
                 }
             }
             int count = 0;
