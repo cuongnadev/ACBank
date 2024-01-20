@@ -517,6 +517,22 @@ public class DatabaseDriver {
             e.printStackTrace();
         }
     }
+    public void DropSavingAccountByNum (String Num ){
+        String dropQuery = "DELETE FROM SavingsAccounts WHERE AccountNumber= ?";
+        try {
+            PreparedStatement pstm = con.prepareStatement(dropQuery);
+            pstm.setString(1 , Num);
+            int rowsAffected = pstm.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("SavingAccount Drop successfully.");
+            } else {
+                System.out.println("Failed to Drop SavingAccount.");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
     public void DropTransaction (String pAddress ){
         String dropQuery = "DELETE FROM Transactions WHERE Sender= ? or  Receiver= ?";
         try {

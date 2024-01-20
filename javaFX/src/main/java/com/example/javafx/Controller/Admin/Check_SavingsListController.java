@@ -78,13 +78,6 @@ public class Check_SavingsListController implements Initializable {
         alert.showAndWait();
     }
 
-    private void showAlertSucccessfully(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
     public void refreshData(){
         pAddress_fld.setText("");
         result_listview.getItems().clear();

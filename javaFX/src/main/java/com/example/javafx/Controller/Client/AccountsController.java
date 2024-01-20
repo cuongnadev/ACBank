@@ -219,6 +219,17 @@ public class AccountsController implements Initializable {
                     break;
                 }
             }
+            // Nếu tền còn = 0 thì xóa luôn tài khoản
+            ResultSet resultSet2 = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
+            while (resultSet2.next()){
+                if(Sav_num.equals(resultSet2.getString("AccountNumber"))){
+                    if(resultSet2.getDouble("Balance") < 1 ){
+                        Model.getInstance().getDatabaseDriver().DropSavingAccountByNum(resultSet2.getString("AccountNumber"));
+                        refreshDataLabel();
+                        break;
+                    }
+                }
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }

@@ -47,7 +47,7 @@ public class SignUpController implements Initializable {
             pAddress_lbl.setText(randomAddress);
         } else {
             // Không được chọn, sử dụng địa chỉ mặc định
-            pAddress_lbl.setText(lName_fld.getText() + fName__fld.getText() + "@gmail.com");
+            pAddress_lbl.setText("@" + lName_fld.getText() + fName__fld.getText());
         }
     }
 
