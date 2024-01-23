@@ -1,10 +1,8 @@
 package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.Model;
-import com.example.javafx.Models.Receipt;
 import com.example.javafx.Models.SignUp;
-import com.example.javafx.View.ReceiptCellFactory;
-import com.example.javafx.View.SignUpCellFactory;
+import com.example.javafx.Controller.GetView.SignUpCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 

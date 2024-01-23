@@ -1,11 +1,9 @@
 package com.example.javafx.Controller.Client;
 
 import com.example.javafx.Models.Model;
-import com.example.javafx.Models.Receipt;
 import com.example.javafx.Models.Transaction;
-import com.example.javafx.View.TransactionCellFactory;
+import com.example.javafx.Controller.GetView.TransactionCellFactory;
 
-import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;

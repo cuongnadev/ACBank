@@ -1,18 +1,13 @@
 package com.example.javafx.Controller.Client;
 
-import com.example.javafx.Controller.LoginController;
 import com.example.javafx.Models.*;
-import com.example.javafx.View.CheckingCellFactory;
-import com.example.javafx.View.ClientCellFactory;
-import com.example.javafx.View.SavingCellFactory;
+import com.example.javafx.Controller.GetView.SavingCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

@@ -1,15 +1,12 @@
 package com.example.javafx.Controller.Client;
 
 import com.example.javafx.Models.Model;
-import com.example.javafx.Models.Transaction;
-import com.example.javafx.View.ClientMenuOptions;
-import com.example.javafx.View.TransactionCellFactory;
+import com.example.javafx.Controller.GetView.ClientMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ClientMenuController implements Initializable {

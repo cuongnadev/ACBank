@@ -1,10 +1,8 @@
 package com.example.javafx.Controller.Admin;
 
-import com.example.javafx.Models.Client;
 import com.example.javafx.Models.ForgotPass;
 import com.example.javafx.Models.Model;
-import com.example.javafx.View.ClientCellFactory;
-import com.example.javafx.View.ForgotPassCellFactory;
+import com.example.javafx.Controller.GetView.ForgotPassCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 
@@ -12,7 +10,6 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.FormatterClosedException;
 import java.util.List;
 import java.util.ResourceBundle;
 

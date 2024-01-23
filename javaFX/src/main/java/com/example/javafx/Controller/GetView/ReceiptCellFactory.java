@@ -1,4 +1,4 @@
-package com.example.javafx.View;
+package com.example.javafx.Controller.GetView;
 
 import com.example.javafx.Controller.Admin.ClientCellController;
 import com.example.javafx.Controller.Admin.ReceiptCellController;

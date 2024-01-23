@@ -2,7 +2,7 @@ package com.example.javafx.Controller.Client;
 
 import com.example.javafx.Models.Model;
 import com.example.javafx.Models.Transaction;
-import com.example.javafx.View.TransactionCellFactory;
+import com.example.javafx.Controller.GetView.TransactionCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 

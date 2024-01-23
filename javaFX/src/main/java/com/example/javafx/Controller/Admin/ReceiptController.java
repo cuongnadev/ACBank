@@ -1,19 +1,15 @@
 package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.*;
-import com.example.javafx.View.ClientCellFactory;
-import com.example.javafx.View.ReceiptCellFactory;
+import com.example.javafx.Controller.GetView.ReceiptCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class ReceiptController implements Initializable {

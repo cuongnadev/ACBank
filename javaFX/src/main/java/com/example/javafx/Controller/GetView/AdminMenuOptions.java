@@ -1,4 +1,4 @@
-package com.example.javafx.View;
+package com.example.javafx.Controller.GetView;
 
 public enum AdminMenuOptions {
     RECEIPT ,
