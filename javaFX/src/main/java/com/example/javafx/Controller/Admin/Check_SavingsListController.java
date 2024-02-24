@@ -34,6 +34,7 @@ public class Check_SavingsListController implements Initializable {
         String payeeAdress = pAddress_fld.getText().trim();
         Boolean check = false;
         result_listview.getItems().clear();
+        result_listview1.getItems().clear();
         try {
             while (resultSet1.next()){
                 if (payeeAdress.equals(resultSet1.getString("Owner"))){

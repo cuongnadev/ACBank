@@ -13,7 +13,7 @@ public class SavingCellFactory extends ListCell<SavingAccount> {
             setText(null);
             setGraphic(null);
         }else{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/SavingCell.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/SavingCell.fxml"));
             SavingCellController savingCellController = new SavingCellController(savingAccount);
             loader.setController(savingCellController);
 

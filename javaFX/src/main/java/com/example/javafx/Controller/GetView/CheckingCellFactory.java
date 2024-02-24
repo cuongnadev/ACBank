@@ -13,7 +13,7 @@ public class CheckingCellFactory extends ListCell<CheckingAccount> {
             setText(null);
             setGraphic(null);
         }else{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/CheckingCell.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/CheckingCell.fxml"));
             CheckingCellController checkingCellController = new CheckingCellController(checkingAccount);
             loader.setController(checkingCellController);
 

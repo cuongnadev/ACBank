@@ -16,7 +16,7 @@ public class ReceiptCellFactory extends ListCell<Receipt> {
             setText(null);
             setGraphic(null);
         }else{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/ReceiptCell.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/ReceiptCell.fxml"));
             ReceiptCellController controller = new ReceiptCellController(receipt);
             loader.setController(controller);
 

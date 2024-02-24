@@ -15,7 +15,7 @@ public class SignUpCellFactory extends ListCell<SignUp> {
             setText(null);
             setGraphic(null);
         }else{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/SignUpCell.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/SignUpCell.fxml"));
             SignUpCellController signUpCellController = new SignUpCellController(signUp);
             loader.setController(signUpCellController);
 

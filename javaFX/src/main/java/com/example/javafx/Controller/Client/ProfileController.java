@@ -102,6 +102,7 @@ public class ProfileController implements Initializable {
                         if (!(password_fld.getText().trim().isEmpty())){
                             String pass = Model.HashPassword(password_fld.getText());
                             Model.getInstance().getDatabaseDriver().updatepasswordClients(pAddress , pass);
+                            Model.getInstance().getClient().passwordProperty().set(password_fld.getText());
                         }
                         setdataLabel();
                     }

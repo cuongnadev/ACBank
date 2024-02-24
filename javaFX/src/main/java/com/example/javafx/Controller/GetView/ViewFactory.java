@@ -143,7 +143,7 @@ public class ViewFactory {
     }
     public AnchorPane getDashboardView(){
         try {
-            dashboardView = new FXMLLoader(getClass().getResource("/Fxml/Client/Dashboard.fxml")).load();
+            dashboardView = new FXMLLoader(getClass().getResource("/View/Fxml/Client/Dashboard.fxml")).load();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -152,7 +152,7 @@ public class ViewFactory {
     public AnchorPane getTransactionsView(){
         if (transactionsView == null){
             try {
-                transactionsView = new FXMLLoader(getClass().getResource("/Fxml/Client/Transactions.fxml")).load();
+                transactionsView = new FXMLLoader(getClass().getResource("/View/Fxml/Client/Transactions.fxml")).load();
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -162,7 +162,7 @@ public class ViewFactory {
     public AnchorPane getAccountsView(){
         if (accountsView == null){
             try {
-                accountsView = new FXMLLoader(getClass().getResource("/Fxml/Client/Accounts.fxml")).load();
+                accountsView = new FXMLLoader(getClass().getResource("/View/Fxml/Client/Accounts.fxml")).load();
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -172,7 +172,7 @@ public class ViewFactory {
     public AnchorPane getProfileView(){
         if (profileView == null){
             try {
-                profileView = new FXMLLoader(getClass().getResource("/Fxml/Client/Profile.fxml")).load();
+                profileView = new FXMLLoader(getClass().getResource("/View/Fxml/Client/Profile.fxml")).load();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -181,25 +181,25 @@ public class ViewFactory {
     }
 
     public void showClientWindow(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/Client.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Client/Client.fxml"));
         ClientController clientController = new ClientController();
         loader.setController(clientController);
         createStage(loader);
     }
     public void showSignUpWindow(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/SignUp.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Client/SignUp.fxml"));
         SignUpController signUpController = new SignUpController();
         loader.setController(signUpController);
         createStage(loader);
     }
     public void showForgotPassWindow(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/ForgotPass.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Client/ForgotPass.fxml"));
         ForgotPassController Controller = new ForgotPassController();
         loader.setController(Controller);
         createStage(loader);
     }
     public void showForgotPassList(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/ForgotPassList.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/ForgotPassList.fxml"));
         ForgotPassListController Controller = new ForgotPassListController();
         loader.setController(Controller);
         createStage(loader);
@@ -217,7 +217,7 @@ public class ViewFactory {
     public AnchorPane getSignUpListView(){
         if (signUpListView == null){
             try {
-                signUpListView = new FXMLLoader(getClass().getResource("/Fxml/Admin/SignUpList.fxml")).load();
+                signUpListView = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/SignUpList.fxml")).load();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -228,7 +228,7 @@ public class ViewFactory {
     public AnchorPane getReceiptView(){
         if (createClientView == null){
             try {
-                createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Receipts.fxml")).load();
+                createClientView = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/Receipts.fxml")).load();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -239,7 +239,7 @@ public class ViewFactory {
     public AnchorPane getClientsView() {
         if (clientsView == null){
             try {
-                clientsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Clients.fxml")).load();
+                clientsView = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/Clients.fxml")).load();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -250,7 +250,7 @@ public class ViewFactory {
     public AnchorPane getCheck_SavingsListView() {
         if (savingsListView == null){
             try {
-                savingsListView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Check_SavingsList.fxml")).load();
+                savingsListView = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/Check_SavingsList.fxml")).load();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -259,7 +259,7 @@ public class ViewFactory {
     }
 
     public void showAdminWindow(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Admin.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/Admin.fxml"));
         AdminController adminController = new AdminController();
         loader.setController(adminController);
         createStage(loader);
@@ -270,7 +270,7 @@ public class ViewFactory {
 
     // Show Window
     public void showLoginWindow (){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Login.fxml"));
         createStage(loader);
     }
 
@@ -283,7 +283,7 @@ public class ViewFactory {
         }
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/icon.png"))));
+        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/View/Images/icon.png"))));
         stage.setResizable(false);
         stage.setTitle("ACBank");
         stage.show();

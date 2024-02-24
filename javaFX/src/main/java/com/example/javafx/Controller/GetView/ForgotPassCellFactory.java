@@ -17,7 +17,7 @@ public class ForgotPassCellFactory extends ListCell<ForgotPass> {
             setText(null);
             setGraphic(null);
         }else{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/ForgotPassCell.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Fxml/Admin/ForgotPassCell.fxml"));
             ForgotPassCellController controller = new ForgotPassCellController(forgotPass);
             loader.setController(controller);
 
