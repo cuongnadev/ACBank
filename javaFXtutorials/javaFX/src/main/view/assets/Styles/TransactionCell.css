@@ -1,0 +1,52 @@
+
+.cell_container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius:10 ;
+    -fx-effect: dropshadow(three-pass-box , #DDDDDD , 5 , 0 , 0 ,7 );
+}
+
+.trans_icon_container{
+    -fx-background-color: #ffffff;
+    -fx-alignment: center;
+    -fx-spacing: 5;
+}
+
+.trans_date_lbl {
+    -fx-text-fill: #aaaaaa;
+    -fx-font-weight: 700;
+}
+
+.trans_pAddress_lbl {
+    -fx-text-fill: #000000;
+    -fx-font-weight: 700;
+}
+
+.cell_container Line {
+    -fx-stroke: #eeeeee;
+}
+
+.trans_amount_lbl {
+    -fx-background-color: #132a13;
+    -fx-background-radius: 2;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 5;
+    -fx-font-weight: 700;
+}
+
+.trans_amount_lbl FontIcon {
+    -fx-fill: #ffffff;
+}
+Button {
+    -fx-background-color: gray;
+    -fx-effect: dropshadow(three-pass-box,#aaaaaa , 3 , 0 ,0 ,3);
+    -fx-font-size: 1.2em;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Calibri Light";
+    -fx-pref-width: 10;
+}
+Button:hover {
+    -fx-cursor: hand;
+}
+
+
+

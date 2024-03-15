@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="50.0" prefWidth="750.0" styleClass="checking_cell_container" stylesheets="@../../assets/Styles/CheckingCell.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <FontIcon iconLiteral="fa-money" iconSize="20" layoutX="14.0" layoutY="19.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+   <HBox layoutX="106.0" layoutY="-25.0" prefHeight="40.0" prefWidth="620.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="5.0">
+      <Label fx:id="owner_lbl" layoutX="10.0" layoutY="10.0" text="\@cuongna" />
+      <Label fx:id="sv_acc_num_lbl" layoutX="89.0" layoutY="10.0" styleClass="acc_display_lbl" text="3021 2005" />
+      <Label fx:id="limit_lbl" layoutX="40.0" layoutY="10.0" text="10" />
+      <Label fx:id="balance_lbl" layoutX="196.0" layoutY="10.0" text="7000" />
+   </HBox>
+   <FontIcon iconLiteral="fa-money" iconSize="20" layoutX="714.0" layoutY="31.0" text="" />
+</AnchorPane>

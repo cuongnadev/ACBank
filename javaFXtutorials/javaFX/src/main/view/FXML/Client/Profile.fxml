@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="profile_view_container" stylesheets="@../../assets/Styles/Profile.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.Client.ProfileController">
+   <Text layoutX="204.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Information" AnchorPane.leftAnchor="204.0" AnchorPane.topAnchor="13.799999237060547" />
+   <VBox layoutX="42.0" layoutY="47.0" prefHeight="319.0" prefWidth="248.0" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="47.0">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" />
+      <Label fx:id="firstName_lbl" text="Cuong" />
+      <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:" />
+      <Label fx:id="lastName_lbl" layoutX="10.0" layoutY="28.0" text="Nguyen" />
+      <Text layoutX="10.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
+      <Label fx:id="password_lbl" layoutX="10.0" layoutY="63.0" text="123456" />
+      <Text layoutX="10.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PayeeAddress:" />
+      <Label fx:id="pAddress_lbl" layoutX="10.0" layoutY="98.0" text="\@cuongna" />
+   </VBox>
+   <VBox fillWidth="false" layoutX="545.0" layoutY="402.0" prefHeight="306.0" prefWidth="290.0">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name*:" />
+      <TextField fx:id="fName_fld" />
+      <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name*:" />
+      <TextField fx:id="lName_fld" layoutX="10.0" layoutY="28.0" />
+      <Text layoutX="10.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password*:" />
+      <TextField fx:id="password_fld" layoutX="10.0" layoutY="71.0" />
+      <Button fx:id="edit_btn" mnemonicParsing="false" text="Edit" />
+   </VBox>
+   <Text layoutX="636.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Account" translateY="6.0" />
+   <VBox layoutX="297.0" layoutY="47.0" prefHeight="319.0" prefWidth="238.0">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Create:" />
+      <Label fx:id="date_lbl" text="2023-04-04" />
+      <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checking Number:" />
+      <Label fx:id="ch_acc_num_lbl" layoutX="10.0" layoutY="28.0" text="3021 2005" />
+      <Text layoutX="10.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance:" />
+      <Label fx:id="bal_lbl" layoutX="10.0" layoutY="63.0" text="\$500000" />
+      <Text layoutX="10.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Savings Accounts:" />
+      <Label fx:id="num_of_sav_lbl" layoutX="10.0" layoutY="98.0" text="2" />
+   </VBox>
+   <ImageView fitHeight="306.0" fitWidth="547.0" layoutX="42.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../../assets/Images/AdobeStock_558656558_Preview.jpeg" />
+   </ImageView>
+   <VBox layoutX="597.0" layoutY="117.0" prefHeight="180.0" prefWidth="210.0" styleClass="summary_view">
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="acc_summary_container" stylesheets="@../../assets/Styles/Dashboard.css">
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Income" />
+         <Label fx:id="income_lbl" styleClass="income_amount" text="+ $4000.00" />
+         <Line endX="160.0" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Expenses" />
+         <Label fx:id="expense_lbl" styleClass="expense_amount" text="- $1500.00" />
+      </VBox>
+   </VBox>
+   <Text layoutX="615.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="Accounts Surmmary" />
+</AnchorPane>
