@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<<<<<<< HEAD
+
 <?import javafx.scene.control.Button?>
-=======
->>>>>>> 1e311e08094f662054bc1314f5f0ceca455d3980
+
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<<<<<<< HEAD
+
 <AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="clients_container" stylesheets="@../../assets/Styles/SignUp.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.Admin.SignUpListController">
    <Text fx:id="signup_lbl" layoutX="3.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SignUp" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
    <ListView fx:id="signUp_listview" layoutX="21.0" layoutY="51.0" prefHeight="250.0" prefWidth="800.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="50.0" />
@@ -16,9 +15,4 @@
    <Button fx:id="forgot_btn" layoutX="442.0" layoutY="682.0" mnemonicParsing="false" styleClass="forgot_btn" text="Forgot Password" AnchorPane.bottomAnchor="40.0" />
    <ListView fx:id="forgotPass_listview" layoutX="14.0" layoutY="350.0" prefHeight="250.0" prefWidth="800.0" />
    <Text layoutX="14.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot Pass" />
-=======
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="clients_container" stylesheets="@../../assets/Styles/Clients.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.Admin.SignUpListController">
-   <Text layoutX="3.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SignUp List" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-   <ListView fx:id="signUp_listview" layoutX="21.0" layoutY="51.0" prefHeight="650.0" prefWidth="800.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="50.0" />
->>>>>>> 1e311e08094f662054bc1314f5f0ceca455d3980
 </AnchorPane>

@@ -35,7 +35,7 @@ public class ViewFactory {
     private ReceiptController receiptController;
     private SignUpController signUpController;
     private SignUpListController signUpListController;
-    private DepositController check_savingsListController;
+    private DepositController depositController;
 
     //getter & setter
 
@@ -100,11 +100,11 @@ public class ViewFactory {
     }
 
     //Search Check_Sav
-    public DepositController getCheck_SavingsListController (){
-        return this.check_savingsListController;
+    public DepositController getDepositController (){
+        return this.depositController;
     }
-    public void setCheck_savingsListController(DepositController check_savingsListController){
-        this.check_savingsListController = check_savingsListController;
+    public void setDepositController(DepositController depositController){
+        this.depositController = depositController;
     }
 
 
@@ -113,7 +113,7 @@ public class ViewFactory {
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private AnchorPane createClientView;
     private AnchorPane clientsView;
-    private AnchorPane savingsListView;
+    private AnchorPane depositView;
     private AnchorPane signUpListView;
 
 
@@ -189,15 +189,7 @@ public class ViewFactory {
         loader.setController(Controller);
         createStage(loader);
     }
-<<<<<<< HEAD
-=======
-    public void showForgotPassList(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Admin/ForgotPassList.fxml"));
-        ForgotPassListController Controller = new ForgotPassListController();
-        loader.setController(Controller);
-        createStage(loader);
-    }
->>>>>>> 1e311e08094f662054bc1314f5f0ceca455d3980
+
 
 
 
@@ -241,19 +233,16 @@ public class ViewFactory {
         return clientsView;
     }
 
-    public AnchorPane getCheck_SavingsListView() {
-        if (savingsListView == null){
+    public AnchorPane getDepositView() {
+        if (depositView == null){
             try {
-<<<<<<< HEAD
-                savingsListView = new FXMLLoader(getClass().getResource("/FXML/Admin/Deposit.fxml")).load();
-=======
-                savingsListView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Check_SavingsList.fxml")).load();
->>>>>>> 1e311e08094f662054bc1314f5f0ceca455d3980
+
+                depositView = new FXMLLoader(getClass().getResource("/FXML/Admin/Deposit.fxml")).load();
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
-        return savingsListView;
+        return depositView;
     }
 
     public void showAdminWindow(){

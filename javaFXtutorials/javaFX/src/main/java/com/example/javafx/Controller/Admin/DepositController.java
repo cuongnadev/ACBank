@@ -17,17 +17,17 @@ public class DepositController implements Initializable {
     public TextField pAddress_fld;
     public Button search_btn;
     public ListView<CheckingAccount> result_listview;
-    public TextField deposit_tfd;
-    public TextField withdraw_tfd;
+    public TextField withdrawal_lbl;
     public Button deposit_btn;
-    public Button withdraw_btn;
+    public Button withdrawal_btn;
+    public TextField deposit_lbl;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         search_btn.setOnAction(event -> onSearch());
         refreshData();
-        Model.getInstance().getViewFactory().setCheck_savingsListController(this);
+        Model.getInstance().getViewFactory().setDepositController(this);
     }
 
     public void onSearch(){
