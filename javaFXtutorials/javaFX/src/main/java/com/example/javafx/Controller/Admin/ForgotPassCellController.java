@@ -48,7 +48,7 @@ public class ForgotPassCellController implements Initializable {
         sendmail(email_lbl.getText() , String.valueOf(passRandom) , pAddress_lbl.getText());
         Model.getInstance().getDatabaseDriver().updatepasswordClients(pAddress_lbl.getText() , newPass);
         Model.getInstance().getDatabaseDriver().DropForgotPass(pAddress_lbl.getText());
-        Model.getInstance().getViewFactory().getForgotPassListController().refreshClientsListView();
+        Model.getInstance().getViewFactory().getSignUpListController().refreshClientsListView();
         showAlertSuccessful("Reset Password of " + pAddress_lbl.getText() + " Successfull");
     }
     private void onNO() {
@@ -61,7 +61,7 @@ public class ForgotPassCellController implements Initializable {
         Optional<ButtonType> option = alert.showAndWait();
         if(option.get().equals(ButtonType.OK)) {
             Model.getInstance().getDatabaseDriver().DropForgotPass(pAddress_lbl.getText());
-            Model.getInstance().getViewFactory().getForgotPassListController().refreshClientsListView();
+            Model.getInstance().getViewFactory().getSignUpListController().refreshClientsListView();
             alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Message");
             alert.setHeaderText(null);

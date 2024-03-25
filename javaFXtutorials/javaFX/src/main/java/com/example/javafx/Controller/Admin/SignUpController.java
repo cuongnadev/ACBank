@@ -1,4 +1,4 @@
-package com.example.javafx.Controller.Client;
+package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.CheckingAccount;
 import com.example.javafx.Models.Client;
@@ -35,7 +35,6 @@ public class SignUpController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         create_client_btn.setOnAction(event -> onCreate());
         pAddress_box.setOnAction(event -> onpAddressBox());
-        Model.getInstance().getViewFactory().setSignUpController(this);
     }
 
     private void onpAddressBox() {

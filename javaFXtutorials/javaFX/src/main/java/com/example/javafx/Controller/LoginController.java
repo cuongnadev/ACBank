@@ -20,8 +20,6 @@ public class LoginController implements Initializable {
     public PasswordField password_fid;
     public Button login_btn;
     public Label error_lbl;
-    public Button sign_in_btn;
-    public Label forgot_pass_lbl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,21 +38,6 @@ public class LoginController implements Initializable {
         });
         login_btn.setOnAction(event -> onLogin());
         Model.getInstance().getViewFactory().setLoginController(this);
-        sign_in_btn.setOnAction(event -> onSignUp());
-        forgot_pass_lbl.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Stage stage = (Stage) error_lbl.getScene().getWindow();
-                try {
-                    Model.getInstance().getViewFactory().showForgotPassWindow();
-
-                    //Close the login stage
-                    Model.getInstance().getViewFactory().closeStage(stage);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     private void onSignUp() {

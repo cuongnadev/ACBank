@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 public class ViewFactory {
     public ViewFactory(){
-        this.loginAccountType = AccountType.CLIENT;
+        this.loginAccountType = AccountType.ADMIN;
         this.clientSelectedMenuItem = new SimpleObjectProperty<>();
         this.adminSelectedMenuItem = new SimpleObjectProperty<>();
     }
@@ -27,7 +27,6 @@ public class ViewFactory {
     private AnchorPane accountsView;
     private AnchorPane profileView;
     private LoginController loginController;
-    private ForgotPassListController forgotPassListController;
     private ClientsController clientsController;
     private DashboardController dashboardController;
     private AccountsController accountsController;
@@ -36,7 +35,7 @@ public class ViewFactory {
     private ReceiptController receiptController;
     private SignUpController signUpController;
     private SignUpListController signUpListController;
-    private Check_SavingsListController check_savingsListController;
+    private DepositController check_savingsListController;
 
     //getter & setter
 
@@ -101,10 +100,10 @@ public class ViewFactory {
     }
 
     //Search Check_Sav
-    public Check_SavingsListController getCheck_SavingsListController (){
+    public DepositController getCheck_SavingsListController (){
         return this.check_savingsListController;
     }
-    public void setCheck_savingsListController(Check_SavingsListController check_savingsListController){
+    public void setCheck_savingsListController(DepositController check_savingsListController){
         this.check_savingsListController = check_savingsListController;
     }
 
@@ -125,14 +124,6 @@ public class ViewFactory {
     }
     public void setLoginAccountType(AccountType loginAccountType){
         this.loginAccountType = loginAccountType;
-    }
-
-    public ForgotPassListController getForgotPassListController() {
-        return forgotPassListController;
-    }
-
-    public void setForgotPassListController(ForgotPassListController forgotPassListController) {
-        this.forgotPassListController = forgotPassListController;
     }
 
     /*
@@ -198,12 +189,6 @@ public class ViewFactory {
         loader.setController(Controller);
         createStage(loader);
     }
-    public void showForgotPassList(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Admin/ForgotPassList.fxml"));
-        ForgotPassListController Controller = new ForgotPassListController();
-        loader.setController(Controller);
-        createStage(loader);
-    }
 
 
 
@@ -250,7 +235,7 @@ public class ViewFactory {
     public AnchorPane getCheck_SavingsListView() {
         if (savingsListView == null){
             try {
-                savingsListView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Check_SavingsList.fxml")).load();
+                savingsListView = new FXMLLoader(getClass().getResource("/FXML/Admin/Deposit.fxml")).load();
             }catch (Exception e){
                 e.printStackTrace();
             }

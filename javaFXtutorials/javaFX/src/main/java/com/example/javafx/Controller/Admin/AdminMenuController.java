@@ -19,7 +19,6 @@ public class AdminMenuController implements Initializable {
     public Button logout_btn;
     public Button receipts_btn;
     public Button signuplist_btn;
-    public FontIcon reportPass_icon;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -31,21 +30,12 @@ public class AdminMenuController implements Initializable {
         search_btn.setOnAction(event -> onSearch_Check_Sav());
         logout_btn.setOnAction(event -> onLogOut());
         signuplist_btn.setOnAction(event -> onSignUpList());
-        reportPass_icon.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                try {
-                    Model.getInstance().getViewFactory().showForgotPassList();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     private void onSignUpList() {
         Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.SIGNUPLIST);
         Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
+        Model.getInstance().getViewFactory().getSignUpListController().refreshClientsListView();
     }
 
     private void onReceipt(){

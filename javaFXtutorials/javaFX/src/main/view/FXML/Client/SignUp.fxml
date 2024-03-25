@@ -29,7 +29,7 @@
       <CheckBox fx:id="sv_acc_box" layoutX="10.0" layoutY="191.0" mnemonicParsing="false" text="Add Saving Account" />
       <Label layoutX="10.0" layoutY="205.0" text="Saving Account Balance:" />
       <TextField fx:id="sv_amount_fld" layoutX="10.0" layoutY="224.0" />
-      <Button fx:id="create_client_btn" mnemonicParsing="false" text="Create New Client" />
+      <Button fx:id="create_client_btn" mnemonicParsing="false" styleClass="create_client_btn" text="Create New Client" />
       <Label fx:id="error_lbl" layoutX="10.0" layoutY="268.0" styleClass="erorr_lbl" text="erorr:" />
    </VBox>
 </AnchorPane>

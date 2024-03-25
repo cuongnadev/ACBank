@@ -19,7 +19,7 @@
             <String fx:value="list-view" />
          </styleClass>
       </ListView>
-      <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="60.0" prefWidth="800.0" styleClass="search_box" stylesheets="@../../assets/Styles/Clients.css" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="60.0" prefWidth="800.0" styleClass="search_box" AnchorPane.topAnchor="0.0">
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search By Receipts ID:" />
          <TextField fx:id="IDReceipt_fld" />
          <Button fx:id="search_btn" mnemonicParsing="false" text="Search">
