@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/BaiTapLon.iml" filepath="$PROJECT_DIR$/.idea/BaiTapLon.iml" />
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/javaFXtutorials/javaFX/javaFX.iml" filepath="$PROJECT_DIR$/javaFXtutorials/javaFX/javaFX.iml" />
+=======
+>>>>>>> 1e311e08094f662054bc1314f5f0ceca455d3980
     </modules>
   </component>
 </project>

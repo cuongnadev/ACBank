@@ -189,6 +189,15 @@ public class ViewFactory {
         loader.setController(Controller);
         createStage(loader);
     }
+<<<<<<< HEAD
+=======
+    public void showForgotPassList(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Admin/ForgotPassList.fxml"));
+        ForgotPassListController Controller = new ForgotPassListController();
+        loader.setController(Controller);
+        createStage(loader);
+    }
+>>>>>>> 1e311e08094f662054bc1314f5f0ceca455d3980
 
 
 
@@ -235,7 +244,11 @@ public class ViewFactory {
     public AnchorPane getCheck_SavingsListView() {
         if (savingsListView == null){
             try {
+<<<<<<< HEAD
                 savingsListView = new FXMLLoader(getClass().getResource("/FXML/Admin/Deposit.fxml")).load();
+=======
+                savingsListView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Check_SavingsList.fxml")).load();
+>>>>>>> 1e311e08094f662054bc1314f5f0ceca455d3980
             }catch (Exception e){
                 e.printStackTrace();
             }
