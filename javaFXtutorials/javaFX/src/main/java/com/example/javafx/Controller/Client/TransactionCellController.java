@@ -196,12 +196,12 @@ public class TransactionCellController implements Initializable {
         alert.showAndWait();
     }
     private void in_out_icon(){
-        LoginController loginController = Model.getInstance().getViewFactory().getLoginController();
-        if (sender_lbl.getText().equals(loginController.payee_address_fid.getText())){
+        String payee_address = Model.getInstance().getClient().pAddressProperty().get();
+        if (sender_lbl.getText().equals(payee_address)){
             in_icon.setIconColor(Color.RED);
             out_icon.setIconColor(Color.GREY);
         }
-        if (receiver_lbl.getText().equals(loginController.payee_address_fid.getText())){
+        if (receiver_lbl.getText().equals(payee_address)){
             out_icon.setIconColor(Color.GREEN);
             in_icon.setIconColor(Color.GREY);
         }

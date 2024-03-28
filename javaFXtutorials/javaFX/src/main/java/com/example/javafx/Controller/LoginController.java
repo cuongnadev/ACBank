@@ -40,37 +40,26 @@ public class LoginController implements Initializable {
         Model.getInstance().getViewFactory().setLoginController(this);
     }
 
-    private void onSignUp() {
-        Stage stage = (Stage) error_lbl.getScene().getWindow();
-        try {
-            Model.getInstance().getViewFactory().showSignUpWindow();
-
-            //Close the login stage
-            Model.getInstance().getViewFactory().closeStage(stage);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     private void onLogin(){
         Stage stage = (Stage) error_lbl.getScene().getWindow();
 
-        //Login Client
-        if (Model.getInstance().getViewFactory().getLoginAccountType() == AccountType.CLIENT){
-
-            //Evaluate Client Login Credentials
-            Model.getInstance().evaluateClientCred(payee_address_fid.getText().trim() , password_fid.getText().trim());
-            if (Model.getInstance().getClientLoginSuccessFlag()){
-                Model.getInstance().getViewFactory().showClientWindow();
-
-                //Close the login stage
-                Model.getInstance().getViewFactory().closeStage(stage);
-            }else{
-                payee_address_fid.setText("");
-                password_fid.setText("");
-                error_lbl.setText("No Such Login Credentials.");
-            }
-        } else {
+//        //Login Client
+//        if (Model.getInstance().getViewFactory().getLoginAccountType() == AccountType.CLIENT){
+//
+//            //Evaluate Client Login Credentials
+//            Model.getInstance().evaluateClientCred(payee_address_fid.getText().trim() , password_fid.getText().trim());
+//            if (Model.getInstance().getClientLoginSuccessFlag()){
+//                Model.getInstance().getViewFactory().showClientWindow();
+//
+//                //Close the login stage
+//                Model.getInstance().getViewFactory().closeStage(stage);
+//            }else{
+//                payee_address_fid.setText("");
+//                password_fid.setText("");
+//                error_lbl.setText("No Such Login Credentials.");
+//            }
+//        } else {
             //Login Admin
             if (Model.getInstance().getViewFactory().getLoginAccountType() == AccountType.ADMIN){
                 //Evaluate Admin Login Credentials
@@ -86,7 +75,7 @@ public class LoginController implements Initializable {
                     error_lbl.setText("No Such Login Credentials.");
                 }
             }
-        }
+//        }
     }
    //reset value login when login false or back login window
     public void resetLoginClientForm(){
