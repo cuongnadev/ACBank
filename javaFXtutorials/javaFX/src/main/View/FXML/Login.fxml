@@ -24,9 +24,7 @@
       </VBox>
       <VBox prefHeight="195.0" prefWidth="200.0" styleClass="login_logo_container">
          <ImageView fitHeight="132.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../assets/Images/peoplebank.png" />
-            </image>
+            <Image url="@../assets/Images/peoplebank.png" />
          </ImageView>
          <VBox.margin>
             <Insets />
