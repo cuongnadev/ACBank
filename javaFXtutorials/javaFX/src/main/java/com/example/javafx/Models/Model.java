@@ -2,6 +2,7 @@ package com.example.javafx.Models;
 
 import com.example.javafx.Controller.GetView.AccountType;
 import com.example.javafx.Controller.GetView.ViewFactory;
+import javafx.scene.control.Alert;
 
 import java.security.MessageDigest;
 import java.sql.ResultSet;
@@ -73,7 +74,7 @@ public class Model {
                 String[] dataParts = resultSet.getString("Date").split("-");
                 LocalDate date = LocalDate.of(Integer.parseInt(dataParts[0]) , Integer.parseInt(dataParts[1]) , Integer.parseInt(dataParts[2]));
                 this.client.dateCreatedProperty().set(String.valueOf(date));
-                this.clientLoginSuccessFlag = true;
+                this.setClientLoginSuccessFlag(true);
             }
         }catch (Exception e){
             e.printStackTrace();

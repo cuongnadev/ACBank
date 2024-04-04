@@ -48,9 +48,12 @@ public class ClientCellController implements Initializable {
 
 
     private void acceptClient() {
+        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
+        String payeeAddress = pAddress_lbl.getText().trim();
         Stage stage = (Stage) pAddress_lbl.getScene().getWindow();
         String password = null;
         // Tạo một hộp thoại đầu vào để nhập mật khẩu
+
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Enter Password");
         dialog.setHeaderText(null);
@@ -60,24 +63,25 @@ public class ClientCellController implements Initializable {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             password = result.get().trim();
-            Model.getInstance().evaluateClientCred(pAddress_lbl.getText().trim(), password);
+            Model.getInstance().evaluateClientCred(payeeAddress, password);
             if (Model.getInstance().getClientLoginSuccessFlag()) {
                 Model.getInstance().getViewFactory().showClientWindow();
 
                 //Close the login stage
                 Model.getInstance().getViewFactory().closeStage(stage);
-            } else {
+            }else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("confirmation Message");
                 alert.setHeaderText(null);
-                alert.setContentText("No Such Login Credentials");
+                alert.setContentText("Wrong password, cannot access account");
+                alert.showAndWait();
             }
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("confirmation Message");
             alert.setHeaderText(null);
             alert.setContentText("User canceled the password input.");
-
+            alert.showAndWait();
         }
     }
 

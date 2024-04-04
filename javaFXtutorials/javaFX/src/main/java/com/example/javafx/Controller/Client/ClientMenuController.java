@@ -48,8 +48,9 @@ public class ClientMenuController implements Initializable {
         Model.getInstance().getViewFactory().getProfileController().setdataLabel();
     }
     private void onLogOut(){
-        Model.getInstance().getViewFactory().showLoginWindow();
+        Model.getInstance().getViewFactory().showAdminWindow();
         Stage stage = (Stage) logout_btn.getScene().getWindow();
         Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().setClientLoginSuccessFlag(false);
     }
 }

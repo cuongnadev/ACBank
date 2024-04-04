@@ -94,7 +94,7 @@ public class SignUpController implements Initializable {
                 //Close the SinUp stage
                 Model.getInstance().getViewFactory().closeStage(stage);
                 //Open the login window
-                Model.getInstance().getViewFactory().showLoginWindow();
+                Model.getInstance().getViewFactory().showAdminWindow();
             }
         }catch(SQLException e){
             e.printStackTrace();

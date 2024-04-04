@@ -33,33 +33,6 @@ public class ForgotPassController implements Initializable {
         String pAddress = pAddress_fld.getText().trim();
         boolean check = false;
         try {
-//            if(!resultSet.isBeforeFirst()){
-//                if(!resultSet1.isBeforeFirst()){
-//                    showAlert("Please enter a valid PayeeAddress!");
-//                    pAddress_fld.setText("");
-//                    return;
-//                }
-//                while (resultSet1.next()) {
-//                    if (pAddress.equals(resultSet1.getString("PayeeAddress"))) {
-//                        check = true;
-//                        break;
-//                    }
-//                }
-//                if (check == false) {
-//                    showAlert("Please enter a valid PayeeAddress!");
-//                    pAddress_fld.setText("");
-//                } else {
-//                    Stage stage = (Stage) label_lbl.getScene().getWindow();
-//                    ForgotPass forgotPass = new ForgotPass(pAddress_fld.getText(), LocalDate.now().toString(),email_fld.getText() );
-//                    Model.getInstance().getDatabaseDriver().insertForgotPass(forgotPass);
-//                    showAlertSuccessful("The request has been successful, please wait for admin approval");
-//                    Model.getInstance().getViewFactory().getSignUpListController().refreshClientsListView();
-//                    //Close the SinUp stage
-//                    Model.getInstance().getViewFactory().closeStage(stage);
-//
-//                }
-//            }
-
             // kiem tra du lieu
             while (resultSet.next()) {
                 if (pAddress.equals(resultSet.getString("PayeeAddress"))) {
