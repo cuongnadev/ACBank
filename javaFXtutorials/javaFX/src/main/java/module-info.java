@@ -8,6 +8,7 @@ module com.example.javafx {
 
     requires kernel;
     requires layout;
+    requires io;
 
     requires java.mail;
 
