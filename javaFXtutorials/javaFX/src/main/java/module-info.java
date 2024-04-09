@@ -19,6 +19,6 @@ module com.example.javafx {
     exports com.example.javafx.Controller.Client;
     exports com.example.javafx.Controller.Admin;
     exports com.example.javafx.Models;
-    exports com.example.javafx.Controller.GetView;
+    exports com.example.javafx.Controller.Other;
 
 }

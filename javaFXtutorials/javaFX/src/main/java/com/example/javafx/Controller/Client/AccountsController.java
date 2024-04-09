@@ -1,7 +1,7 @@
 package com.example.javafx.Controller.Client;
 
 import com.example.javafx.Models.*;
-import com.example.javafx.Controller.GetView.SavingCellFactory;
+import com.example.javafx.Controller.Other.SavingCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 

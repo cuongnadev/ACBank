@@ -1,12 +1,9 @@
 package com.example.javafx.Controller;
 
 import com.example.javafx.Models.Model;
-import com.example.javafx.Controller.GetView.AccountType;
-import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
+import com.example.javafx.Controller.Other.AccountType;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;

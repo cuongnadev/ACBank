@@ -1,4 +1,4 @@
-package com.example.javafx.Controller.GetView;
+package com.example.javafx.Controller.Other;
 
 public enum ClientMenuOptions {
     DASHBOARD ,

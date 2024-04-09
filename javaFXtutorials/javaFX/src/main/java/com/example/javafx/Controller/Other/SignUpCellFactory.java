@@ -1,4 +1,4 @@
-package com.example.javafx.Controller.GetView;
+package com.example.javafx.Controller.Other;
 
 import com.example.javafx.Controller.Admin.SignUpCellController;
 import com.example.javafx.Models.SignUp;

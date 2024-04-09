@@ -1,10 +1,10 @@
 package com.example.javafx.Controller.Admin;
 
-import com.example.javafx.Controller.GetView.ForgotPassCellFactory;
+import com.example.javafx.Controller.Other.ForgotPassCellFactory;
 import com.example.javafx.Models.ForgotPass;
 import com.example.javafx.Models.Model;
 import com.example.javafx.Models.SignUp;
-import com.example.javafx.Controller.GetView.SignUpCellFactory;
+import com.example.javafx.Controller.Other.SignUpCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;

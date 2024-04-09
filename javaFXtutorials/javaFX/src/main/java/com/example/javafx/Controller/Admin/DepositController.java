@@ -1,11 +1,10 @@
 package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.*;
-import com.example.javafx.Controller.GetView.CheckingCellFactory;
+import com.example.javafx.Controller.Other.CheckingCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;

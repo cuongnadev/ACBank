@@ -1,7 +1,7 @@
 package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.*;
-import com.example.javafx.Controller.GetView.ReceiptCellFactory;
+import com.example.javafx.Controller.Other.ReceiptCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
