@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="acbank" uuid="ffe62b31-5a36-4740-9057-ac0977d016e4">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>b28be41c-7557-4916-8fe1-be1eefcf446d</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:D:\BaiTapLon\acbank.db</jdbc-url>

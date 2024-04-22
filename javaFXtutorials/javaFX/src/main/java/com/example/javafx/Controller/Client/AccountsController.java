@@ -18,8 +18,6 @@ public class AccountsController implements Initializable {
     public Label transaction_limit;
     public Label ch_acc_date;
     public Label ch_acc_bal;
-    public TextField amount_to_sv;
-    public Button trans_to_sv_btn;
     public TextField amount_to_ch;
     public Button trans_to_ch_btn;
     public TextField sav_acc_num_fld;
@@ -29,7 +27,6 @@ public class AccountsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         refreshDataLabel();
-        trans_to_sv_btn.setOnAction(event -> onTransToSV());
         trans_to_ch_btn.setOnAction(event -> onTransToCH());
         search_btn.setOnAction(event -> onSearch());
         List<SavingAccount> savingAccounts = getSavingOfSQLite();
@@ -118,7 +115,6 @@ public class AccountsController implements Initializable {
             }
             sav_acc_num_fld.setText("");
             amount_to_ch.setText("");
-            amount_to_sv.setText("");
             List<SavingAccount> savingAccounts = getSavingOfSQLite();
             savings_listview.getItems().setAll(savingAccounts);
             savings_listview.setCellFactory(listView -> new SavingCellFactory());
@@ -128,48 +124,6 @@ public class AccountsController implements Initializable {
         }
     }
 
-    private void onTransToSV(){
-        // Lấy dữ liệu
-        String pAddress = Model.getInstance().getClient().pAddressProperty().get();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
-        String payeeAddress = pAddress.trim();
-        double amount;
-        try {
-            amount = Double.parseDouble(amount_to_sv.getText().trim());
-        } catch (NumberFormatException e) {
-            showAlert("Invalid amount. Please enter a valid number.");
-            return;
-        }
-        // Kiểm tra dữ liệu
-        if (amount <= 0){
-            showAlert("Please enter valid Amount.");
-        }
-        try {
-            //Truy xuất balance từ tài khoản checking
-            while (resultSet1.next()){
-                if(payeeAddress.equals(resultSet1.getString("Owner"))){
-                    double amountCH = Double.valueOf(resultSet1.getString("Balance"));
-                    //update lại sau khi gửi tiền tiết kiệm
-                    if (amountCH < amount){
-                        showAlert("Insufficient funds. Please check your balance.");
-                        return;
-                    }
-                    //Update lại tiền Checking
-                    Model.getInstance().getDatabaseDriver().updateAccountBalance(payeeAddress,amountCH - amount);
-
-                    //Tạo account Saving
-                    String SavingNumber = "3021 " + RanDomNumber();
-                    SavingAccount savingAccount = new SavingAccount(pAddress , SavingNumber , amount , 2000);
-                    Model.getInstance().getDatabaseDriver().insertSavingAccount(savingAccount);
-                    refreshDataLabel();
-                    break;
-                }
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
 
 
     private void onTransToCH(){

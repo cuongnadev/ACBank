@@ -5,11 +5,9 @@ module com.example.javafx {
     requires org.kordamp.ikonli.javafx;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
-
     requires kernel;
     requires layout;
     requires io;
-
     requires java.mail;
 
 
