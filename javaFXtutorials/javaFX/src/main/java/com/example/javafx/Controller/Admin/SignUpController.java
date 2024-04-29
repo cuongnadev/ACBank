@@ -31,6 +31,7 @@ public class SignUpController implements Initializable {
 
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         create_client_btn.setOnAction(event -> onCreate());
@@ -91,15 +92,16 @@ public class SignUpController implements Initializable {
                 error_lbl.setTextFill(Color.BLUE);
                 showAlertSuccessful("Account created successfully, please wait for admin approval");
 
-                //Close the SinUp stage
+                //Close the SignUp window
                 Model.getInstance().getViewFactory().closeStage(stage);
-                //Open the login window
-                Model.getInstance().getViewFactory().showAdminWindow();
+                Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
             }
         }catch(SQLException e){
             e.printStackTrace();
+            showAlert("An error occurred while creating the client");
         }
     }
+
     private String RanDomAddress(String firstName , String lastName){
         Random random = new Random();
         int ranDomNumber = random.nextInt(100);

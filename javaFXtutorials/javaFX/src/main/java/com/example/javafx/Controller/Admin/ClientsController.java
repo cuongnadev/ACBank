@@ -1,7 +1,7 @@
 package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.*;
-import com.example.javafx.Controller.Other.ClientCellFactory;
+import com.example.javafx.Controller.View.ClientCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;

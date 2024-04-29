@@ -1,7 +1,7 @@
 package com.example.javafx.Controller;
 
 import com.example.javafx.Models.Model;
-import com.example.javafx.Controller.Other.AccountType;
+import com.example.javafx.Controller.View.AccountType;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;

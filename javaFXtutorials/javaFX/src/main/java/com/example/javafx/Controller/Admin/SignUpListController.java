@@ -1,10 +1,10 @@
 package com.example.javafx.Controller.Admin;
 
-import com.example.javafx.Controller.Other.ForgotPassCellFactory;
+import com.example.javafx.Controller.View.ForgotPassCellFactory;
 import com.example.javafx.Models.ForgotPass;
 import com.example.javafx.Models.Model;
 import com.example.javafx.Models.SignUp;
-import com.example.javafx.Controller.Other.SignUpCellFactory;
+import com.example.javafx.Controller.View.SignUpCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -74,6 +74,7 @@ public class SignUpListController implements Initializable {
     private void onSignUp() {
         Stage stage = (Stage) signup_lbl.getScene().getWindow();
         try {
+            // open signup window
             Model.getInstance().getViewFactory().showSignUpWindow();
 
         }catch (Exception e){
@@ -84,6 +85,7 @@ public class SignUpListController implements Initializable {
     private void onForgot(){
         Stage stage = (Stage) signup_lbl.getScene().getWindow();
         try {
+            // open forgot window
             Model.getInstance().getViewFactory().showForgotPassWindow();
 
         }catch (Exception e){

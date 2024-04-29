@@ -42,7 +42,7 @@
       </VBox>
       <VBox layoutX="14.0" layoutY="516.0" prefHeight="206.0" prefWidth="130.0" styleClass="report_container">
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Đổi Mới Và Sáng Tạo" />
-         <Label text="Tài chính không chỉ là số liệu trên giấy tờ, mà là hành trình của giấc mơ và ước mơ của bạn. Chúng tôi không chỉ là ngân hàng, mà là đối tác đồng hành, luôn bên bạn để biến ước mơ thành hiện thực" />
+         <Label text="Tài chính không chỉ là số liệu trên giấy tờ, mà là hành trình của giấc mơ và ước mơ của bạn. Chúng tôi không chỉ là ngân hàng, mà là đối tác đồng hành, luôn bên bạn để biến ước mơ thành hiện thực &lt;3" />
       </VBox>
    </AnchorPane>
 </VBox>

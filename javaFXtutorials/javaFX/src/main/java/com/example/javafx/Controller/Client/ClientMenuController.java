@@ -1,7 +1,7 @@
 package com.example.javafx.Controller.Client;
 
 import com.example.javafx.Models.Model;
-import com.example.javafx.Controller.Other.ClientMenuOptions;
+import com.example.javafx.Controller.View.ClientMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;

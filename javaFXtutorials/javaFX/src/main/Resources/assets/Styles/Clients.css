@@ -49,4 +49,17 @@ Button:hover {
     -fx-cursor: hand;
 }
 
+.clients_container VBox {
+    -fx-border-width: 0 0 0 1 ;
+    -fx-border-color: #888888;
+    -fx-padding: 10;
+    -fx-spacing: 15;
+}
+
+.clients_container VBox Label {
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+}
+
+
 

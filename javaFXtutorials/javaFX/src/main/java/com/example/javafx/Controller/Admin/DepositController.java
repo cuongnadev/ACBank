@@ -1,7 +1,7 @@
 package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.*;
-import com.example.javafx.Controller.Other.CheckingCellFactory;
+import com.example.javafx.Controller.View.CheckingCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
@@ -20,6 +20,10 @@ public class DepositController implements Initializable {
     public Button withdrawal_btn;
     public TextField deposit_tfd;
     public TextField withdrawal_tfd;
+    public Label ch_acc_num;
+    public Label ch_acc_date;
+    public Label ch_acc_bal;
+    public Label num_of_saving_acc;
 
 
     @Override
@@ -30,6 +34,8 @@ public class DepositController implements Initializable {
         refreshData();
         Model.getInstance().getViewFactory().setDepositController(this);
     }
+
+    
 
     private void onWithdrawal() {
         ResultSet resultSet = Model.getInstance().getDatabaseDriver().getChekingAccountsData();

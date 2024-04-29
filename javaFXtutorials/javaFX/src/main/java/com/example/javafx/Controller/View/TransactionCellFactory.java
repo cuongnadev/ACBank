@@ -1,4 +1,4 @@
-package com.example.javafx.Controller.Other;
+package com.example.javafx.Controller.View;
 
 import com.example.javafx.Controller.Client.TransactionCellController;
 import com.example.javafx.Models.Transaction;

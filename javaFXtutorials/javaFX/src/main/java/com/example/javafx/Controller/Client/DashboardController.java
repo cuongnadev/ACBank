@@ -2,7 +2,7 @@ package com.example.javafx.Controller.Client;
 
 import com.example.javafx.Models.Model;
 import com.example.javafx.Models.Transaction;
-import com.example.javafx.Controller.Other.TransactionCellFactory;
+import com.example.javafx.Controller.View.TransactionCellFactory;
 
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -102,6 +102,7 @@ public class DashboardController implements Initializable {
             expense_lbl.setText(String.valueOf(expense));
         }catch (SQLException e){
             e.printStackTrace();
+            showAlertErorr("An error occurred while setting data");
         }
     }
 
@@ -169,12 +170,21 @@ public class DashboardController implements Initializable {
                                 inBienLai( IDBienLai, pAddress , payeeAddress , resultSet.getString("AccountNumber") , resultSet1.getString("AccountNumber") , amount , LocalDate.now().toString() , message );
                                 showAlertSuccessful("Successful money transfer");
                                 setDataLabel();
+                                break;
+                            }else {
+                                showAlertErorr("Please enter valid PayeeAddress.");
+                                return;
                             }
                         }
                     }catch (SQLException e){
                         e.printStackTrace();
+                        showAlertErorr("An error occurred while processing the transaction.");
                     }
                     break;
+                }else {
+                    showAlertErorr("Error in money transfer account information.");
+                    return;
+
                 }
             }
         } catch (SQLException e) {
@@ -267,7 +277,7 @@ public class DashboardController implements Initializable {
             Paragraph para7 =  new Paragraph("Date: "+date+"                                                   ")
                     .setFontSize(15)
                     .setItalic();
-            Paragraph para75 = new Paragraph("                     ****"+message+"****                         ")
+            Paragraph para75 = new Paragraph("                     **** "+message+" ****                         ")
                     .setFontColor(new DeviceRgb(0,0,0))
                     .setItalic()
                     .setFontSize(18)

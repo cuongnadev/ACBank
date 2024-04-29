@@ -1,7 +1,7 @@
 package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.Model;
-import com.example.javafx.Controller.Other.AdminMenuOptions;
+import com.example.javafx.Controller.View.AdminMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;

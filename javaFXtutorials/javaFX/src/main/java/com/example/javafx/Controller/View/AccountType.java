@@ -1,4 +1,4 @@
-package com.example.javafx.Controller.Other;
+package com.example.javafx.Controller.View;
 
 public enum AccountType {
     ADMIN ,

@@ -1,7 +1,7 @@
 package com.example.javafx.Models;
 
-import com.example.javafx.Controller.Other.AccountType;
-import com.example.javafx.Controller.Other.ViewFactory;
+import com.example.javafx.Controller.View.AccountType;
+import com.example.javafx.Controller.View.ViewFactory;
 
 import java.security.MessageDigest;
 import java.sql.ResultSet;
