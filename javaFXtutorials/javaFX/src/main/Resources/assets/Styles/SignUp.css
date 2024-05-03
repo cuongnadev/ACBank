@@ -49,11 +49,11 @@ Button:hover {
 }
 
 .create_btn{
-    -fx-background-color: linear-gradient(to right , #132A13 , #253f25);
+    -fx-background-color: linear-gradient(to right , #F9E2AE , #A7D676);
     -fx-pref-width: 120;
 }
 
 .forgot_btn {
-    -fx-background-color: linear-gradient(to right , #444644, #f7faf7);
+    -fx-background-color: linear-gradient(to right , #ABD1DC , #7097A8);
     -fx-pref-width: 120;
 }

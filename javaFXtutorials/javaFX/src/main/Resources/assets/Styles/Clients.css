@@ -38,7 +38,7 @@ TextField {
     -fx-effect: dropshadow(three-pass-box, #aaaaaa , 3 ,0 ,0 ,3);
 }
 Button {
-    -fx-background-color: linear-gradient(to right , #132A13 , #253f25);
+    -fx-background-color: linear-gradient(to right , #ABD1DC , #7097A8);
     -fx-effect: dropshadow(three-pass-box,#aaaaaa , 3 , 0 ,0 ,3);
     -fx-font-size: 1.1em;
     -fx-text-fill: #ffffff;
@@ -50,8 +50,6 @@ Button:hover {
 }
 
 .clients_container VBox {
-    -fx-border-width: 0 0 0 1 ;
-    -fx-border-color: #888888;
     -fx-padding: 10;
     -fx-spacing: 15;
 }
