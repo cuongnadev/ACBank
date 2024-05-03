@@ -32,7 +32,7 @@
 
 }
  .account_view_container Button {
-     -fx-background-color: linear-gradient(to right , #132a13 , #253f25);
+     -fx-background-color: linear-gradient(to right , #ABD1DC , #7097A8);
      -fx-effect: dropshadow(three-pass-box , #aaaaaa , 3 , 0 , 0 ,3);
      -fx-pref-width: 230;
      -fx-font-size: 1.5em;

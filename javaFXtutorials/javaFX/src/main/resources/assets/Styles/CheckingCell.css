@@ -26,7 +26,7 @@
     -fx-font-size: 2.2em;
 }
 Button {
-    -fx-background-color: linear-gradient(to right , #132A13 , #253f25);
+    -fx-background-color: linear-gradient(to right , #F9E2AE , #A7D676);
     -fx-effect: dropshadow(three-pass-box,#aaaaaa , 3 , 0 ,0 ,3);
     -fx-font-size: 1.1em;
     -fx-text-fill: #ffffff;

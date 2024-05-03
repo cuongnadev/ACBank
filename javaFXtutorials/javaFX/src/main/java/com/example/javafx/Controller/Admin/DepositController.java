@@ -21,9 +21,9 @@ public class DepositController implements Initializable {
     public TextField deposit_tfd;
     public TextField withdrawal_tfd;
     public Label ch_acc_num;
-    public Label ch_acc_date;
     public Label ch_acc_bal;
     public Label num_of_saving_acc;
+
 
 
     @Override
@@ -35,7 +35,30 @@ public class DepositController implements Initializable {
         Model.getInstance().getViewFactory().setDepositController(this);
     }
 
-    
+    public void setData() {
+        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
+        ResultSet resultSet2 = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
+        String payeeAddress = pAddress_fld.getText().trim();
+        int countSavAcc = 0;
+        try {
+            while (resultSet1.next()){
+                if(resultSet1.getString("Owner").equals(payeeAddress)) {
+                    ch_acc_num.setText(resultSet1.getString("AccountNumber"));
+                    ch_acc_bal.setText("$" + resultSet1.getString("Balance"));
+                    break;
+                }
+            }
+            while(resultSet2.next()) {
+                if(resultSet2.getString("Owner").equals(payeeAddress)) {
+                    countSavAcc++;
+                }
+            }
+            num_of_saving_acc.setText(String.valueOf(countSavAcc));
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     private void onWithdrawal() {
         ResultSet resultSet = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
@@ -148,6 +171,8 @@ public class DepositController implements Initializable {
 
                     result_listview.getItems().add(checkingAccount);
                     result_listview.setCellFactory(listView -> new CheckingCellFactory());
+                    setData();
+                    break;
                 }
             }
             if (check == false){
@@ -177,6 +202,9 @@ public class DepositController implements Initializable {
     }
 
     public void refreshData(){
+        ch_acc_bal.setText("$0");
+        ch_acc_num.setText("0");
+        num_of_saving_acc.setText("0");
         pAddress_fld.setText("");
         deposit_tfd.setText("");
         withdrawal_tfd.setText("");

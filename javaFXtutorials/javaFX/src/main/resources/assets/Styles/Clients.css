@@ -38,22 +38,26 @@ TextField {
     -fx-effect: dropshadow(three-pass-box, #aaaaaa , 3 ,0 ,0 ,3);
 }
 Button {
+    -fx-background-color: linear-gradient(to right , #ABD1DC , #7097A8);
     -fx-effect: dropshadow(three-pass-box,#aaaaaa , 3 , 0 ,0 ,3);
     -fx-font-size: 1.1em;
     -fx-text-fill: #ffffff;
     -fx-font-family: "Calibri Light";
-
+    -fx-pref-width: 80;
 }
 Button:hover {
     -fx-cursor: hand;
 }
 
-.create_btn{
-    -fx-background-color: linear-gradient(to right , #132A13 , #253f25);
-    -fx-pref-width: 120;
+.clients_container VBox {
+    -fx-padding: 10;
+    -fx-spacing: 15;
 }
 
-.forgot_btn {
-    -fx-background-color: linear-gradient(to right , #444644, #f7faf7);
-    -fx-pref-width: 120;
+.clients_container VBox Label {
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
 }
+
+
+
