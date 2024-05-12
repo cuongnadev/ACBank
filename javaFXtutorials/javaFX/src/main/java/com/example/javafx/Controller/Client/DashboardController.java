@@ -181,10 +181,6 @@ public class DashboardController implements Initializable {
                         showAlertErorr("An error occurred while processing the transaction.");
                     }
                     break;
-                }else {
-                    showAlertErorr("Error in money transfer account information.");
-                    return;
-
                 }
             }
         } catch (SQLException e) {

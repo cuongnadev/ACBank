@@ -25,6 +25,8 @@
       <artifactId>javafx-fxml</artifactId>
       <version>21-ea+24</version>
     </dependency>
+
+    <!-- icon -->
     <dependency>
       <groupId>org.kordamp.ikonli</groupId>
       <artifactId>ikonli-javafx</artifactId>
@@ -41,25 +43,19 @@
       <version>12.3.1</version>
     </dependency>
 
+    <!-- mail -->
     <dependency>
       <groupId>com.sun.mail</groupId>
       <artifactId>javax.mail</artifactId>
       <version>1.6.2</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
-
-
+    <!-- jdbc -->
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
       <version>3.45.2.0</version>
     </dependency>
-
-    <!-- add all iText modules -->
-
-
-
 
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
     <dependency>

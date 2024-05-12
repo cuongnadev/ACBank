@@ -20,10 +20,10 @@ public class DepositController implements Initializable {
     public Button withdrawal_btn;
     public TextField deposit_tfd;
     public TextField withdrawal_tfd;
-    public Label ch_acc_num;
-    public Label ch_acc_bal;
     public Label num_of_saving_acc;
-
+    public Label first_name_lbl;
+    public Label last_name_lbl;
+    public Label date_lbl;
 
 
     @Override
@@ -36,15 +36,16 @@ public class DepositController implements Initializable {
     }
 
     public void setData() {
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
+        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getClientsData();
         ResultSet resultSet2 = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
         String payeeAddress = pAddress_fld.getText().trim();
         int countSavAcc = 0;
         try {
             while (resultSet1.next()){
-                if(resultSet1.getString("Owner").equals(payeeAddress)) {
-                    ch_acc_num.setText(resultSet1.getString("AccountNumber"));
-                    ch_acc_bal.setText("$" + resultSet1.getString("Balance"));
+                if(resultSet1.getString("PayeeAddress").equals(payeeAddress)) {
+                    first_name_lbl.setText(resultSet1.getString("FirstName"));
+                    last_name_lbl.setText(resultSet1.getString("LastName"));
+                    date_lbl.setText(resultSet1.getString("Date"));
                     break;
                 }
             }
@@ -202,8 +203,9 @@ public class DepositController implements Initializable {
     }
 
     public void refreshData(){
-        ch_acc_bal.setText("$0");
-        ch_acc_num.setText("0");
+        first_name_lbl.setText("...");
+        last_name_lbl.setText("...");
+        date_lbl.setText("0000-00-00");
         num_of_saving_acc.setText("0");
         pAddress_fld.setText("");
         deposit_tfd.setText("");
