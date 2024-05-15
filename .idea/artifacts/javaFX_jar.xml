@@ -1,0 +1,42 @@
+<component name="ArtifactManager">
+  <artifact name="javaFX:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/javaFX_jar</output-path>
+    <root id="root">
+      <element id="archive" name="javaFX.jar">
+        <element id="module-output" name="javaFX" />
+      </element>
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:21-ea+24" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:2.0.7" />
+      <element id="library" level="project" name="Maven: com.itextpdf:commons:8.0.3" />
+      <element id="library" level="project" name="Maven: com.itextpdf:forms:8.0.3" />
+      <element id="library" level="project" name="Maven: com.itextpdf:io:8.0.3" />
+      <element id="library" level="project" name="Maven: com.itextpdf:styled-xml-parser:8.0.3" />
+      <element id="library" level="project" name="Maven: com.itextpdf:sign:8.0.3" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:21-ea+24" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:21-ea+24" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:21-ea+24" />
+      <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+      <element id="library" level="project" name="Maven: com.itextpdf:bouncy-castle-connector:8.0.3" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:21-ea+24" />
+      <element id="library" level="project" name="Maven: com.itextpdf:font-asian:8.0.3" />
+      <element id="library" level="project" name="Maven: com.itextpdf:pdfa:8.0.3" />
+      <element id="library" level="project" name="Maven: javax.mail:mail:1.5.0-b01" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:21-ea+24" />
+      <element id="library" level="project" name="Maven: org.kordamp.ikonli:ikonli-core:12.3.1" />
+      <element id="library" level="project" name="Maven: org.kordamp.ikonli:ikonli-fontawesome-pack:12.3.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:21-ea+24" />
+      <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.2" />
+      <element id="library" level="project" name="Maven: org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1" />
+      <element id="library" level="project" name="Maven: com.itextpdf:pdfua:8.0.3" />
+      <element id="library" level="project" name="Maven: com.itextpdf:hyph:8.0.3" />
+      <element id="library" level="project" name="Maven: com.itextpdf:kernel:8.0.3" />
+      <element id="library" level="project" name="Maven: com.itextpdf:layout:8.0.3" />
+      <element id="library" level="project" name="Maven: com.itextpdf:svg:8.0.3" />
+      <element id="library" level="project" name="Maven: org.xerial:sqlite-jdbc:3.45.2.0" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-simple:2.0.7" />
+      <element id="library" level="project" name="Maven: com.itextpdf:barcodes:8.0.3" />
+      <element id="library" level="project" name="Maven: org.kordamp.ikonli:ikonli-javafx:12.3.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:21-ea+24" />
+    </root>
+  </artifact>
+</component>

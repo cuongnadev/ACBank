@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Main-Class: com.example.javafx.App
+Class-Path: javafx-graphics-21-ea+24-win.jar slf4j-api-2.0.7.jar commons
+ -8.0.3.jar forms-8.0.3.jar io-8.0.3.jar styled-xml-parser-8.0.3.jar sig
+ n-8.0.3.jar javafx-base-21-ea+24-win.jar javafx-base-21-ea+24.jar javaf
+ x-fxml-21-ea+24.jar activation-1.1.jar bouncy-castle-connector-8.0.3.ja
+ r javafx-controls-21-ea+24-win.jar font-asian-8.0.3.jar pdfa-8.0.3.jar 
+ mail-1.5.0-b01.jar javafx-graphics-21-ea+24.jar ikonli-core-12.3.1.jar 
+ ikonli-fontawesome-pack-12.3.1.jar javafx-fxml-21-ea+24-win.jar javax.m
+ ail-1.6.2.jar ikonli-fontawesome5-pack-12.3.1.jar pdfua-8.0.3.jar hyph-
+ 8.0.3.jar kernel-8.0.3.jar layout-8.0.3.jar svg-8.0.3.jar sqlite-jdbc-3
+ .45.2.0.jar slf4j-simple-2.0.7.jar barcodes-8.0.3.jar ikonli-javafx-12.
+ 3.1.jar javafx-controls-21-ea+24.jar
+
