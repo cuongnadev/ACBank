@@ -25,9 +25,9 @@ public class SavingCellController implements Initializable {
     }
 
     private void setDataLabel() {
-        owner_lbl.setText(savingAccount.ownerProperty().get());
-        sv_acc_num_lbl.setText(savingAccount.accountNumberPropperty().get());
-        limit_lbl.setText(String.valueOf(Double.valueOf(savingAccount.withdrawalLimitProperty().get())));
-        balance_lbl.setText(String.valueOf(Double.valueOf( savingAccount.balanceProperty().get())));
+        owner_lbl.setText(savingAccount.getOwner());
+        sv_acc_num_lbl.setText(savingAccount.getAccountNumber());
+        limit_lbl.setText(String.valueOf(Double.valueOf(savingAccount.getWithdrawalLimit())));
+        balance_lbl.setText(String.valueOf(Double.valueOf( savingAccount.getBalance())));
     }
 }

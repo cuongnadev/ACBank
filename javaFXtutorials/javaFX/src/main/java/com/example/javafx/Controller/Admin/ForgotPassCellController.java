@@ -1,5 +1,6 @@
 package com.example.javafx.Controller.Admin;
 
+import com.example.javafx.Models.Clients;
 import com.example.javafx.Models.ForgotPass;
 import com.example.javafx.Models.Model;
 import javafx.fxml.Initializable;
@@ -38,21 +39,31 @@ public class ForgotPassCellController implements Initializable {
     }
 
     private void setDataLabel() {
-        pAddress_lbl.setText(forgotPass.pAddressProperty().get());
-        date_lbl.setText(forgotPass.dateProperty().get());
-        email_lbl.setText(forgotPass.emailProperty().get());
+        pAddress_lbl.setText(forgotPass.getpAddress());
+        date_lbl.setText(forgotPass.getDate());
+        email_lbl.setText(forgotPass.getEmail());
     }
     private void onReset() {
         int passRandom = RanDomNumber();
         String newPass = Model.HashPassword(String.valueOf(passRandom));
         sendmail(email_lbl.getText() , String.valueOf(passRandom) , pAddress_lbl.getText());
-        Model.getInstance().getDatabaseDriver().updatepasswordClients(pAddress_lbl.getText() , newPass);
-        Model.getInstance().getDatabaseDriver().DropForgotPass(pAddress_lbl.getText());
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
+        List<ForgotPass> forgotPassList = Model.getInstance().getDaoDriver().getForgotpassDao().getAllForgots();
+        for(Clients client : clientsList) {
+            if(client.getPayeeAddress().equals(pAddress_lbl.getText())) {
+                client.setPassword(newPass);
+                Model.getInstance().getDaoDriver().getClientsDao().updateClient(client);
+            }
+        }
+        for(ForgotPass forgotPass : forgotPassList) {
+            if(forgotPass.getpAddress().equals(pAddress_lbl.getText())) {
+                Model.getInstance().getDaoDriver().getForgotpassDao().deleteForgotpass(pAddress_lbl.getText());
+            }
+        }
         Model.getInstance().getViewFactory().getSignUpListController().refreshClientsListView();
         showAlertSuccessful("Reset Password of " + pAddress_lbl.getText() + " Successfull");
     }
     private void onNO() {
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getSignUpAccountData();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Message");
         alert.setHeaderText(null);
@@ -60,7 +71,7 @@ public class ForgotPassCellController implements Initializable {
 
         Optional<ButtonType> option = alert.showAndWait();
         if(option.get().equals(ButtonType.OK)) {
-            Model.getInstance().getDatabaseDriver().DropForgotPass(pAddress_lbl.getText());
+            Model.getInstance().getDaoDriver().getForgotpassDao().deleteForgotpass(pAddress_lbl.getText());
             Model.getInstance().getViewFactory().getSignUpListController().refreshClientsListView();
             alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Message");

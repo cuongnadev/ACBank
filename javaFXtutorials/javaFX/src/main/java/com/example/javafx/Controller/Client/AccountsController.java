@@ -1,7 +1,7 @@
 package com.example.javafx.Controller.Client;
 
 import com.example.javafx.Models.*;
-import com.example.javafx.Controller.View.SavingCellFactory;
+import com.example.javafx.View.SavingCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
@@ -37,101 +37,87 @@ public class AccountsController implements Initializable {
 
     private List<SavingAccount> getSavingOfSQLite() {
         savings_listview.getItems().clear();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
-        String pAddress = Model.getInstance().getClient().pAddressProperty().get();
+        List<SavingAccount> savingAccountList = Model.getInstance().getDaoDriver().getSavingAccountDao().getAllSavingAccounts();
+        String pAddress = Model.getInstance().getClients().getPayeeAddress();
         List<SavingAccount> savingAccounts = new ArrayList<>();
-        try {
-            while (resultSet.next()) {
-                if(pAddress.equals(resultSet.getString("Owner"))){
-                    SavingAccount savingAccount = new SavingAccount(
-                            resultSet.getString("Owner"),
-                            resultSet.getString("AccountNumber"),
-                            resultSet.getDouble("Balance"),
-                            resultSet.getInt("WithdrawalLimit"));
+        for (SavingAccount savingAccount : savingAccountList) {
+            if(pAddress.equals(savingAccount.getOwner())){
+                SavingAccount newSavingAccount = new SavingAccount(
+                        savingAccount.getOwner(),
+                        savingAccount.getAccountNumber(),
+                        savingAccount.getBalance(),
+                        savingAccount.getWithdrawalLimit());
 
-                    savingAccounts.add(savingAccount);
-                }
+                savingAccounts.add(newSavingAccount);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        savingAccounts.sort((t1, t2) -> (String.valueOf(t2.balanceProperty().get()).compareTo(String.valueOf(t1.balanceProperty().get()))));
+        savingAccounts.sort((t1, t2) -> (String.valueOf(t2.getBalance()).compareTo(String.valueOf(t1.getBalance()))));
         return savingAccounts;
     }
 
     public void onSearch(){
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
+        List<SavingAccount> savingAccountList = Model.getInstance().getDaoDriver().getSavingAccountDao().getAllSavingAccounts();
         String Sav_num = sav_acc_num_fld.getText();
         Boolean check = false;
         savings_listview.getItems().clear();
-        try {
-            
-            while (resultSet1.next()){
-                if (Sav_num.equals(resultSet1.getString("AccountNumber"))){
-                    check = true;
-                    SavingAccount savingAccount = new SavingAccount(
-                            resultSet1.getString("Owner"),
-                            resultSet1.getString("AccountNumber"),
-                            resultSet1.getDouble("Balance"),
-                            resultSet1.getInt("WithdrawalLimit"));
 
-                    savings_listview.getItems().add(savingAccount);
-                    savings_listview.setCellFactory(listView -> new SavingCellFactory());
-                }
-            }
-            if (check == false){
-                showAlert("Error! Enter payee address no valid.");
-                sav_acc_num_fld.setText("");
-                List<SavingAccount> savingAccounts = getSavingOfSQLite();
-                savings_listview.getItems().addAll(savingAccounts);
+        for (SavingAccount savingAccount : savingAccountList) {
+            if (Sav_num.equals(savingAccount.getAccountNumber())){
+                check = true;
+                SavingAccount newSavingAccount = new SavingAccount(
+                        savingAccount.getOwner(),
+                        savingAccount.getAccountNumber(),
+                        savingAccount.getBalance(),
+                        savingAccount.getWithdrawalLimit());
+
+                savings_listview.getItems().add(newSavingAccount);
                 savings_listview.setCellFactory(listView -> new SavingCellFactory());
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }
+        if (!check){
+            showAlert("Error! Enter payee address no valid.");
+            sav_acc_num_fld.setText("");
+            List<SavingAccount> savingAccounts = getSavingOfSQLite();
+            savings_listview.getItems().addAll(savingAccounts);
+            savings_listview.setCellFactory(listView -> new SavingCellFactory());
         }
     }
 
     public void refreshDataLabel(){
-        String pAddress = Model.getInstance().getClient().pAddressProperty().get();
-        String password = Model.getInstance().getClient().passwordProperty().get();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
-        try {
-            while (resultSet.next()) {
-                if (pAddress.equals(resultSet.getString("PayeeAddress"))
-                        && Model.HashPassword(password).equals(resultSet.getString("Password"))){
-                    ch_acc_date.setText( resultSet.getString("Date"));
-                    break;
-                }
-
+        int Id = Model.getInstance().getClients().getId();
+        String pAddress = Model.getInstance().getClients().getPayeeAddress();
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
+        List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
+        for (Clients client : clientsList) {
+            if (Id == client.getId()){
+                ch_acc_date.setText(client.getDateCreated());
+                break;
             }
-            while (resultSet1.next()){
-                if (pAddress.equals(resultSet1.getString("Owner"))){
-                    ch_acc_num.setText(resultSet1.getString("AccountNumber"));
-                    ch_acc_bal.setText(resultSet1.getString("Balance"));
-                    transaction_limit.setText(resultSet1.getString("TransactionLimit"));
-                    break;
-                }
-            }
-            sav_acc_num_fld.setText("");
-            amount_to_ch.setText("");
-            List<SavingAccount> savingAccounts = getSavingOfSQLite();
-            savings_listview.getItems().setAll(savingAccounts);
-            savings_listview.setCellFactory(listView -> new SavingCellFactory());
 
-        }catch (SQLException e){
-            e.printStackTrace();
         }
+        for (CheckingAccount checkingAccount : checkingAccountList){
+            if (pAddress.equals(checkingAccount.getOwner())){
+                ch_acc_num.setText(checkingAccount.getAccountNumber());
+                ch_acc_bal.setText(String.valueOf(checkingAccount.getBalance()));
+                transaction_limit.setText(String.valueOf(checkingAccount.getTransactionLimit()));
+                break;
+            }
+        }
+        sav_acc_num_fld.setText("");
+        amount_to_ch.setText("");
+        List<SavingAccount> savingAccounts = getSavingOfSQLite();
+        savings_listview.getItems().setAll(savingAccounts);
+        savings_listview.setCellFactory(listView -> new SavingCellFactory());
     }
 
 
 
     private void onTransToCH(){
         // Lấy dữ liệu
-        String payeeAddress = Model.getInstance().getClient().pAddressProperty().get();
+        String payeeAddress = Model.getInstance().getClients().getPayeeAddress();
         String Sav_num = sav_acc_num_fld.getText();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
+        List<SavingAccount> savingAccountList = Model.getInstance().getDaoDriver().getSavingAccountDao().getAllSavingAccounts();
+        List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
 
         double amount;
         try {
@@ -144,49 +130,42 @@ public class AccountsController implements Initializable {
         if (amount <= 0){
             showAlert("Please enter valid Amount.");
         }
-        try {
-            //Truy xuất balance từ tài khoản saving
-            while (resultSet.next()){
-                if(Sav_num.equals(resultSet.getString("AccountNumber"))){
-                    double amountSV = Double.valueOf(resultSet.getString("Balance"));
-                    if (amountSV < amount){
-                        showAlert("Insufficient funds. Please check your balance.");
-                        return;
-                    }
-                    //Update lại tiền Saving
-                    Model.getInstance().getDatabaseDriver().updateSavingBalance(Sav_num,amountSV - amount);
+        //Truy xuất balance từ tài khoản saving
+        for (SavingAccount savingAccount : savingAccountList){
+            if(Sav_num.equals(savingAccount.getAccountNumber())){
+                double amountSV = savingAccount.getBalance();
+                if (amountSV < amount){
+                    showAlert("Insufficient funds. Please check your balance.");
+                    return;
+                }
+                savingAccount.setBalance(amountSV - amount);
+                //Update lại tiền Saving
+                Model.getInstance().getDaoDriver().getSavingAccountDao().updateSavingAccount(savingAccount);
 
-                    //Update lại tiền Checking
-                    while (resultSet1.next()){
-                        if (payeeAddress.equals(resultSet1.getString("Owner"))){
-                            double amountCH = Double.valueOf(resultSet1.getString("Balance"));
-                            Model.getInstance().getDatabaseDriver().updateAccountBalance(payeeAddress,amountCH + amount);
-                            break;
-                        }
+                //Update lại tiền Checking
+                for (CheckingAccount checkingAccount : checkingAccountList){
+                    if (payeeAddress.equals(checkingAccount.getOwner())){
+                        double amountCH = checkingAccount.getBalance();
+                        checkingAccount.setBalance(amountCH + amount);
+                        Model.getInstance().getDaoDriver().getCheckingAccountDao().updateCheckingAccount(checkingAccount);
+                        break;
                     }
+                }
+                refreshDataLabel();
+                break;
+            }
+        }
+        // Nếu tền còn = 0 thì xóa luôn tài khoản
+        List<SavingAccount> savingAccountList1 = Model.getInstance().getDaoDriver().getSavingAccountDao().getAllSavingAccounts();
+        for (SavingAccount savingAccount : savingAccountList1){
+            if(Sav_num.equals(savingAccount.getAccountNumber())){
+                if(savingAccount.getBalance() < 1 ){
+                    Model.getInstance().getDaoDriver().getSavingAccountDao().deleteSavingAccount(savingAccount.getOwner());
                     refreshDataLabel();
                     break;
                 }
             }
-            // Nếu tền còn = 0 thì xóa luôn tài khoản
-            ResultSet resultSet2 = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
-            while (resultSet2.next()){
-                if(Sav_num.equals(resultSet2.getString("AccountNumber"))){
-                    if(resultSet2.getDouble("Balance") < 1 ){
-                        Model.getInstance().getDatabaseDriver().DropSavingAccountByNum(resultSet2.getString("AccountNumber"));
-                        refreshDataLabel();
-                        break;
-                    }
-                }
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
         }
-    }
-
-    public int RanDomNumber(){
-        Random random = new Random();
-        return 1000 + random.nextInt(9000);
     }
 
     private void showAlert(String s) {

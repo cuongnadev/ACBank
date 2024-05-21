@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -37,38 +38,34 @@ public class SignUpCellController implements Initializable {
     }
 
     private void onDuyet() {
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getSignUpAccountData();
-        try {
-            // duyệt client
-            while (resultSet.next()){
-                if (pAddress_lbl.getText().equals(resultSet.getString("PayeeAddress"))){
-                    CheckingAccount checkingAccount = new CheckingAccount(resultSet.getString("PayeeAddress"),resultSet.getString("CheckingNumber") ,resultSet.getDouble("CheckingAmount"), 10);
-                    SavingAccount savingAccount = new SavingAccount(resultSet.getString("PayeeAddress"),resultSet.getString("SavingNumber") ,resultSet.getDouble("SavingAmount"), 2000);
-                    Client client = new Client(resultSet.getString("FirstName"), resultSet.getString("LastName"),
-                                                resultSet.getString("PayeeAddress"), resultSet.getString("Password"),
-                                                checkingAccount, savingAccount ,resultSet.getString("Date"))  ;
-                    try {
-                        Model.getInstance().getDatabaseDriver().insertClient(client);
-                        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getClientsData();
-                        while (resultSet1.next()){
-                            if (resultSet1.getString("PayeeAddress").equals(resultSet.getString("PayeeAddress"))){
-                                Model.getInstance().getDatabaseDriver().insertCheckingAccount(checkingAccount);
-                                Model.getInstance().getDatabaseDriver().insertSavingAccount(savingAccount);
-                                Model.getInstance().getDatabaseDriver().DropSignUpAccount(pAddress_lbl.getText());
-                                showAlertSuccessful("Client Create Successfully");
-                            }
+        List<SignUp> signUpList = Model.getInstance().getDaoDriver().getSignUpDao().getAllsignUps();
+        // duyệt client
+        for (SignUp signUp : signUpList){
+            if (pAddress_lbl.getText().equals(signUp.getpAddress())){
+                CheckingAccount checkingAccount = new CheckingAccount(signUp.getpAddress(), signUp.getCheckingNumber() ,signUp.getChAccBalance(), 100);
+                SavingAccount savingAccount = new SavingAccount(signUp.getpAddress(), signUp.getSavingNumber() , signUp.getSvAccBalance(), 2000);
+                Clients client = new Clients(signUp.getFirstName(), signUp.getLastName(),
+                                            signUp.getpAddress(), signUp.getPassword(),
+                                            signUp.getDate());
+                try {
+                    Model.getInstance().getDaoDriver().getClientsDao().saveClient(client);
+                    List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
+                    for (Clients clients : clientsList){
+                        if (clients.getPayeeAddress().equals(signUp.getpAddress())){
+                            Model.getInstance().getDaoDriver().getCheckingAccountDao().saveCheckingAccount(checkingAccount);
+                            Model.getInstance().getDaoDriver().getSavingAccountDao().saveSavingAccount(savingAccount);
+                            Model.getInstance().getDaoDriver().getSignUpDao().deleteSignUp(pAddress_lbl.getText());
+                            showAlertSuccessful("Client Create Successfully");
                         }
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        showAlert("Error adding client. Please try again.");
                     }
-                    Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
+                }catch (Exception e){
+                    e.printStackTrace();
+                    showAlert("Error adding client. Please try again.");
                 }
+                Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
             }
-            Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
-        }catch (SQLException e){
-            e.printStackTrace();
         }
+        Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
 
     }
 
@@ -88,16 +85,16 @@ public class SignUpCellController implements Initializable {
     }
 
     public void setClientData(){
-        fName_lbl.setText(signUp.FirstNameProperty().get());
-        lName_lbl.setText(signUp.lastNameProperty().get());
-        pAddress_lbl.setText(signUp.pAddressProperty().get());
-        date_lbl.setText(String.valueOf(signUp.dateProperty().get()));
-        ch_acc_lbl.setText(signUp.checkingNumberProperty().get());
-        sv_acc_lbl.setText(signUp.savingNumberProperty().get());
+        fName_lbl.setText(signUp.getFirstName());
+        lName_lbl.setText(signUp.getLastName());
+        pAddress_lbl.setText(signUp.getpAddress());
+        date_lbl.setText(String.valueOf(signUp.getDate()));
+        ch_acc_lbl.setText(signUp.getCheckingNumber());
+        sv_acc_lbl.setText(signUp.getSavingNumber());
     }
 
     public void onDelete(){
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getSignUpAccountData();
+        List<SignUp> signUpList = Model.getInstance().getDaoDriver().getSignUpDao().getAllsignUps();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Message");
         alert.setHeaderText(null);
@@ -105,17 +102,13 @@ public class SignUpCellController implements Initializable {
 
         Optional<ButtonType> option = alert.showAndWait();
         if(option.get().equals(ButtonType.OK)){
-            try {
-                // Xóa client
-                while (resultSet.next()){
-                    if (pAddress_lbl.getText().equals(resultSet.getString("PayeeAddress"))){
-                        Model.getInstance().getDatabaseDriver().DropSignUpAccount(pAddress_lbl.getText());
-                    }
+            // Xóa client
+            for (SignUp signUp : signUpList){
+                if (pAddress_lbl.getText().equals(signUp.getpAddress())){
+                    Model.getInstance().getDaoDriver().getSignUpDao().deleteSignUp(pAddress_lbl.getText());
                 }
-                Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
-            }catch (SQLException e){
-                e.printStackTrace();
             }
+            Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
             alert =new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Message");
             alert.setHeaderText(null);

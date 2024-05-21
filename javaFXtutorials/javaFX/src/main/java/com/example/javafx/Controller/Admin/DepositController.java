@@ -1,13 +1,14 @@
 package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.*;
-import com.example.javafx.Controller.View.CheckingCellFactory;
+import com.example.javafx.View.CheckingCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -36,33 +37,28 @@ public class DepositController implements Initializable {
     }
 
     public void setData() {
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getClientsData();
-        ResultSet resultSet2 = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
+        List<SavingAccount> savingAccountList = Model.getInstance().getDaoDriver().getSavingAccountDao().getAllSavingAccounts();
         String payeeAddress = pAddress_fld.getText().trim();
         int countSavAcc = 0;
-        try {
-            while (resultSet1.next()){
-                if(resultSet1.getString("PayeeAddress").equals(payeeAddress)) {
-                    first_name_lbl.setText(resultSet1.getString("FirstName"));
-                    last_name_lbl.setText(resultSet1.getString("LastName"));
-                    date_lbl.setText(resultSet1.getString("Date"));
-                    break;
-                }
+        for (Clients client : clientsList){
+            if(client.getPayeeAddress().equals(payeeAddress)) {
+                first_name_lbl.setText(client.getFirstName());
+                last_name_lbl.setText(client.getLastName());
+                date_lbl.setText(client.getDateCreated());
+                break;
             }
-            while(resultSet2.next()) {
-                if(resultSet2.getString("Owner").equals(payeeAddress)) {
-                    countSavAcc++;
-                }
-            }
-            num_of_saving_acc.setText(String.valueOf(countSavAcc));
-        }catch (SQLException e) {
-            e.printStackTrace();
         }
-
+        for (SavingAccount savingAccount : savingAccountList) {
+            if(savingAccount.getOwner().equals(payeeAddress)) {
+                countSavAcc++;
+            }
+        }
+        num_of_saving_acc.setText(String.valueOf(countSavAcc));
     }
 
     private void onWithdrawal() {
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
+        List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
         String payeeAddress = pAddress_fld.getText().trim();
         Double amount = 0.0;
         try {
@@ -80,30 +76,27 @@ public class DepositController implements Initializable {
         if (amount <= 0){
             showAlertError("Please enter valid Amount.");
         }
-        try {
-            while (resultSet.next()){
-                if (resultSet.getString("Owner").equals(payeeAddress)){
-                    double amountCH = Double.valueOf(resultSet.getString("Balance"));
+        for (CheckingAccount checkingAccount : checkingAccountList){
+            if (checkingAccount.getOwner().equals(payeeAddress)){
+                double amountCH = Double.valueOf(checkingAccount.getBalance());
 
-                    if(amountCH < amount){
-                        showAlertError("Insufficient funds. Please check your balance.");
-                        return;
-                    }
-                    Model.getInstance().getDatabaseDriver().updateAccountBalance(payeeAddress, amountCH - amount);
-                    showAlert("Withdrawal Successful!");
-                    refreshData();
+                if(amountCH < amount){
+                    showAlertError("Insufficient funds. Please check your balance.");
                     return;
                 }
+                checkingAccount.setBalance(amountCH - amount);
+                Model.getInstance().getDaoDriver().getCheckingAccountDao().updateCheckingAccount(checkingAccount);
+                showAlert("Withdrawal Successful!");
+                refreshData();
+                return;
             }
-            showAlertError("Error! Enter payee address no valid.");
-            refreshData();
-        }catch (SQLException e){
-            e.printStackTrace();
         }
+        showAlertError("Error! Enter payee address no valid.");
+        refreshData();
     }
 
     private void onDeposit() {
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
+        List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
         String payeeAddress = pAddress_fld.getText().trim();
         Double amount = 0.0;
         try {
@@ -133,59 +126,50 @@ public class DepositController implements Initializable {
                 //Tạo account Saving
                 String SavingNumber = "3021 " + RanDomNumber();
                 SavingAccount savingAccount = new SavingAccount(payeeAddress, SavingNumber, amount, 2000);
-                Model.getInstance().getDatabaseDriver().insertSavingAccount(savingAccount);
+                Model.getInstance().getDaoDriver().getSavingAccountDao().saveSavingAccount(savingAccount);
                 return;
             }
         }
 
-        try {
-            while (resultSet.next()){
-                if (resultSet.getString("Owner").equals(payeeAddress)){
-                    double amountCH = Double.valueOf(resultSet.getString("Balance"));
-                    Model.getInstance().getDatabaseDriver().updateAccountBalance(payeeAddress, amountCH + amount);
-                    showAlert("Deposit Successful!");
-                    refreshData();
-                    return;
-                }
+        for (CheckingAccount checkingAccount : checkingAccountList){
+            if (checkingAccount.getOwner().equals(payeeAddress)){
+                double amountCH = Double.valueOf(checkingAccount.getBalance());
+                checkingAccount.setBalance(amountCH + amount);
+                Model.getInstance().getDaoDriver().getCheckingAccountDao().saveCheckingAccount(checkingAccount);
+                showAlert("Deposit Successful!");
+                refreshData();
+                return;
             }
-            showAlertError("Error! Enter payee address no valid.");
-            refreshData();
-        }catch (SQLException e){
-            e.printStackTrace();
         }
+        showAlertError("Error! Enter payee address no valid.");
+        refreshData();
     }
 
     public void onSearch(){
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
+        List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
         String payeeAdress = pAddress_fld.getText().trim();
         Boolean check = false;
         result_listview.getItems().clear();
-        try {
-            while (resultSet1.next()){
-                if (payeeAdress.equals(resultSet1.getString("Owner"))){
-                    check = true;
-                    CheckingAccount checkingAccount = new CheckingAccount(
-                                    resultSet1.getString("Owner"),
-                                    resultSet1.getString("AccountNumber"),
-                                    resultSet1.getDouble("Balance"),
-                                    resultSet1.getInt("TransactionLimit"));
+        for (CheckingAccount checkingAccount : checkingAccountList){
+            if (payeeAdress.equals(checkingAccount.getOwner())){
+                check = true;
+                CheckingAccount newCheckingAccount = new CheckingAccount(
+                                checkingAccount.getOwner(),
+                                checkingAccount.getAccountNumber(),
+                                checkingAccount.getBalance(),
+                                checkingAccount.getTransactionLimit());
 
-                    result_listview.getItems().add(checkingAccount);
-                    result_listview.setCellFactory(listView -> new CheckingCellFactory());
-                    setData();
-                    break;
-                }
+                result_listview.getItems().add(newCheckingAccount);
+                result_listview.setCellFactory(listView -> new CheckingCellFactory());
+                setData();
+                break;
             }
-            if (check == false){
-                showAlertError("Error! Enter payee address no valid.");
-                refreshData();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }
+        if (check == false){
+            showAlertError("Error! Enter payee address no valid.");
+            refreshData();
         }
     }
-
-
 
 
 

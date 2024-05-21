@@ -1,9 +1,9 @@
 package com.example.javafx.Controller.Admin;
 
-import com.example.javafx.Models.CheckingAccount;
-import com.example.javafx.Models.Client;
+
+import com.example.javafx.Models.Clients;
 import com.example.javafx.Models.Model;
-import com.example.javafx.Models.SavingAccount;
+import com.example.javafx.Models.SignUp;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -13,6 +13,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -58,7 +59,7 @@ public class SignUpController implements Initializable {
         String lastName = lName_fld.getText().trim();
         String password = password_fld.getText().trim();
         String pAddress = pAddress_lbl.getText().trim();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         double chAccBalance = 0;
         double svAccBalance = 0;
         try {
@@ -72,8 +73,8 @@ public class SignUpController implements Initializable {
             e.printStackTrace();
         }
         //Kiểm tra dữ liệu
-        try {
-            if (pAddress.equals(resultSet.getString("PayeeAddress"))) {
+        for (Clients client : clientsList) {
+            if (pAddress.equals(client.getPayeeAddress())) {
                 showAlert("PayeeAddress already exists!");
             } else if (firstName.isEmpty() || lastName.isEmpty()) {
                 showAlert("Please enter valid FirstName or LastName.");
@@ -86,8 +87,9 @@ public class SignUpController implements Initializable {
                 String CheckingNumber = "3021 " + RanDomNumber();
                 String SavingNumber = "3021 " + RanDomNumber();
                 String pword = Model.HashPassword(password);
-                Model.getInstance().getDatabaseDriver().insertSignUp(firstName, lastName, pword, pAddress, chAccBalance,
+                SignUp newSignUp = new SignUp(firstName, lastName, pword, pAddress, chAccBalance,
                         svAccBalance, LocalDate.now().toString(), CheckingNumber, SavingNumber);
+                Model.getInstance().getDaoDriver().getSignUpDao().saveSignUp(newSignUp);
                 error_lbl.setText("Client Create Successfully.");
                 error_lbl.setTextFill(Color.BLUE);
                 showAlertSuccessful("Account created successfully, please wait for admin approval");
@@ -96,9 +98,6 @@ public class SignUpController implements Initializable {
                 Model.getInstance().getViewFactory().closeStage(stage);
                 Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
             }
-        }catch(SQLException e){
-            e.printStackTrace();
-            showAlert("An error occurred while creating the client");
         }
     }
 

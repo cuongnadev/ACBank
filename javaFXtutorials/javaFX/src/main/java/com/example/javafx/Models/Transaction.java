@@ -1,36 +1,83 @@
 package com.example.javafx.Models;
 
+import jakarta.persistence.*;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
-
+@Entity
+@Table(name = "transactions")
 public class Transaction {
-    private final StringProperty sender;
-    private final StringProperty receiver;
-    private final DoubleProperty amount;
-    private final StringProperty date;
-    private final StringProperty message;
-    public Transaction (String sender , String receiver , double amount , String date , String message){
-        this.sender = new SimpleStringProperty(this , "Sender" , sender);
-        this.receiver = new SimpleStringProperty(this , "Receiver" , receiver);
-        this.amount = new SimpleDoubleProperty(this , "Amount" , amount);
-        this.date = new SimpleStringProperty(this , "Date" , date);
-        this.message = new SimpleStringProperty(this , "Message" , message);
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private int Id;
+    @Column(name = "Sender")
+    private  String sender;
+    @Column(name = "Receiver")
+    private  String receiver;
+    @Column(name = "Amount")
+    private  Double amount;
+    @Column(name = "Date")
+    private  String date;
+    @Column(name = "Message")
+    private  String message;
+
+    public Transaction() {
     }
 
-    public StringProperty senderProperty(){
-        return this.sender;
+    public Transaction (String sender , String receiver , double amount , String date , String message){
+        this.sender = sender;
+        this.receiver = receiver;
+        this.amount =  amount;
+        this.date =  date;
+        this.message =  message;
     }
-    public StringProperty receiverProperty(){
-        return this.receiver;
+
+    public int getId() {
+        return Id;
     }
-    public DoubleProperty amountProperty(){
-        return this.amount;
+
+    public void setId(int id) {
+        Id = id;
     }
-    public StringProperty dateProperty(){
-        return this.date;
+
+    public String getSender() {
+        return sender;
     }
-    public StringProperty messageProperty (){
-        return this.message;
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

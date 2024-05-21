@@ -1,8 +1,7 @@
 package com.example.javafx.Controller.Client;
 
-import com.example.javafx.Models.Model;
-import com.example.javafx.Models.Transaction;
-import com.example.javafx.Controller.View.TransactionCellFactory;
+import com.example.javafx.Models.*;
+import com.example.javafx.View.TransactionCellFactory;
 
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -56,60 +55,50 @@ public class DashboardController implements Initializable {
     }
 
     public void setDataLabel(){
-        String pAddress = Model.getInstance().getClient().pAddressProperty().get();
-        String password = Model.getInstance().getClient().passwordProperty().get();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
-        ResultSet resultSet2 = Model.getInstance().getDatabaseDriver().getSavingAccountsDataBalanceMax(pAddress);
-        ResultSet resultSet3 = Model.getInstance().getDatabaseDriver().getTransactionData();
+        int Id = Model.getInstance().getClients().getId();
+        String pAddress = Model.getInstance().getClients().getPayeeAddress();
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
+        List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
+        List<Transaction> transactionList = Model.getInstance().getDaoDriver().getTransactionDao().getAllTransactions();
         double income = 0;
         double expense = 0;
-        try {
-            while (resultSet.next()) {
-                if (pAddress.equals(resultSet.getString("PayeeAddress"))
-                        && Model.HashPassword(password).equals(resultSet.getString("Password"))){
-                    String LName = resultSet.getString("LastName");
-                    user_name.setText("Hi, "+ LName);
-                }
+        for (Clients client : clientsList) {
+            if (client.getId() == Id){
+                String LName = client.getLastName();
+                user_name.setText("Hi, "+ LName);
+                break;
             }
-            LocalDate currentDate = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String formattedDate = currentDate.format(formatter);
-            login_today.setText("Today, " + formattedDate);
-            while (resultSet1.next()){
-                if (pAddress.equals(resultSet1.getString("Owner"))){
-                    checking_acc_num.setText(resultSet1.getString("AccountNumber"));
-                    checking_bal.setText(resultSet1.getString("Balance"));
-
-                }
-            }
-            Double max = -1.0;
-            while (resultSet2.next()){
-                if (resultSet2.getDouble("Balance") > max ){
-                    max = resultSet2.getDouble("Balance");
-                    saving_acc_num.setText(resultSet2.getString("AccountNumber"));
-                    saving_bal.setText(resultSet2.getString("Balance"));
-                }
-            }
-            while (resultSet3.next()){
-                if (pAddress.equals(resultSet3.getString("Sender"))){
-                    expense += resultSet3.getDouble("Amount");
-                } else if (pAddress.equals(resultSet3.getString("Receiver"))){
-                    income += resultSet3.getDouble("Amount");
-                }
-            }
-            income_lbl.setText(String.valueOf(income));
-            expense_lbl.setText(String.valueOf(expense));
-        }catch (SQLException e){
-            e.printStackTrace();
-            showAlertErorr("An error occurred while setting data");
         }
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = currentDate.format(formatter);
+        login_today.setText("Today, " + formattedDate);
+        for (CheckingAccount checkingAccount : checkingAccountList){
+            if (pAddress.equals(checkingAccount.getOwner())){
+                checking_acc_num.setText(checkingAccount.getAccountNumber());
+                checking_bal.setText(String.valueOf(checkingAccount.getBalance()));
+
+            }
+        }
+        SavingAccount savingAccount = Model.getInstance().getDaoDriver().getSavingAccountDao().getSavingAccountsDataBalanceMax(pAddress);
+        saving_acc_num.setText(savingAccount.getAccountNumber());
+        saving_bal.setText(String.valueOf(savingAccount.getBalance()));
+
+        for (Transaction transaction : transactionList){
+            if (pAddress.equals(transaction.getSender())){
+                expense += transaction.getAmount();
+            } else if (pAddress.equals(transaction.getReceiver())){
+                income += transaction.getAmount();
+            }
+        }
+        income_lbl.setText(String.valueOf(income));
+        expense_lbl.setText(String.valueOf(expense));
     }
 
     //Send Money
     private void onSendMoney() {
         // Step 1: Lấy dữ liệu từ field
-        String payeeAddress = payee_fld.getText().trim();
+        String pAddress_receiver = payee_fld.getText().trim();
         double amount;
         try {
             amount = Double.parseDouble(amount_fld.getText().trim());
@@ -120,72 +109,63 @@ public class DashboardController implements Initializable {
         String message = massage_fld.getText().trim();
 
         // Step 2: Xác thực dữ liệu
-        if (payeeAddress.isEmpty() || amount <= 0) {
+        if (pAddress_receiver.isEmpty() || amount <= 0) {
             showAlertErorr("Please enter valid Payee or Amount.");
             return;
         }
 
         // Step 3:Cập nhật số dư tài khoản và thêm transaction mới
-        String pAddress = Model.getInstance().getClient().pAddressProperty().get();
+        String pAddress_sender = Model.getInstance().getClients().getPayeeAddress();
 
         // Truy xuất thông tin tài khoản của người gửi
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
-        try {
-            while (resultSet.next()) {
-                if (pAddress.equals(resultSet.getString("Owner"))) {
-                    double senderBalance = resultSet.getDouble("Balance");
-                    if (senderBalance < amount) {
-                        showAlertErorr("Insufficient funds. Please check your balance.");
+        List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
+        for (CheckingAccount checkingAccount : checkingAccountList) {
+            if (pAddress_sender.equals(checkingAccount.getOwner())) {
+                double senderBalance = checkingAccount.getBalance();
+                if (senderBalance < amount) {
+                    showAlertErorr("Insufficient funds. Please check your balance.");
+                    return;
+                }
+                // Truy xuất thông tin tài khoản của người nhận thanh toán
+                for (CheckingAccount checkingAccount1 : checkingAccountList) {
+                    if (pAddress_receiver.equals(checkingAccount1.getOwner())) {
+                        // Cập nhật số dư của người gửi
+                        checkingAccount.setBalance(senderBalance - amount);
+                        Model.getInstance().getDaoDriver().getCheckingAccountDao().updateCheckingAccount(checkingAccount);
+
+                        // Cập nhật số dư người nhận
+                        double payeeBalance = checkingAccount1.getBalance();
+                        checkingAccount1.setBalance(payeeBalance + amount);
+                        Model.getInstance().getDaoDriver().getCheckingAccountDao().updateCheckingAccount(checkingAccount1);
+
+                        //Thêm giao dịch mới
+                        Transaction newTransaction = new Transaction(
+                                pAddress_sender,
+                                pAddress_receiver,
+                                amount,
+                                LocalDate.now().toString(),
+                                message);
+                        Model.getInstance().getDaoDriver().getTransactionDao().saveTransaction(newTransaction);
+
+                        // Làm mới transaction listview
+                        List<Transaction> transactions = getTransactionOfSQLiteLimit(4);
+                        transaction_listview.getItems().setAll(transactions);
+
+                        String IDBienLai = RanDomIDBienLai(pAddress_sender , pAddress_receiver);
+
+                        Receipt receipt = new Receipt(IDBienLai, pAddress_sender, pAddress_receiver, checkingAccount.getAccountNumber(), checkingAccount1.getAccountNumber(), amount, LocalDate.now().toString() , message) ;
+
+                        inBienLai( IDBienLai, pAddress_sender , pAddress_receiver , checkingAccount.getAccountNumber() , checkingAccount1.getAccountNumber() , amount , LocalDate.now().toString() , message );
+                        showAlertSuccessful("Successful money transfer");
+                        setDataLabel();
+                        break;
+                    }else {
+                        showAlertErorr("Please enter valid PayeeAddress.");
                         return;
                     }
-                    // Truy xuất thông tin tài khoản của người nhận thanh toán
-                    ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
-                    try {
-                        while (resultSet1.next()) {
-                            if (payeeAddress.equals(resultSet1.getString("Owner"))) {
-                                // Cập nhật số dư của người gửi
-                                Model.getInstance().getDatabaseDriver().updateAccountBalance(pAddress, senderBalance - amount);
-
-                                // Cập nhật số dư người nhận
-                                double payeeBalance = resultSet1.getDouble("Balance");
-                                Model.getInstance().getDatabaseDriver().updateAccountBalance(payeeAddress, payeeBalance + amount);
-
-                                //Thêm giao dịch mới
-                                Transaction newTransaction = new Transaction(
-                                        pAddress,
-                                        payeeAddress,
-                                        amount,
-                                        LocalDate.now().toString(),
-                                        message);
-                                Model.getInstance().getDatabaseDriver().insertTransaction(newTransaction);
-
-                                // Làm mới transaction listview
-                                List<Transaction> transactions = getTransactionOfSQLiteLimit(4);
-                                transaction_listview.getItems().setAll(transactions);
-
-                                String IDBienLai = RanDomIDBienLai(pAddress , payeeAddress);
-
-                                Model.getInstance().getDatabaseDriver().insertReceiver(IDBienLai, pAddress , payeeAddress , resultSet.getString("AccountNumber") , resultSet1.getString("AccountNumber") , amount , LocalDate.now().toString() , message );
-
-                                inBienLai( IDBienLai, pAddress , payeeAddress , resultSet.getString("AccountNumber") , resultSet1.getString("AccountNumber") , amount , LocalDate.now().toString() , message );
-                                showAlertSuccessful("Successful money transfer");
-                                setDataLabel();
-                                break;
-                            }else {
-                                showAlertErorr("Please enter valid PayeeAddress.");
-                                return;
-                            }
-                        }
-                    }catch (SQLException e){
-                        e.printStackTrace();
-                        showAlertErorr("An error occurred while processing the transaction.");
-                    }
-                    break;
                 }
+                break;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlertErorr("An error occurred while processing the transaction.");
         }
     }
 
@@ -193,27 +173,23 @@ public class DashboardController implements Initializable {
 
     private List<Transaction> getTransactionOfSQLiteLimit(int limit) {
         transaction_listview.getItems().clear();
-        String pAdress = Model.getInstance().getClient().pAddressProperty().get();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getTransactionData();
+        String pAdress = Model.getInstance().getClients().getPayeeAddress();
+        List<Transaction> transactionList = Model.getInstance().getDaoDriver().getTransactionDao().getAllTransactions();
         List<Transaction> transactions = new ArrayList<>();
-        try {
-            while (resultSet.next()) {
-                if (pAdress.equals(resultSet.getString("Sender"))
-                    || pAdress.equals(resultSet.getString("Receiver"))){
-                    Transaction transaction = new Transaction(
-                            resultSet.getString("Sender"),
-                            resultSet.getString("Receiver"),
-                            resultSet.getDouble("Amount"),
-                            resultSet.getString("Date"),
-                            resultSet.getString("Message"));
-                    transactions.add(transaction);
-                }
+        for (Transaction transaction : transactionList) {
+            if (pAdress.equals(transaction.getSender())
+                || pAdress.equals(transaction.getReceiver())){
+                Transaction newtTransaction = new Transaction(
+                        transaction.getSender(),
+                        transaction.getReceiver(),
+                        transaction.getAmount(),
+                        transaction.getDate(),
+                        transaction.getMessage());
+                transactions.add(newtTransaction);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         // Sắp xếp danh sách theo ngày giảm dần
-        transactions.sort((t1, t2) -> t2.dateProperty().get().compareTo(t1.dateProperty().get()));
+        transactions.sort((t1, t2) -> t2.getDate().compareTo(t1.getDate()));
 
         // Giới hạn số lượng transactions
         return transactions.subList(0, Math.min(limit, transactions.size()));

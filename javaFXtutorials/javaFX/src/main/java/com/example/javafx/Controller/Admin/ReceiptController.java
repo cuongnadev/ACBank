@@ -1,7 +1,7 @@
 package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.*;
-import com.example.javafx.Controller.View.ReceiptCellFactory;
+import com.example.javafx.View.ReceiptCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
@@ -29,53 +29,50 @@ public class ReceiptController implements Initializable {
     }
 
     public void onSearch(){
-        ResultSet resultSet= Model.getInstance().getDatabaseDriver().getReceiptData();
+        List<Receipt> receiptList = Model.getInstance().getDaoDriver().getReceiptDao().getAllReceipts();
         String payeeAdress = IDReceipt_fld.getText().trim();
         Boolean check = false;
         receipts_listview1.getItems().clear();
-        try {
-            while (resultSet.next()){
-                if (payeeAdress.equals(resultSet.getString("IDBienLai"))){
-                    check = true;
-                    Receipt receipt = new Receipt(resultSet.getString("IDBienLai"),
-                            resultSet.getString("Sender"),
-                            resultSet.getString("Receiver"),
-                            resultSet.getDouble("Amount"),
-                            resultSet.getString("Date"));
-                    receipts_listview1.getItems().add(receipt);
-                    receipts_listview1.setCellFactory(listView -> new ReceiptCellFactory());
-                }
+        for (Receipt receipt : receiptList){
+            if (payeeAdress.equals(receipt.getIDReceipt())){
+                check = true;
+                Receipt newReceipt = new Receipt(receipt.getIDReceipt(),
+                        receipt.getSender(),
+                        receipt.getReceiver(),
+                        receipt.getNumberSender(),
+                        receipt.getNumberReceiver(),
+                        receipt.getAmount(),
+                        receipt.getDate(),
+                        receipt.getMessage());
+                receipts_listview1.getItems().add(newReceipt);
+                receipts_listview1.setCellFactory(listView -> new ReceiptCellFactory());
             }
-            if (check == false){
-                showAlert("Error! Enter payee address no valid.");
-                IDReceipt_fld.setText("");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }
+        if (check == false){
+            showAlert("Error! Enter payee address no valid.");
+            IDReceipt_fld.setText("");
         }
     }
 
     public List<Receipt> getReceiptOfSQLite() {
         receipts_listview.getItems().clear();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getReceiptData();
+        List<Receipt> receipts = Model.getInstance().getDaoDriver().getReceiptDao().getAllReceipts();
 
         List<Receipt> receiptList = new ArrayList<>();
-        try {
-            while (resultSet.next()) {
-                Receipt receipt = new Receipt(
-                        resultSet.getString("IDBienLai"),
-                        resultSet.getString("Sender"),
-                        resultSet.getString("Receiver"),
-                        resultSet.getDouble("Amount"),
-                        resultSet.getString("Date"));
+        for (Receipt receipt : receipts) {
+            Receipt newReceipt = new Receipt(receipt.getIDReceipt(),
+                    receipt.getSender(),
+                    receipt.getReceiver(),
+                    receipt.getNumberSender(),
+                    receipt.getNumberReceiver(),
+                    receipt.getAmount(),
+                    receipt.getDate(),
+                    receipt.getMessage());
 
-                receiptList.add(receipt);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            receiptList.add(newReceipt);
         }
         // Sắp xếp danh sách theo ngày giảm dần
-        receiptList.sort((t1, t2) -> t2.dateProperty().get().compareTo(t1.dateProperty().get()));
+        receiptList.sort((t1, t2) -> t2.getDate().compareTo(t1.getDate()));
         return receiptList;
     }
 

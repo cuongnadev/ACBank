@@ -1,6 +1,5 @@
 package com.example.javafx.Controller.Admin;
 
-import com.example.javafx.Models.Client;
 import com.example.javafx.Models.Model;
 import com.example.javafx.Models.Receipt;
 import javafx.fxml.Initializable;
@@ -12,6 +11,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -34,15 +34,15 @@ public class ReceiptCellController implements Initializable {
         delete_btn.setOnAction(event -> onDelete());
     }
     public void setReceiptData(){
-        idBienLai_lbl.setText(receipt.IDReceiptProperty().get());
-        sender_lbl.setText(receipt.senderProperty().get());
-        receiver_lbl.setText(receipt.recerverProperty().get());
-        date_lbl.setText(String.valueOf(receipt.dateProperty().get()));
-        amount_lbl.setText(String.valueOf(receipt.amountProperty().get()));
+        idBienLai_lbl.setText(receipt.getIDReceipt());
+        sender_lbl.setText(receipt.getSender());
+        receiver_lbl.setText(receipt.getReceiver());
+        date_lbl.setText(String.valueOf(receipt.getDate()));
+        amount_lbl.setText(String.valueOf(receipt.getAmount()));
     }
 
     public void onDelete(){
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getReceiptData();
+        List<Receipt> receiptList = Model.getInstance().getDaoDriver().getReceiptDao().getAllReceipts();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Message");
         alert.setHeaderText(null);
@@ -50,17 +50,13 @@ public class ReceiptCellController implements Initializable {
 
         Optional<ButtonType> option = alert.showAndWait();
         if(option.get().equals(ButtonType.OK)) {
-            try {
-                // Xóa receipt
-                while (resultSet.next()){
-                    if (idBienLai_lbl.getText().equals(resultSet.getString("IDBienLai"))){
-                        Model.getInstance().getDatabaseDriver().DropReceipt(idBienLai_lbl.getText());
-                    }
+            // Xóa receipt
+            for (Receipt receipt : receiptList){
+                if (idBienLai_lbl.getText().equals(receipt.getIDReceipt())){
+                    Model.getInstance().getDaoDriver().getReceiptDao().deleteReceipt(idBienLai_lbl.getText());
                 }
-                Model.getInstance().getViewFactory().getReceiptController().refreshReceiptListView();
-            }catch (SQLException e){
-                e.printStackTrace();
             }
+            Model.getInstance().getViewFactory().getReceiptController().refreshReceiptListView();
             alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Message");
             alert.setHeaderText(null);
