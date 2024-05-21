@@ -1,6 +1,6 @@
 package com.example.javafx.Controller.Client;
 
-import com.example.javafx.Models.Model;
+import com.example.javafx.Models.*;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProfileController implements Initializable {
@@ -36,83 +37,73 @@ public class ProfileController implements Initializable {
         Model.getInstance().getViewFactory().setProfileController(this);
     }
     public void setdataLabel() {
-        String pAddress = Model.getInstance().getClient().pAddressProperty().get();
-        String password = Model.getInstance().getClient().passwordProperty().get();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getChekingAccountsData();
-        ResultSet resultSet2 = Model.getInstance().getDatabaseDriver().getSavingAccountsData();
-        ResultSet resultSet3 = Model.getInstance().getDatabaseDriver().getTransactionData();
+        int Id = Model.getInstance().getClients().getId();
+        String pAddress = Model.getInstance().getClients().getPayeeAddress();
+        String password = Model.getInstance().getClients().getPassword();
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
+        List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
+        List<SavingAccount> savingAccountList = Model.getInstance().getDaoDriver().getSavingAccountDao().getAllSavingAccounts();
+        List<Transaction> transactionList = Model.getInstance().getDaoDriver().getTransactionDao().getAllTransactions();
         double income = 0;
         double expense = 0;
-        try {
-            while (resultSet.next()){
-                if(pAddress.equals(resultSet.getString("PayeeAddress"))&&
-                        Model.HashPassword(password).equals(resultSet.getString("Password"))){
-                    firstName_lbl.setText(resultSet.getString("FirstName"));
-                    lastName_lbl.setText(resultSet.getString("LastName"));
-                    password_lbl.setText(password);
-                    pAddress_lbl.setText(resultSet.getString("PayeeAddress"));
-                    date_lbl.setText(resultSet.getString("Date"));
-                }
+        for (Clients client : clientsList){
+            if(Id == client.getId()){
+                firstName_lbl.setText(client.getFirstName());
+                lastName_lbl.setText(client.getLastName());
+                password_lbl.setText(password);
+                pAddress_lbl.setText(client.getPayeeAddress());
+                date_lbl.setText(client.getDateCreated());
             }
-            while (resultSet1.next()){
-                if (pAddress.equals(resultSet1.getString("Owner"))){
-                    ch_acc_num_lbl.setText(resultSet1.getString("AccountNumber"));
-                    bal_lbl.setText(resultSet1.getString("Balance"));
-                }
-            }
-            int count = 0;
-            while (resultSet2.next()){
-                if (pAddress.equals(resultSet2.getString("Owner"))){
-                    count = count +1;
-                }
-            }
-            num_of_sav_lbl.setText(String.valueOf(count));
-
-            while (resultSet3.next()){
-                if (pAddress.equals(resultSet3.getString("Sender"))){
-                    expense += resultSet3.getDouble("Amount");
-                } else if (pAddress.equals(resultSet3.getString("Receiver"))){
-                    income += resultSet3.getDouble("Amount");
-                }
-            }
-            income_lbl.setText(String.valueOf(income));
-            expense_lbl.setText(String.valueOf(expense));
-            fName_fld.setText("");
-            lName_fld.setText("");
-            password_fld.setText("");
-        }catch (SQLException e){
-            e.printStackTrace();
         }
+        for (CheckingAccount checkingAccount : checkingAccountList){
+            if (pAddress.equals(checkingAccount.getOwner())){
+                ch_acc_num_lbl.setText(checkingAccount.getAccountNumber());
+                bal_lbl.setText(String.valueOf(checkingAccount.getBalance()));
+            }
+        }
+        int count = 0;
+        for (SavingAccount savingAccount : savingAccountList){
+            if (pAddress.equals(savingAccount.getOwner())){
+                count = count + 1;
+            }
+        }
+        num_of_sav_lbl.setText(String.valueOf(count));
+
+        for (Transaction transaction : transactionList){
+            if (pAddress.equals(transaction.getSender())){
+                expense += transaction.getAmount();
+            } else if (pAddress.equals(transaction.getReceiver())){
+                income += transaction.getAmount();
+            }
+        }
+        income_lbl.setText(String.valueOf(income));
+        expense_lbl.setText(String.valueOf(expense));
+        fName_fld.setText("");
+        lName_fld.setText("");
+        password_fld.setText("");
     }
 
     private void onEdit() {
-        String pAddress = Model.getInstance().getClient().pAddressProperty().get();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getClientsData();
-
-            try {
-                while (resultSet.next()){
-                    if(pAddress.equals(resultSet.getString("PayeeAddress"))){
-                        if (!(fName_fld.getText().trim().isEmpty())){
-                            Model.getInstance().getDatabaseDriver().updateFNameClients(pAddress , fName_fld.getText());
-                        }
-                        if (!(lName_fld.getText().trim().isEmpty())){
-                            Model.getInstance().getDatabaseDriver().updateLNameClients(pAddress , lName_fld.getText());
-                        }
-                        if (!(password_fld.getText().trim().isEmpty())){
-                            String pass = Model.HashPassword(password_fld.getText());
-                            Model.getInstance().getDatabaseDriver().updatepasswordClients(pAddress , pass);
-                            Model.getInstance().getClient().passwordProperty().set(password_fld.getText());
-                        }
-                        setdataLabel();
-                    }
+        String pAddress = Model.getInstance().getClients().getPayeeAddress();
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
+        for (Clients client : clientsList){
+            if(pAddress.equals(client.getPayeeAddress())){
+                if (!(fName_fld.getText().trim().isEmpty())){
+                    client.setFirstName(fName_fld.getText());
+                    Model.getInstance().getDaoDriver().getClientsDao().updateClient(client);
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+                if (!(lName_fld.getText().trim().isEmpty())){
+                    client.setLastName(lName_fld.getText());
+                    Model.getInstance().getDaoDriver().getClientsDao().updateClient(client);
+                }
+                if (!(password_fld.getText().trim().isEmpty())){
+                    String pass = Model.HashPassword(password_fld.getText());
+                    client.setPassword(pass);
+                    Model.getInstance().getDaoDriver().getClientsDao().updateClient(client);
+                }
+                setdataLabel();
             }
-
-
-
+        }
     }
 
 }

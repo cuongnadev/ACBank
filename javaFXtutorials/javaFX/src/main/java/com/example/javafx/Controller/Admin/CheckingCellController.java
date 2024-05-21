@@ -1,16 +1,9 @@
 package com.example.javafx.Controller.Admin;
 
 import com.example.javafx.Models.CheckingAccount;
-import com.example.javafx.Models.Client;
-import com.example.javafx.Models.Model;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CheckingCellController implements Initializable {
@@ -31,9 +24,9 @@ public class CheckingCellController implements Initializable {
     }
 
     private void setDataLabel() {
-        owner_lbl.setText(checkingAccount.ownerProperty().get());
-        ch_acc_num_lbl.setText(checkingAccount.accountNumberPropperty().get());
-        limit_lbl.setText(String.valueOf(Integer.valueOf(checkingAccount.transactionLimitProperty().get())));
-        balance_lbl.setText(String.valueOf(Double.valueOf( checkingAccount.balanceProperty().get())));
+        owner_lbl.setText(checkingAccount.getOwner());
+        ch_acc_num_lbl.setText(checkingAccount.getAccountNumber());
+        limit_lbl.setText(String.valueOf(Integer.valueOf(checkingAccount.getTransactionLimit())));
+        balance_lbl.setText(String.valueOf(Double.valueOf( checkingAccount.getBalance())));
     }
 }

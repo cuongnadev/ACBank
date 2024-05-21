@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/acbank</property>
+        <property name="hibernate.connection.username">cuongna</property>
+        <property name="hibernate.connection.password">040405@Nac</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.connection.release_mode">auto</property>
+        <mapping class="com.example.javafx.Models.Admin"/>
+        <mapping class="com.example.javafx.Models.CheckingAccount"/>
+        <mapping class="com.example.javafx.Models.Clients"/>
+        <mapping class="com.example.javafx.Models.ForgotPass"/>
+        <mapping class="com.example.javafx.Models.Receipt"/>
+        <mapping class="com.example.javafx.Models.SavingAccount"/>
+        <mapping class="com.example.javafx.Models.SignUp"/>
+        <mapping class="com.example.javafx.Models.Transaction"/>
+    </session-factory>
+</hibernate-configuration>

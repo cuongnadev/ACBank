@@ -1,54 +1,55 @@
 package com.example.javafx.Models;
 
-import com.example.javafx.Controller.View.AccountType;
-import com.example.javafx.Controller.View.ViewFactory;
+import com.example.javafx.Dao.AdminDao;
+import com.example.javafx.Dao.ClientsDao;
+import com.example.javafx.Dao.DaoDriver;
+import com.example.javafx.View.AccountType;
+import com.example.javafx.View.ViewFactory;
 
 import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Model {
     private static Model model;
     private final ViewFactory viewFactory;
-    private final DatabaseDriver databaseDriver;
-    private AccountType loginAccountType = AccountType.CLIENT;
+    private final DaoDriver daoDriver;
+
+
     //Client Data Section
-    private final Client client;
+    private final Clients myClient;
     private Boolean clientLoginSuccessFlag;
+
 
     //Admin Data Section
     private final Admin admin;
     private Boolean adminLoginSuccessFlag;
 
     private Model (){
-        this.databaseDriver = new DatabaseDriver();
+        this.daoDriver = new DaoDriver();
         this.viewFactory = new ViewFactory();
         //Client Data Section
         this.clientLoginSuccessFlag = false;
-        this.client = new Client("" , "" ,"" , null , null , null , null);
+        this.myClient = new Clients("", "", "", "","");
         //Admin Data Section
         this.adminLoginSuccessFlag = false ;
         this.admin = new Admin("" ,"");
     }
+
     public static synchronized Model getInstance(){
         if (model  == null){
             model = new Model();
         }
         return model;
     }
+
     public ViewFactory getViewFactory(){
         return viewFactory;
     }
-    public DatabaseDriver getDatabaseDriver(){
-        return databaseDriver;
+    public DaoDriver getDaoDriver() {
+        return daoDriver;
     }
-    public AccountType getLoginAccountType() {
-        return loginAccountType;
-    }
-    public void setLoginAccountType(AccountType loginAccountType) {
-        this.loginAccountType = loginAccountType;
-    }
-
 
     /*
     * Client Method Section
@@ -59,21 +60,24 @@ public class Model {
     public void setClientLoginSuccessFlag (boolean flag){
         this.clientLoginSuccessFlag = flag;
     }
-    public Client getClient() {
-        return client;
+    public Clients getClients() {
+        return myClient;
     }
     public void evaluateClientCred(String pAddress , String password){
-        ResultSet resultSet = databaseDriver.getClientData(pAddress , password);
+        List<Clients> clientsList = this.getDaoDriver().getClientsDao().getAllClients();
         try {
-            if(resultSet.isBeforeFirst()){
-                this.client.firstNameProperty().set(resultSet.getString("FirstName"));
-                this.client.lastNameProperty().set(resultSet.getString("LastName"));
-                this.client.pAddressProperty().set(pAddress);
-                this.client.passwordProperty().set(password);
-                String[] dataParts = resultSet.getString("Date").split("-");
-                LocalDate date = LocalDate.of(Integer.parseInt(dataParts[0]) , Integer.parseInt(dataParts[1]) , Integer.parseInt(dataParts[2]));
-                this.client.dateCreatedProperty().set(String.valueOf(date));
-                this.setClientLoginSuccessFlag(true);
+
+            for (Clients client : clientsList) {
+                if(client.getPayeeAddress().equals(pAddress) && client.getPassword().equals(HashPassword(password))) {
+                    this.myClient.setId(client.getId());
+                    this.myClient.setFirstName(client.getFirstName());
+                    this.myClient.setLastName(client.getLastName());
+                    this.myClient.setPayeeAddress(client.getPayeeAddress());
+                    this.myClient.setPassword(password);
+                    this.myClient.setDateCreated(client.getDateCreated());
+                    this.setClientLoginSuccessFlag(true);
+                    break;
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -93,18 +97,19 @@ public class Model {
         return admin;
     }
     public void evaluateAdminCred(String username , String password){
-        ResultSet resultSet = databaseDriver.getAdminData(username , password);
+        List<Admin> adminList = this.getDaoDriver().getAdminDao().getAllAdmins();
         try {
-            if(resultSet.isBeforeFirst()){
-                this.admin.userNameProperty().set(resultSet.getString("Username"));
-                this.admin.passwordProperty().set(resultSet.getString("Password"));
-                this.adminLoginSuccessFlag = true;
+            for(Admin admin1 : adminList) {
+                if(admin1.getUserName().equals(username) && admin1.getPassword().equals(password)) {
+                    this.adminLoginSuccessFlag = true;
+                    break;
+                }
             }
-
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
 
     // hash Password
     public static String HashPassword(String password){

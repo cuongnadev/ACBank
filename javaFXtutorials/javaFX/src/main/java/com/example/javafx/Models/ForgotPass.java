@@ -1,23 +1,62 @@
 package com.example.javafx.Models;
 
+import jakarta.persistence.*;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+@Entity
+@Table(name = "forgotpass")
 public class ForgotPass {
-    private final StringProperty pAddress;
-    private final StringProperty date;
-    private final StringProperty email;
-    public ForgotPass ( String pAddress , String date , String email){
-        this.pAddress = new SimpleStringProperty(this , "PayeeAddress" , pAddress);
-        this.date = new SimpleStringProperty(this , "Date" , date);
-        this.email = new SimpleStringProperty(this , "Email" , email);
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private int Id;
+    @Column(name = "PayeeAddress")
+    private String pAddress;
+    @Column(name = "Date")
+    private String date;
+    @Column(name = "Email")
+    private String email;
+
+    public ForgotPass() {
     }
-    public StringProperty pAddressProperty(){
-        return this.pAddress;
+
+    public ForgotPass (String pAddress , String date , String email){
+        this.pAddress = pAddress;
+        this.date = date;
+        this.email = email;
     }
-    public StringProperty dateProperty(){
-        return this.date;
+
+    public int getId() {
+        return Id;
     }
-    public StringProperty emailProperty(){return this.email;}
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public String getpAddress() {
+        return pAddress;
+    }
+
+    public void setpAddress(String pAddress) {
+        this.pAddress = pAddress;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

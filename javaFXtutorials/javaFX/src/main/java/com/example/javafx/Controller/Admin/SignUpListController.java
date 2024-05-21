@@ -1,10 +1,10 @@
 package com.example.javafx.Controller.Admin;
 
-import com.example.javafx.Controller.View.ForgotPassCellFactory;
+import com.example.javafx.View.ForgotPassCellFactory;
 import com.example.javafx.Models.ForgotPass;
 import com.example.javafx.Models.Model;
 import com.example.javafx.Models.SignUp;
-import com.example.javafx.Controller.View.SignUpCellFactory;
+import com.example.javafx.View.SignUpCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -45,30 +45,26 @@ public class SignUpListController implements Initializable {
 
     public List<SignUp> getSignUpOfSQLite() {
         signUp_listview.getItems().clear();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getSignUpAccountData();
+        List<SignUp> signUpList = Model.getInstance().getDaoDriver().getSignUpDao().getAllsignUps();
 
-        List<SignUp> signUpList = new ArrayList<>();
-        try {
-            while (resultSet.next()) {
-                SignUp signUp = new SignUp(
-                        resultSet.getString("FirstName"),
-                        resultSet.getString("LastName"),
-                        resultSet.getString("Password"),
-                        resultSet.getString("PayeeAddress"),
-                        resultSet.getDouble("CheckingAmount"),
-                        resultSet.getDouble("SavingAmount"),
-                        resultSet.getString("Date"),
-                        resultSet.getString("CheckingNumber"),
-                        resultSet.getString("SavingNumber"));
+        List<SignUp> signUps = new ArrayList<>();
+        for (SignUp signUp : signUpList) {
+            SignUp newSignUp = new SignUp(
+                    signUp.getFirstName(),
+                    signUp.getLastName(),
+                    signUp.getPassword(),
+                    signUp.getpAddress(),
+                    signUp.getChAccBalance(),
+                    signUp.getSvAccBalance(),
+                    signUp.getDate(),
+                    signUp.getCheckingNumber(),
+                    signUp.getSavingNumber());
 
-                signUpList.add(signUp);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            signUps.add(newSignUp);
         }
         // Sắp xếp danh sách theo ngày giảm dần
-        signUpList.sort((t1, t2) -> t2.dateProperty().get().compareTo(t1.dateProperty().get()));
-        return signUpList;
+        signUpList.sort((t1, t2) -> t2.getDate().compareTo(t1.getDate()));
+        return signUps;
     }
 
     private void onSignUp() {
@@ -95,22 +91,18 @@ public class SignUpListController implements Initializable {
 
     private List<ForgotPass> getForgotPassOfSQLite() {
         forgotPass_listview.getItems().clear();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getForgotPass();
+        List<ForgotPass> forgotPassList = Model.getInstance().getDaoDriver().getForgotpassDao().getAllForgots();
 
-        List<ForgotPass> List = new ArrayList<>();
-        try {
-            while (resultSet.next()) {
-                ForgotPass pass = new ForgotPass(
-                        resultSet.getString("PayeeAddress"),
-                        resultSet.getString("Date"),
-                        resultSet.getString("Email"));
+        List<ForgotPass> forgotPasses = new ArrayList<>();
+        for (ForgotPass forgotPass : forgotPassList) {
+            ForgotPass pass = new ForgotPass(
+                    forgotPass.getpAddress(),
+                    forgotPass.getDate(),
+                    forgotPass.getEmail());
 
-                List.add(pass);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            forgotPasses.add(pass);
         }
-        return List;
+        return forgotPasses;
     }
     public void refreshClientsListView() {
         forgotPass_listview.getItems().clear();

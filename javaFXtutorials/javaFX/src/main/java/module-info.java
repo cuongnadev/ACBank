@@ -9,14 +9,17 @@ module com.example.javafx {
     requires layout;
     requires io;
     requires java.mail;
+    requires jakarta.persistence;
+    requires org.hibernate.orm.core;
 
 
     exports com.example.javafx;
     opens com.example.javafx to javafx.fxml;
+    opens com.example.javafx.Models to org.hibernate.orm.core;
     exports com.example.javafx.Controller;
     exports com.example.javafx.Controller.Client;
     exports com.example.javafx.Controller.Admin;
     exports com.example.javafx.Models;
-    exports com.example.javafx.Controller.View;
+    exports com.example.javafx.View;
 
 }

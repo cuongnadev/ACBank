@@ -2,7 +2,7 @@ package com.example.javafx.Controller.Client;
 
 import com.example.javafx.Models.Model;
 import com.example.javafx.Models.Transaction;
-import com.example.javafx.Controller.View.TransactionCellFactory;
+import com.example.javafx.View.TransactionCellFactory;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 
@@ -30,28 +30,23 @@ public class TransactionsController implements Initializable {
 
     public List<Transaction> getTransactionOfSQLite() {
         transaction_listview.getItems().clear();
-        String pAddress = Model.getInstance().getClient().pAddressProperty().get();
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getTransactionData();
-
+        String pAddress = Model.getInstance().getClients().getPayeeAddress();
+        List<Transaction> transactionList = Model.getInstance().getDaoDriver().getTransactionDao().getAllTransactions();
         List<Transaction> transactions = new ArrayList<>();
-        try {
-            while (resultSet.next()) {
-                if (pAddress.equals(resultSet.getString("Sender"))
-                        || pAddress.equals(resultSet.getString("Receiver"))){
-                    Transaction transaction = new Transaction(
-                            resultSet.getString("Sender"),
-                            resultSet.getString("Receiver"),
-                            resultSet.getDouble("Amount"),
-                            resultSet.getString("Date"),
-                            resultSet.getString("Message"));
-                    transactions.add(transaction);
-                }
+        for (Transaction transaction : transactionList) {
+            if (pAddress.equals(transaction.getSender())
+                    || pAddress.equals(transaction.getReceiver())){
+                Transaction newTransaction = new Transaction(
+                        transaction.getSender(),
+                        transaction.getReceiver(),
+                        transaction.getAmount(),
+                        transaction.getDate(),
+                        transaction.getMessage());
+                transactions.add(newTransaction);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         // Sắp xếp danh sách theo ngày giảm dần
-        transactions.sort((t1, t2) -> t2.dateProperty().get().compareTo(t1.dateProperty().get()));
+        transactions.sort((t1, t2) -> t2.getDate().compareTo(t1.getDate()));
         return transactions;
     }
     public void refreshData() {

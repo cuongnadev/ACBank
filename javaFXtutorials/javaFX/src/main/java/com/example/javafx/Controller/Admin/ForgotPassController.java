@@ -1,5 +1,6 @@
 package com.example.javafx.Controller.Admin;
 
+import com.example.javafx.Models.Clients;
 import com.example.javafx.Models.ForgotPass;
 import com.example.javafx.Models.Model;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -28,46 +30,38 @@ public class ForgotPassController implements Initializable {
     }
 
     private void onSend() {
-        ResultSet resultSet = Model.getInstance().getDatabaseDriver().getForgotPass();
-        ResultSet resultSet1 = Model.getInstance().getDatabaseDriver().getClientsData();
+        List<ForgotPass> forgotPassList = Model.getInstance().getDaoDriver().getForgotpassDao().getAllForgots();
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         String pAddress = pAddress_fld.getText().trim();
         boolean check = false;
-        try {
-            // kiem tra du lieu
-            while (resultSet.next()) {
-                if (pAddress.equals(resultSet.getString("PayeeAddress"))) {
-                    showAlert("The request already exists!");
-                    pAddress_fld.setText("");
-                    return;
-                } else {
-                    if(!resultSet1.isBeforeFirst()){
-                        showAlert("Please enter a valid PayeeAddress!");
-                        pAddress_fld.setText("");
-                        return;
-                    }
-                    while (resultSet1.next()) {
-                        if (pAddress.equals(resultSet1.getString("PayeeAddress"))) {
-                            check = true;
-                            break;
-                        }
-                    }
-                    if (check == false) {
-                        showAlert("Please enter a valid PayeeAddress!");
-                        pAddress_fld.setText("");
-                    } else {
-                        Stage stage = (Stage) label_lbl.getScene().getWindow();
-                        ForgotPass forgotPass = new ForgotPass(pAddress_fld.getText(), LocalDate.now().toString() , email_fld.getText());
-                        Model.getInstance().getDatabaseDriver().insertForgotPass(forgotPass);
-                        showAlertSuccessful("The request has been successful, please wait for admin approval");
-                        Model.getInstance().getViewFactory().getSignUpListController().refreshClientsListView();
-                        //Close the SinUp stage
-                        Model.getInstance().getViewFactory().closeStage(stage);
+        // kiem tra du lieu
+        for (ForgotPass forgotPass : forgotPassList) {
+            if (pAddress.equals(forgotPass.getpAddress())) {
+                showAlert("The request already exists!");
+                pAddress_fld.setText("");
+                return;
+            } else {
+                for (Clients client : clientsList) {
+                    if(!client.getPayeeAddress().equals(pAddress)){
+                        check = true;
                         break;
                     }
                 }
+                if(check) {
+                    showAlert("Please enter a valid PayeeAddress!");
+                    pAddress_fld.setText("");
+                    return;
+                } else {
+                    Stage stage = (Stage) label_lbl.getScene().getWindow();
+                    ForgotPass newForgotPass = new ForgotPass(pAddress_fld.getText(), LocalDate.now().toString() , email_fld.getText());
+                    Model.getInstance().getDaoDriver().getForgotpassDao().saveForgotpass(newForgotPass);
+                    showAlertSuccessful("The request has been successful, please wait for admin approval");
+                    Model.getInstance().getViewFactory().getSignUpListController().refreshClientsListView();
+                    //Close the SinUp stage
+                    Model.getInstance().getViewFactory().closeStage(stage);
+                    break;
+                }
             }
-        }catch (SQLException e){
-            e.printStackTrace();
         }
     }
     public void showAlert(String message){

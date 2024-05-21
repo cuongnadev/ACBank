@@ -1,73 +1,125 @@
 package com.example.javafx.Models;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
+@Entity
+@Table(name = "signupaccount")
 public class SignUp {
-    private final StringProperty firstName;
-    private final StringProperty lastName;
-    private final StringProperty password;
-    private final StringProperty pAddress;
-    private final DoubleProperty chAccBalance;
-    private final DoubleProperty svAccBalance;
-    private final StringProperty date;
-    private final StringProperty CheckingNumber;
-    private final StringProperty SavingNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private int Id;
+    @Column(name = "FirstName")
+    private String firstName;
+    @Column(name = "LastName")
+    private String lastName;
+    @Column(name = "Password")
+    private String password;
+    @Column(name = "PayeeAddress")
+    private String pAddress;
+    @Column(name = "CheckingAmount")
+    private Double chAccBalance;
+    @Column(name = "SavingAmount")
+    private Double svAccBalance;
+    @Column(name = "Date")
+    private String date;
+    @Column(name = "CheckingNumber")
+    private String CheckingNumber;
+    @Column(name = "SavingNumber")
+    private String SavingNumber;
 
-    public SignUp(String firstName ,String  lastName , String password , String pAddress , double chAccBalance ,
-                  double svAccBalance , String date , String CheckingNumber ,String SavingNumber) {
-        this.firstName = new SimpleStringProperty(this , "FirstName" , firstName);
-        this.lastName = new SimpleStringProperty(this , "LastName" , lastName);
-        this.password = new SimpleStringProperty(this , "Password" , password);
-        this.pAddress = new SimpleStringProperty(this , "PayeeAddress" , pAddress);
-        this.chAccBalance  = new SimpleDoubleProperty(this , "CheckingAmount" , chAccBalance);
-        this.svAccBalance  = new SimpleDoubleProperty(this , "SavingAmount" , svAccBalance);
-        this.date = new SimpleStringProperty(this , "Date" , date);
-        this.CheckingNumber  = new SimpleStringProperty(this , "CheckingNumber" , CheckingNumber);
-        this.SavingNumber  = new SimpleStringProperty(this , "SavingNumber" , SavingNumber);
-
+    public SignUp() {
     }
 
-    public StringProperty FirstNameProperty() {
+    public SignUp(String firstName, String lastName, String password, String pAddress, Double chAccBalance, Double svAccBalance, String date, String checkingNumber, String savingNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.pAddress = pAddress;
+        this.chAccBalance = chAccBalance;
+        this.svAccBalance = svAccBalance;
+        this.date = date;
+        CheckingNumber = checkingNumber;
+        SavingNumber = savingNumber;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public String getFirstName() {
         return firstName;
     }
 
-    public StringProperty lastNameProperty() {
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
         return lastName;
     }
 
-    public StringProperty PasswordProperty() {
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPassword() {
         return password;
     }
 
-    public StringProperty pAddressProperty() {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getpAddress() {
         return pAddress;
     }
 
-    public DoubleProperty chAccBalanceProperty() {
+    public void setpAddress(String pAddress) {
+        this.pAddress = pAddress;
+    }
+
+    public Double getChAccBalance() {
         return chAccBalance;
     }
 
-    public DoubleProperty svAccBalanceProperty() {
+    public void setChAccBalance(Double chAccBalance) {
+        this.chAccBalance = chAccBalance;
+    }
+
+    public Double getSvAccBalance() {
         return svAccBalance;
     }
 
-    public StringProperty dateProperty() {
+    public void setSvAccBalance(Double svAccBalance) {
+        this.svAccBalance = svAccBalance;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public StringProperty checkingNumberProperty() {
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getCheckingNumber() {
         return CheckingNumber;
     }
 
-    public StringProperty savingNumberProperty() {
+    public void setCheckingNumber(String checkingNumber) {
+        CheckingNumber = checkingNumber;
+    }
+
+    public String getSavingNumber() {
         return SavingNumber;
+    }
+
+    public void setSavingNumber(String savingNumber) {
+        SavingNumber = savingNumber;
     }
 }
