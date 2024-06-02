@@ -23,22 +23,39 @@ public class AccountsController implements Initializable {
     public TextField sav_acc_num_fld;
     public Button search_btn;
     public ListView<SavingAccount> savings_listview;
+    private String clientId;
+    String pAddress = "";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        refreshDataLabel();
         trans_to_ch_btn.setOnAction(event -> onTransToCH());
         search_btn.setOnAction(event -> onSearch());
-        List<SavingAccount> savingAccounts = getSavingOfSQLite();
-        savings_listview.getItems().addAll(savingAccounts);
-        savings_listview.setCellFactory(listView -> new SavingCellFactory());
         Model.getInstance().getViewFactory().setAccountsController(this);
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+        if(clientId != null){
+            refreshDataLabel();
+            List<SavingAccount> savingAccounts = getSavingOfSQLite();
+            savings_listview.getItems().addAll(savingAccounts);
+            savings_listview.setCellFactory(listView -> new SavingCellFactory());
+
+        }
     }
 
     private List<SavingAccount> getSavingOfSQLite() {
         savings_listview.getItems().clear();
+        int Id = Integer.parseInt(clientId);
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         List<SavingAccount> savingAccountList = Model.getInstance().getDaoDriver().getSavingAccountDao().getAllSavingAccounts();
-        String pAddress = Model.getInstance().getClients().getPayeeAddress();
+        for(Clients client : clientsList) {
+            if(Id == client.getId()) {
+                pAddress = client.getPayeeAddress();
+                break;
+            }
+        }
+
         List<SavingAccount> savingAccounts = new ArrayList<>();
         for (SavingAccount savingAccount : savingAccountList) {
             if(pAddress.equals(savingAccount.getOwner())){
@@ -84,13 +101,13 @@ public class AccountsController implements Initializable {
     }
 
     public void refreshDataLabel(){
-        int Id = Model.getInstance().getClients().getId();
-        String pAddress = Model.getInstance().getClients().getPayeeAddress();
+        int Id = Integer.parseInt(clientId);
         List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
         for (Clients client : clientsList) {
             if (Id == client.getId()){
                 ch_acc_date.setText(client.getDateCreated());
+                pAddress = client.getPayeeAddress();
                 break;
             }
 
@@ -113,11 +130,17 @@ public class AccountsController implements Initializable {
 
 
     private void onTransToCH(){
-        // Lấy dữ liệu
-        String payeeAddress = Model.getInstance().getClients().getPayeeAddress();
+        int Id = Integer.parseInt(clientId);
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         String Sav_num = sav_acc_num_fld.getText();
         List<SavingAccount> savingAccountList = Model.getInstance().getDaoDriver().getSavingAccountDao().getAllSavingAccounts();
         List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
+        for (Clients client : clientsList) {
+            if (Id == client.getId()){
+                pAddress = client.getPayeeAddress();
+                break;
+            }
+        }
 
         double amount;
         try {
@@ -144,7 +167,7 @@ public class AccountsController implements Initializable {
 
                 //Update lại tiền Checking
                 for (CheckingAccount checkingAccount : checkingAccountList){
-                    if (payeeAddress.equals(checkingAccount.getOwner())){
+                    if (pAddress.equals(checkingAccount.getOwner())){
                         double amountCH = checkingAccount.getBalance();
                         checkingAccount.setBalance(amountCH + amount);
                         Model.getInstance().getDaoDriver().getCheckingAccountDao().updateCheckingAccount(checkingAccount);

@@ -109,7 +109,7 @@ public class SavingAccountDao {
     }
 
     //Detele Saving Account
-    public SavingAccount deleteSavingAccount(String owner) {
+    public SavingAccount deleteSavingAccount(String accountNum) {
         Transaction transaction = null;
         SavingAccount savingAccount = null;
         try (Session session = sessionFactory.openSession()) {
@@ -117,7 +117,7 @@ public class SavingAccountDao {
             transaction = session.beginTransaction();
 
             //get Checking Account object
-            savingAccount = session.createQuery("from SavingAccount where owner = :owner",SavingAccount.class).setParameter("owner", owner).uniqueResult();
+            savingAccount = session.createQuery("from SavingAccount where accountNumber = :accountNumber",SavingAccount.class).setParameter("accountNumber", accountNum).uniqueResult();
             session.delete(savingAccount);
 
             //commit the transaction

@@ -32,6 +32,9 @@ public class LoginController implements Initializable {
             //Evaluate Admin Login Credentials
             Model.getInstance().evaluateAdminCred(payee_address_fid.getText().trim() , password_fid.getText().trim());
             if (Model.getInstance().getAdminLoginSuccessFlag()){
+
+                Model.getInstance().startServer();
+
                 Model.getInstance().getViewFactory().showAdminWindow();
 
                 //Close the login stage

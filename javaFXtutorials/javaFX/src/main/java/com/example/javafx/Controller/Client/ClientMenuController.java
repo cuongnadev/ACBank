@@ -1,5 +1,6 @@
 package com.example.javafx.Controller.Client;
 
+import com.example.javafx.Client.ClientSession;
 import com.example.javafx.Models.Model;
 import com.example.javafx.View.ClientMenuOptions;
 import javafx.fxml.Initializable;
@@ -15,10 +16,17 @@ public class ClientMenuController implements Initializable {
     public Button account_btn;
     public Button profile_btn;
     public Button logout_btn;
+    private ClientSession clientSession;
+
+    public void setClientSession(ClientSession clientSession) {
+        this.clientSession = clientSession;
+        addListeners();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addListeners();
+        Model.getInstance().getViewFactory().setClientMenuController(this);
     }
     private void addListeners(){
         dashboard_btn.setOnAction(event -> onDashboard());
@@ -31,24 +39,18 @@ public class ClientMenuController implements Initializable {
 
 
     private void onDashboard (){
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(ClientMenuOptions.DASHBOARD);
-        Model.getInstance().getViewFactory().getDashboardController().setDataLabel();
-        Model.getInstance().getViewFactory().getDashboardController().refreshDataTransaction();
+        clientSession.setSelectedMenuItem(ClientMenuOptions.DASHBOARD);
     }
     private void onTransactions (){
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(ClientMenuOptions.TRANSACTION);
-        Model.getInstance().getViewFactory().getTransactionsController().refreshData();
+        clientSession.setSelectedMenuItem(ClientMenuOptions.TRANSACTION);
     }
     private void onAccounts (){
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(ClientMenuOptions.ACCOUNT);
-        Model.getInstance().getViewFactory().getAccountsController().refreshDataLabel();
+        clientSession.setSelectedMenuItem(ClientMenuOptions.ACCOUNT);
     }
     private void onProfile() {
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(ClientMenuOptions.PROFILE);
-        Model.getInstance().getViewFactory().getProfileController().setdataLabel();
+        clientSession.setSelectedMenuItem(ClientMenuOptions.PROFILE);
     }
     private void onLogOut(){
-        Model.getInstance().getViewFactory().showAdminWindow();
         Stage stage = (Stage) logout_btn.getScene().getWindow();
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().setClientLoginSuccessFlag(false);

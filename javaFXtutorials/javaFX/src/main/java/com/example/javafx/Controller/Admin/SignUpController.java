@@ -76,12 +76,16 @@ public class SignUpController implements Initializable {
         for (Clients client : clientsList) {
             if (pAddress.equals(client.getPayeeAddress())) {
                 showAlert("PayeeAddress already exists!");
+                break;
             } else if (firstName.isEmpty() || lastName.isEmpty()) {
                 showAlert("Please enter valid FirstName or LastName.");
+                break;
             } else if (password.isEmpty()) {
                 showAlert("Please enter password.");
+                break;
             } else if (chAccBalance < 0 || svAccBalance < 0) {
                 showAlert("Please enter valid Balance.");
+                break;
             } else {
                 // Thêm client mới vào hàng chờ chờ admin duyệt
                 String CheckingNumber = "3021 " + RanDomNumber();
@@ -97,6 +101,7 @@ public class SignUpController implements Initializable {
                 //Close the SignUp window
                 Model.getInstance().getViewFactory().closeStage(stage);
                 Model.getInstance().getViewFactory().getSignUpListController().refreshSignUpListView();
+                break;
             }
         }
     }

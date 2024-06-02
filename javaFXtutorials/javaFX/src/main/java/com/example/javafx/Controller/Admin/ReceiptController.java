@@ -31,10 +31,11 @@ public class ReceiptController implements Initializable {
     public void onSearch(){
         List<Receipt> receiptList = Model.getInstance().getDaoDriver().getReceiptDao().getAllReceipts();
         String payeeAdress = IDReceipt_fld.getText().trim();
+        String adminName = Model.getInstance().getAdmin().getUserName();
         Boolean check = false;
         receipts_listview1.getItems().clear();
         for (Receipt receipt : receiptList){
-            if (payeeAdress.equals(receipt.getIDReceipt())){
+            if (payeeAdress.equals(receipt.getIDReceipt()) && adminName.equals(receipt.getAdminName())){
                 check = true;
                 Receipt newReceipt = new Receipt(receipt.getIDReceipt(),
                         receipt.getSender(),
@@ -43,7 +44,8 @@ public class ReceiptController implements Initializable {
                         receipt.getNumberReceiver(),
                         receipt.getAmount(),
                         receipt.getDate(),
-                        receipt.getMessage());
+                        receipt.getMessage(),
+                        receipt.getAdminName());
                 receipts_listview1.getItems().add(newReceipt);
                 receipts_listview1.setCellFactory(listView -> new ReceiptCellFactory());
             }
@@ -57,19 +59,22 @@ public class ReceiptController implements Initializable {
     public List<Receipt> getReceiptOfSQLite() {
         receipts_listview.getItems().clear();
         List<Receipt> receipts = Model.getInstance().getDaoDriver().getReceiptDao().getAllReceipts();
-
+        String adminName = Model.getInstance().getAdmin().getUserName();
         List<Receipt> receiptList = new ArrayList<>();
         for (Receipt receipt : receipts) {
-            Receipt newReceipt = new Receipt(receipt.getIDReceipt(),
-                    receipt.getSender(),
-                    receipt.getReceiver(),
-                    receipt.getNumberSender(),
-                    receipt.getNumberReceiver(),
-                    receipt.getAmount(),
-                    receipt.getDate(),
-                    receipt.getMessage());
+            if(receipt.getAdminName().equals(adminName)) {
+                Receipt newReceipt = new Receipt(receipt.getIDReceipt(),
+                        receipt.getSender(),
+                        receipt.getReceiver(),
+                        receipt.getNumberSender(),
+                        receipt.getNumberReceiver(),
+                        receipt.getAmount(),
+                        receipt.getDate(),
+                        receipt.getMessage(),
+                        receipt.getAdminName());
 
-            receiptList.add(newReceipt);
+                receiptList.add(newReceipt);
+            }
         }
         // Sắp xếp danh sách theo ngày giảm dần
         receiptList.sort((t1, t2) -> t2.getDate().compareTo(t1.getDate()));

@@ -42,33 +42,43 @@ public class DashboardController implements Initializable {
     public TextArea massage_fld;
     public Button send_money_btn;
 
+    private String clientId;
+    private String pAddress = "";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setDataLabel();
         refreshDataTransaction();
         List<Transaction> transactions = getTransactionOfSQLiteLimit(4);
         transaction_listview.getItems().addAll(transactions);
-        transaction_listview.setCellFactory(listView -> new TransactionCellFactory());
+        transaction_listview.setCellFactory(listView -> new TransactionCellFactory(clientId));
         send_money_btn.setOnAction(event -> onSendMoney());
         Model.getInstance().getViewFactory().setDashboardController(this);
     }
 
+    public void setClientId(String clientId) { // Thêm setter này
+        this.clientId = clientId;
+        if(clientId != null) { // Cập nhật dữ liệu khi clientId được thiết lập
+            setDataLabel();
+            refreshDataTransaction();
+        }
+    }
+
     public void setDataLabel(){
-        int Id = Model.getInstance().getClients().getId();
-        String pAddress = Model.getInstance().getClients().getPayeeAddress();
+        int Id = Integer.parseInt(clientId);
         List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
         List<Transaction> transactionList = Model.getInstance().getDaoDriver().getTransactionDao().getAllTransactions();
-        double income = 0;
-        double expense = 0;
-        for (Clients client : clientsList) {
-            if (client.getId() == Id){
+
+        for(Clients client : clientsList) {
+            if(client.getId() == Id) {
+                pAddress = client.getPayeeAddress();
                 String LName = client.getLastName();
                 user_name.setText("Hi, "+ LName);
                 break;
             }
         }
+        double income = 0;
+        double expense = 0;
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = currentDate.format(formatter);
@@ -150,10 +160,10 @@ public class DashboardController implements Initializable {
                         // Làm mới transaction listview
                         List<Transaction> transactions = getTransactionOfSQLiteLimit(4);
                         transaction_listview.getItems().setAll(transactions);
-
+                        String adminName = Model.getInstance().getAdmin().getUserName();
                         String IDBienLai = RanDomIDBienLai(pAddress_sender , pAddress_receiver);
 
-                        Receipt receipt = new Receipt(IDBienLai, pAddress_sender, pAddress_receiver, checkingAccount.getAccountNumber(), checkingAccount1.getAccountNumber(), amount, LocalDate.now().toString() , message) ;
+                        Receipt receipt = new Receipt(IDBienLai, pAddress_sender, pAddress_receiver, checkingAccount.getAccountNumber(), checkingAccount1.getAccountNumber(), amount, LocalDate.now().toString() , message, adminName) ;
 
                         inBienLai( IDBienLai, pAddress_sender , pAddress_receiver , checkingAccount.getAccountNumber() , checkingAccount1.getAccountNumber() , amount , LocalDate.now().toString() , message );
                         showAlertSuccessful("Successful money transfer");
@@ -173,12 +183,12 @@ public class DashboardController implements Initializable {
 
     private List<Transaction> getTransactionOfSQLiteLimit(int limit) {
         transaction_listview.getItems().clear();
-        String pAdress = Model.getInstance().getClients().getPayeeAddress();
+//        String pAdress = Model.getInstance().getClients().getPayeeAddress();
         List<Transaction> transactionList = Model.getInstance().getDaoDriver().getTransactionDao().getAllTransactions();
         List<Transaction> transactions = new ArrayList<>();
         for (Transaction transaction : transactionList) {
-            if (pAdress.equals(transaction.getSender())
-                || pAdress.equals(transaction.getReceiver())){
+            if (pAddress.equals(transaction.getSender())
+                || pAddress.equals(transaction.getReceiver())){
                 Transaction newtTransaction = new Transaction(
                         transaction.getSender(),
                         transaction.getReceiver(),
@@ -198,7 +208,7 @@ public class DashboardController implements Initializable {
     public void refreshDataTransaction(){
         List<Transaction> transactions = getTransactionOfSQLiteLimit(4);
         transaction_listview.getItems().setAll(transactions);
-        transaction_listview.setCellFactory(listView -> new TransactionCellFactory());
+        transaction_listview.setCellFactory(listView -> new TransactionCellFactory(clientId));
     }
     public void inBienLai(String IDBienLai , String sender , String receiver , String numberSender , String numberReceiver , double amount , String date , String message ){
         //in file pdf

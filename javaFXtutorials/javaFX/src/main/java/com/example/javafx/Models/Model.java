@@ -3,9 +3,11 @@ package com.example.javafx.Models;
 import com.example.javafx.Dao.AdminDao;
 import com.example.javafx.Dao.ClientsDao;
 import com.example.javafx.Dao.DaoDriver;
+import com.example.javafx.Server.BankServer;
 import com.example.javafx.View.AccountType;
 import com.example.javafx.View.ViewFactory;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -15,7 +17,7 @@ public class Model {
     private static Model model;
     private final ViewFactory viewFactory;
     private final DaoDriver daoDriver;
-
+    private BankServer server;
 
     //Client Data Section
     private final Clients myClient;
@@ -31,7 +33,7 @@ public class Model {
         this.viewFactory = new ViewFactory();
         //Client Data Section
         this.clientLoginSuccessFlag = false;
-        this.myClient = new Clients("", "", "", "","");
+        this.myClient = new Clients("", "", "", "","", "");
         //Admin Data Section
         this.adminLoginSuccessFlag = false ;
         this.admin = new Admin("" ,"");
@@ -42,6 +44,26 @@ public class Model {
             model = new Model();
         }
         return model;
+    }
+
+    public void startServer() {
+        if (server == null) {
+            try {
+                server = new BankServer(44105);
+                new Thread(() -> server.start()).start();
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public BankServer getServer() {
+        return server;
+    }
+
+    public void setServer(BankServer server) {
+        this.server = server;
     }
 
     public ViewFactory getViewFactory(){
@@ -66,7 +88,6 @@ public class Model {
     public void evaluateClientCred(String pAddress , String password){
         List<Clients> clientsList = this.getDaoDriver().getClientsDao().getAllClients();
         try {
-
             for (Clients client : clientsList) {
                 if(client.getPayeeAddress().equals(pAddress) && client.getPassword().equals(HashPassword(password))) {
                     this.myClient.setId(client.getId());
@@ -101,6 +122,8 @@ public class Model {
         try {
             for(Admin admin1 : adminList) {
                 if(admin1.getUserName().equals(username) && admin1.getPassword().equals(password)) {
+                    this.getAdmin().setUserName(username);
+                    this.getAdmin().setPassword(password);
                     this.adminLoginSuccessFlag = true;
                     break;
                 }
