@@ -33,17 +33,19 @@ public class ClientsController implements Initializable {
     public void onSearch(){
         List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         String payeeAdress = pAddress_fld.getText().trim();
+        String nameAdmin = Model.getInstance().getAdmin().getUserName();
         Boolean check = false;
         clients_listview1.getItems().clear();
         for (Clients client : clientsList){
-            if (payeeAdress.equals(client.getPayeeAddress())){
+            if (payeeAdress.equals(client.getPayeeAddress()) && nameAdmin.equals(client.getAdminName())){
                 check = true;
                 Clients newClient = new Clients(
                         client.getFirstName(),
                         client.getLastName(),
                         client.getPayeeAddress(),
                         client.getPassword(),
-                        client.getDateCreated());
+                        client.getDateCreated(),
+                        client.getAdminName());
                 clients_listview1.getItems().add(newClient);
                 clients_listview1.setCellFactory(listView -> new ClientCellFactory());
             }
@@ -60,17 +62,20 @@ public class ClientsController implements Initializable {
     public List<Clients> getClientOfSQLite() {
         clients_listview.getItems().clear();
         List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
-
+        String nameAdmin = Model.getInstance().getAdmin().getUserName();
         List<Clients> clients = new ArrayList<>();
         for (Clients client : clientsList) {
-            Clients newClient = new Clients(
-                    client.getFirstName(),
-                    client.getLastName(),
-                    client.getPayeeAddress(),
-                    client.getPassword(),
-                    client.getDateCreated());
+            if(nameAdmin.equals(client.getAdminName())) {
+                Clients newClient = new Clients(
+                        client.getFirstName(),
+                        client.getLastName(),
+                        client.getPayeeAddress(),
+                        client.getPassword(),
+                        client.getDateCreated(),
+                        client.getAdminName());
 
-            clients.add(newClient);
+                clients.add(newClient);
+            }
         }
         return clients;
     }

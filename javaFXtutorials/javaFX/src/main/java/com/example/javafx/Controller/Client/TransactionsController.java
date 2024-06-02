@@ -1,5 +1,6 @@
 package com.example.javafx.Controller.Client;
 
+import com.example.javafx.Models.Clients;
 import com.example.javafx.Models.Model;
 import com.example.javafx.Models.Transaction;
 import com.example.javafx.View.TransactionCellFactory;
@@ -18,19 +19,34 @@ import java.util.ResourceBundle;
 
 public class TransactionsController implements Initializable {
     public ListView<Transaction> transaction_listview;
+    private String clientId;
+    String pAddress = "";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        refreshData();
-        List<Transaction> transactions = getTransactionOfSQLite();
-        transaction_listview.getItems().addAll(transactions);
-        transaction_listview.setCellFactory(listView -> new TransactionCellFactory());
         Model.getInstance().getViewFactory().setTransactionsController(this);
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+        if(clientId != null) {
+            refreshData();
+            List<Transaction> transactions = getTransactionOfSQLite();
+            transaction_listview.getItems().addAll(transactions);
+            transaction_listview.setCellFactory(listView -> new TransactionCellFactory(clientId));
+        }
     }
 
     public List<Transaction> getTransactionOfSQLite() {
         transaction_listview.getItems().clear();
-        String pAddress = Model.getInstance().getClients().getPayeeAddress();
+        int Id = Integer.parseInt(clientId);
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
+        for (Clients client : clientsList) {
+            if(Id == client.getId()) {
+                pAddress = client.getPayeeAddress();
+                break;
+            }
+        }
         List<Transaction> transactionList = Model.getInstance().getDaoDriver().getTransactionDao().getAllTransactions();
         List<Transaction> transactions = new ArrayList<>();
         for (Transaction transaction : transactionList) {
@@ -52,6 +68,6 @@ public class TransactionsController implements Initializable {
     public void refreshData() {
         List<Transaction> transactions = getTransactionOfSQLite();
         transaction_listview.getItems().setAll(transactions);
-        transaction_listview.setCellFactory(listView -> new TransactionCellFactory());
+        transaction_listview.setCellFactory(listView -> new TransactionCellFactory(clientId));
     }
 }

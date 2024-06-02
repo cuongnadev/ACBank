@@ -29,17 +29,23 @@ public class ProfileController implements Initializable {
     public Label num_of_sav_lbl;
     public Label income_lbl;
     public Label expense_lbl;
+    private String clientId;
+    String pAddress = "";
+    String password = "";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setdataLabel();
         edit_btn.setOnAction(event -> onEdit());
         Model.getInstance().getViewFactory().setProfileController(this);
     }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+        if(clientId != null) setdataLabel();
+    }
     public void setdataLabel() {
-        int Id = Model.getInstance().getClients().getId();
-        String pAddress = Model.getInstance().getClients().getPayeeAddress();
-        String password = Model.getInstance().getClients().getPassword();
+        int Id = Integer.parseInt(clientId);
+        String pass = Model.getInstance().getClients().getPassword();
         List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
         List<SavingAccount> savingAccountList = Model.getInstance().getDaoDriver().getSavingAccountDao().getAllSavingAccounts();
@@ -48,11 +54,14 @@ public class ProfileController implements Initializable {
         double expense = 0;
         for (Clients client : clientsList){
             if(Id == client.getId()){
+                pAddress = client.getPayeeAddress();
+                password = client.getPassword();
                 firstName_lbl.setText(client.getFirstName());
                 lastName_lbl.setText(client.getLastName());
-                password_lbl.setText(password);
+                password_lbl.setText(pass);
                 pAddress_lbl.setText(client.getPayeeAddress());
                 date_lbl.setText(client.getDateCreated());
+                break;
             }
         }
         for (CheckingAccount checkingAccount : checkingAccountList){
@@ -84,7 +93,6 @@ public class ProfileController implements Initializable {
     }
 
     private void onEdit() {
-        String pAddress = Model.getInstance().getClients().getPayeeAddress();
         List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         for (Clients client : clientsList){
             if(pAddress.equals(client.getPayeeAddress())){
@@ -105,5 +113,4 @@ public class ProfileController implements Initializable {
             }
         }
     }
-
 }

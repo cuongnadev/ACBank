@@ -42,11 +42,12 @@ public class SignUpCellController implements Initializable {
         // duyệt client
         for (SignUp signUp : signUpList){
             if (pAddress_lbl.getText().equals(signUp.getpAddress())){
+                String adminName = Model.getInstance().getAdmin().getUserName();
                 CheckingAccount checkingAccount = new CheckingAccount(signUp.getpAddress(), signUp.getCheckingNumber() ,signUp.getChAccBalance(), 100);
                 SavingAccount savingAccount = new SavingAccount(signUp.getpAddress(), signUp.getSavingNumber() , signUp.getSvAccBalance(), 2000);
                 Clients client = new Clients(signUp.getFirstName(), signUp.getLastName(),
                                             signUp.getpAddress(), signUp.getPassword(),
-                                            signUp.getDate());
+                                            signUp.getDate(), adminName);
                 try {
                     Model.getInstance().getDaoDriver().getClientsDao().saveClient(client);
                     List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
@@ -56,6 +57,7 @@ public class SignUpCellController implements Initializable {
                             Model.getInstance().getDaoDriver().getSavingAccountDao().saveSavingAccount(savingAccount);
                             Model.getInstance().getDaoDriver().getSignUpDao().deleteSignUp(pAddress_lbl.getText());
                             showAlertSuccessful("Client Create Successfully");
+                            break;
                         }
                     }
                 }catch (Exception e){
@@ -118,6 +120,5 @@ public class SignUpCellController implements Initializable {
         }else {
             return;
         }
-
     }
 }

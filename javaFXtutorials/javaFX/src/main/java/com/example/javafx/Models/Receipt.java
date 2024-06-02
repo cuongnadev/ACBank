@@ -26,11 +26,13 @@ public class Receipt {
     private String date;
     @Column(name = "Message")
     private String message;
+    @Column(name = "AdminName")
+    private String adminName;
 
     public Receipt() {
     }
 
-    public Receipt(String IDReceipt, String sender, String receiver, String numberSender, String numberReceiver, Double amount, String date, String message) {
+    public Receipt(String IDReceipt, String sender, String receiver, String numberSender, String numberReceiver, Double amount, String date, String message, String adminName) {
         this.IDReceipt = IDReceipt;
         this.sender = sender;
         this.receiver = receiver;
@@ -39,6 +41,7 @@ public class Receipt {
         this.amount = amount;
         this.date = date;
         this.message = message;
+        this.adminName = adminName;
     }
 
     public int getId() {
@@ -110,5 +113,13 @@ public class Receipt {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 }

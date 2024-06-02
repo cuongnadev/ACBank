@@ -1,5 +1,6 @@
 package com.example.javafx.Controller.Client;
 
+import com.example.javafx.Models.Clients;
 import com.example.javafx.Models.Model;
 import com.example.javafx.Models.Receipt;
 import com.example.javafx.Models.Transaction;
@@ -36,9 +37,11 @@ public class TransactionCellController implements Initializable {
     public Button print_btn;
 
     private final Transaction transaction;
+    private String clientId;
 
-    public TransactionCellController(Transaction transaction){
+    public TransactionCellController(Transaction transaction, String clientId){
         this.transaction = transaction;
+        this.clientId = clientId;
     }
 
     @Override
@@ -51,8 +54,10 @@ public class TransactionCellController implements Initializable {
             }
         });
         in_out_icon();
+
         print_btn.setOnAction(event -> onPrint());
     }
+
 
     public void onPrint() {
         List<Receipt> receiptList = Model.getInstance().getDaoDriver().getReceiptDao().getAllReceipts();
@@ -164,7 +169,6 @@ public class TransactionCellController implements Initializable {
     
 
     private void setDataToLabels() {
-
         trans_date_lbl.setText(transaction.getDate());
         sender_lbl.setText(transaction.getSender());
         receiver_lbl.setText(transaction.getReceiver());
@@ -184,7 +188,15 @@ public class TransactionCellController implements Initializable {
         alert.showAndWait();
     }
     private void in_out_icon(){
-        String payee_address = Model.getInstance().getClients().getPayeeAddress();
+        int Id = Integer.parseInt(clientId);
+        String payee_address = "";
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
+        for (Clients client : clientsList) {
+            if(Id == client.getId()) {
+                payee_address = client.getPayeeAddress();
+                break;
+            }
+        }
         if (sender_lbl.getText().equals(payee_address)){
             in_icon.setIconColor(Color.RED);
             out_icon.setIconColor(Color.GREY);

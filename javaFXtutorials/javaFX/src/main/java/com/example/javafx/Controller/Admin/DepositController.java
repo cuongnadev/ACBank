@@ -135,7 +135,7 @@ public class DepositController implements Initializable {
             if (checkingAccount.getOwner().equals(payeeAddress)){
                 double amountCH = Double.valueOf(checkingAccount.getBalance());
                 checkingAccount.setBalance(amountCH + amount);
-                Model.getInstance().getDaoDriver().getCheckingAccountDao().saveCheckingAccount(checkingAccount);
+                Model.getInstance().getDaoDriver().getCheckingAccountDao().updateCheckingAccount(checkingAccount);
                 showAlert("Deposit Successful!");
                 refreshData();
                 return;

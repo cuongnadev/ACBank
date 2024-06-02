@@ -21,15 +21,20 @@ public class Clients {
     @Column(name = "Date")
     private String dateCreated;
 
+    @Column(name = "AdminName")
+    private String adminName;
+
+
+
     public Clients() {
     }
-
-    public Clients(String firstName, String lastName, String payeeAddress, String password, String dateCreated) {
+    public Clients(String firstName, String lastName, String payeeAddress, String password, String dateCreated, String adminName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.payeeAddress = payeeAddress;
         this.password = password;
         this.dateCreated = dateCreated;
+        this.adminName = adminName;
     }
 
     public int getId() {
@@ -78,5 +83,13 @@ public class Clients {
 
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 }

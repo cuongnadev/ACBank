@@ -1,8 +1,10 @@
 package com.example.javafx.View;
 
+import com.example.javafx.Client.ClientSession;
 import com.example.javafx.Controller.Admin.*;
 import com.example.javafx.Controller.Client.*;
 import com.example.javafx.Controller.LoginController;
+import com.example.javafx.Models.Model;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
@@ -32,10 +34,12 @@ public class ViewFactory {
     private AccountsController accountsController;
     private ProfileController profileController;
     private TransactionsController transactionsController;
+    private TransactionCellController transactionCellController;
     private ReceiptController receiptController;
     private SignUpController signUpController;
     private SignUpListController signUpListController;
     private DepositController depositController;
+    private ClientMenuController clientMenuController;
 
     //getter & setter
 
@@ -49,6 +53,18 @@ public class ViewFactory {
     //Clients
     public ClientsController getClientsController(){return this.clientsController; }
     public void setClientsController (ClientsController clientsController){this.clientsController = clientsController; }
+
+    // Client Menu Option
+
+
+    public ClientMenuController getClientMenuController() {
+        return clientMenuController;
+    }
+
+    public void setClientMenuController(ClientMenuController clientMenuController) {
+        this.clientMenuController = clientMenuController;
+    }
+
     //Dashboard
     public DashboardController getDashboardController (){return this.dashboardController;}
     public void setDashboardController(DashboardController dashboardController){this.dashboardController = dashboardController;}
@@ -77,6 +93,15 @@ public class ViewFactory {
     public void setTransactionsController(TransactionsController transactionsController) {
         this.transactionsController = transactionsController;
     }
+
+    //TransactionCell
+    public TransactionCellController getTransactionCellController() {
+        return transactionCellController;
+    }
+    public void setTransactionCellController(TransactionCellController transactionCellController) {
+        this.transactionCellController = transactionCellController;
+    }
+
     //Receipts
     public ReceiptController getReceiptController() {
         return receiptController;
@@ -109,6 +134,7 @@ public class ViewFactory {
 
 
 
+
     // Admin View
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private AnchorPane createClientView;
@@ -132,48 +158,53 @@ public class ViewFactory {
     public ObjectProperty<ClientMenuOptions> getClientSelectedMenuItem (){
         return clientSelectedMenuItem;
     }
-    public AnchorPane getDashboardView(){
+    public AnchorPane getDashboardView(String Id){
+
         try {
             dashboardView = new FXMLLoader(getClass().getResource("/FXML/Client/Dashboard.fxml")).load();
+            getDashboardController().setClientId(Id);
         } catch (Exception e){
             e.printStackTrace();
         }
         return dashboardView;
     }
-    public AnchorPane getTransactionsView(){
-        if (transactionsView == null){
+    public AnchorPane getTransactionsView(String Id){
+
             try {
                 transactionsView = new FXMLLoader(getClass().getResource("/FXML/Client/Transactions.fxml")).load();
+                getTransactionsController().setClientId(Id);
+//                getTransactionCellController().setClientId(Id);
             } catch (Exception e){
                 e.printStackTrace();
             }
-        }
+
         return transactionsView;
     }
-    public AnchorPane getAccountsView(){
-        if (accountsView == null){
-            try {
-                accountsView = new FXMLLoader(getClass().getResource("/FXML/Client/Accounts.fxml")).load();
-            } catch (Exception e){
-                e.printStackTrace();
-            }
+    public AnchorPane getAccountsView(String Id){
+        try {
+            accountsView = new FXMLLoader(getClass().getResource("/FXML/Client/Accounts.fxml")).load();
+            getAccountsController().setClientId(Id);
+        } catch (Exception e){
+            e.printStackTrace();
         }
         return accountsView;
     }
-    public AnchorPane getProfileView(){
-        if (profileView == null){
+    public AnchorPane getProfileView(String Id){
+
             try {
                 profileView = new FXMLLoader(getClass().getResource("/FXML/Client/Profile.fxml")).load();
+                getProfileController().setClientId(Id);
             }catch (Exception e){
                 e.printStackTrace();
             }
-        }
+
         return profileView;
     }
 
-    public void showClientWindow(){
+    public void showClientWindow(String Id){
+        ClientSession clientSession = new ClientSession(Id);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Client/Client.fxml"));
-        ClientController clientController = new ClientController();
+        ClientController clientController = new ClientController(clientSession);
         loader.setController(clientController);
         createStage(loader);
     }
