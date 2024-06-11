@@ -1,6 +1,7 @@
 package com.example.javafx.Dao;
 
 import com.example.javafx.Models.Clients;
+import com.example.javafx.Models.SignUp;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -74,6 +75,31 @@ public class ClientsDao {
             student = session.get(Clients.class, id);
 
 //            student = session.load(Student.class, id);
+
+            //commit the transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+        }
+        return student;
+    }
+
+    //get client by pAddress
+    public Clients getClientByPayeeAddress(String pAddress) {
+        Transaction transaction = null;
+        Clients student = null;
+        try (Session session = sessionFactory.openSession()) {
+            // start the transaction
+            transaction = session.beginTransaction();
+
+            //get student object
+//            student = session.get(Clients.class, pAddress);
+
+            //
+            student = session.createQuery("from Clients where payeeAddress = :pAddress", Clients.class).setParameter("pAddress", pAddress).uniqueResult();
+
 
             //commit the transaction
             transaction.commit();

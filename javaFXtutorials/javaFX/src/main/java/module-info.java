@@ -21,5 +21,7 @@ module com.example.javafx {
     exports com.example.javafx.Controller.Admin;
     exports com.example.javafx.Models;
     exports com.example.javafx.View;
+    exports com.example.javafx.Client;
+    opens com.example.javafx.Client to org.hibernate.orm.core;
 
 }

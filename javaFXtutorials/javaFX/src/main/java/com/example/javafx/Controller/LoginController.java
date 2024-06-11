@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,12 +21,18 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         payee_address_lbl.setText("UserName:");
-        login_btn.setOnAction(event -> onLogin());
+        login_btn.setOnAction(event -> {
+            try {
+                onLogin();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         Model.getInstance().getViewFactory().setLoginController(this);
     }
 
 
-    private void onLogin(){
+    private void onLogin() throws IOException {
         Stage stage = (Stage) error_lbl.getScene().getWindow();
         //Login Admin
         if (Model.getInstance().getViewFactory().getLoginAccountType() == AccountType.ADMIN){
@@ -33,6 +40,7 @@ public class LoginController implements Initializable {
             Model.getInstance().evaluateAdminCred(payee_address_fid.getText().trim() , password_fid.getText().trim());
             if (Model.getInstance().getAdminLoginSuccessFlag()){
 
+                //khoi dong may chu
                 Model.getInstance().startServer();
 
                 Model.getInstance().getViewFactory().showAdminWindow();
