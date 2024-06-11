@@ -1,16 +1,16 @@
 package com.example.javafx.Controller.Admin;
 
-import com.example.javafx.Client.ClientSocket;
+
+import com.example.javafx.Client.ClientHandler;
 import com.example.javafx.Models.*;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
@@ -25,7 +25,8 @@ public class ClientCellController implements Initializable {
     public Button accept_btn;
 
     private final Clients client;
-    private ClientSocket connectedClient;
+    private ClientHandler clientHandler;
+    private String clientId;
 
     public ClientCellController (Clients client){
         this.client = client;
@@ -46,7 +47,7 @@ public class ClientCellController implements Initializable {
 
 
 
-    public void setClientData(){
+    public void setClientData() {
         fName_lbl.setText(client.getFirstName());
         lName_lbl.setText(client.getLastName());
         pAddress_lbl.setText(client.getPayeeAddress());
@@ -61,53 +62,58 @@ public class ClientCellController implements Initializable {
 
 
     private void acceptClient() throws IOException {
-        String payeeAddress = pAddress_lbl.getText().trim();
-        String password = null;
-        // Tạo một hộp thoại đầu vào để nhập mật khẩu
-
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Enter Password");
-        dialog.setHeaderText(null);
-        dialog.setContentText("Please enter your password:");
-
-        // Hiển thị hộp thoại và chờ người dùng nhập mật khẩu
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            password = result.get().trim();
-            Model.getInstance().evaluateClientCred(payeeAddress, password);
-            if (Model.getInstance().getClientLoginSuccessFlag()) {
-                int Id = Model.getInstance().getClients().getId();
-                // Kết nối tới server
-                connectedClient = new ClientSocket("localhost", 44105, String.valueOf(Id));
-                connectedClient.start();
-                System.out.println("Client connected: " + payeeAddress);
-
-                // Thêm thời gian trễ để đảm bảo kết nối được thiết lập
-                try {
-                    Thread.sleep(1000);  // 1 giây
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                // Kiểm tra kết nối client
-                System.out.println("Is client connected (after delay): " + Model.getInstance().getServer().isClientConnected(String.valueOf(Id)));
-
-            }else{
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("confirmation Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Wrong password, cannot access account");
-                alert.showAndWait();
+        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
+        for (Clients client : clientsList) {
+            if(client.getPayeeAddress().equals(this.client.getPayeeAddress())) {
+                clientId = String.valueOf(client.getId());
             }
-        }else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("confirmation Message");
-            alert.setHeaderText(null);
-            alert.setContentText("User canceled the password input.");
-            alert.showAndWait();
         }
-    }
 
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                String payeeAddress = pAddress_lbl.getText().trim();
+                String password;
+
+                // Tạo một hộp thoại đầu vào để nhập mật khẩu
+
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("Enter Password");
+                dialog.setHeaderText(null);
+                dialog.setContentText("Please enter your password:");
+                // Hiển thị hộp thoại và chờ người dùng nhập mật khẩu
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()) {
+                    password = result.get().trim();
+
+                    //connect server
+                    try {
+                        Socket socket = new Socket("localhost", 44105);
+                        clientHandler = new ClientHandler(socket);
+                        Model.getInstance().getClientExecutor().execute(clientHandler);
+                        Model.getInstance().getClientHandlers().put(clientId, clientHandler);
+                        for (Map.Entry<String, ClientHandler> entry :  Model.getInstance().getClientHandlers().entrySet()) {
+                            String key = entry.getKey();
+                            ClientHandler value = entry.getValue();
+                            System.out.println("Key: " + key + ", Value: " + value);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    String messageForm = "evaluateAccount_" + payeeAddress + "_" + password;
+
+                    System.out.println("[Client Log] --> " + messageForm);
+                    clientHandler.sendMessage(messageForm);
+                }else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("confirmation Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("User canceled the password input.");
+                    alert.showAndWait();
+                }
+            });
+        }).start();
+    }
 
 
     public void onDelete () {
@@ -182,5 +188,19 @@ public class ClientCellController implements Initializable {
         } else {
             return;
         }
+    }
+
+    private void showAlertErorr(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showAlertSuccessful(String successfulMoneyTransfer) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setContentText(successfulMoneyTransfer);
+        alert.showAndWait();
     }
 }

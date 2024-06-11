@@ -45,7 +45,7 @@ public class ProfileController implements Initializable {
     }
     public void setdataLabel() {
         int Id = Integer.parseInt(clientId);
-        String pass = Model.getInstance().getClients().getPassword();
+        String pass = Model.getInstance().getCurrentClient().getPassword();
         List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         List<CheckingAccount> checkingAccountList = Model.getInstance().getDaoDriver().getCheckingAccountDao().getAllCheckingAccounts();
         List<SavingAccount> savingAccountList = Model.getInstance().getDaoDriver().getSavingAccountDao().getAllSavingAccounts();
