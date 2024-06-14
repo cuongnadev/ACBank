@@ -59,10 +59,8 @@ public class ServerThread implements Runnable {
         String[] messageSplit = message.split("_");
         if(messageSplit[0].equals("evaluateAccount")){
             String pAddress = messageSplit[1];
-            String password = messageSplit[2];
             System.out.println("[Server Log] --> " + pAddress);
-            System.out.println("[Server Log] --> " + password);
-            Model.getInstance().evaluateClientCred(pAddress, password);
+            Model.getInstance().evaluateClientCred(pAddress);
             if(Model.getInstance().getClientLoginSuccessFlag()) {
 
                 int Id = Model.getInstance().getCurrentClient().getId();
@@ -82,8 +80,8 @@ public class ServerThread implements Runnable {
             // Perform money transfer logic (update balances, add transaction)
             boolean success = Model.getInstance().transferMoney(senderId, receiverID, amount, messageContent);
             if (success) {
-                String senderMessage = "transferMoney_success_" + receiverID + "_" + amount;
-                String receiverMessage = "receiveMoney_" + senderId + "_" + amount;
+                String senderMessage = "transferMoney_success_" + senderId + "_" + receiverID + "_" + amount;
+                String receiverMessage = "receiveMoney_" + senderId + "_" + receiverID + "_" + amount;
                 System.out.println("[Server Log] --> " + senderMessage);
                 System.out.println("[Server Log] --> " + receiverMessage);
 

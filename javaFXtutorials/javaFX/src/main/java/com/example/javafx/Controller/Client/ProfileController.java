@@ -17,11 +17,8 @@ public class ProfileController implements Initializable {
 
     public Label firstName_lbl;
     public Label lastName_lbl;
-    public Label password_lbl;
-    public Label pAddress_lbl;
     public TextField fName_fld;
     public TextField lName_fld;
-    public TextField password_fld;
     public Button edit_btn;
     public Label date_lbl;
     public Label ch_acc_num_lbl;
@@ -58,8 +55,6 @@ public class ProfileController implements Initializable {
                 password = client.getPassword();
                 firstName_lbl.setText(client.getFirstName());
                 lastName_lbl.setText(client.getLastName());
-                password_lbl.setText(pass);
-                pAddress_lbl.setText(client.getPayeeAddress());
                 date_lbl.setText(client.getDateCreated());
                 break;
             }
@@ -89,7 +84,6 @@ public class ProfileController implements Initializable {
         expense_lbl.setText(String.valueOf(expense));
         fName_fld.setText("");
         lName_fld.setText("");
-        password_fld.setText("");
     }
 
     private void onEdit() {
@@ -102,11 +96,6 @@ public class ProfileController implements Initializable {
                 }
                 if (!(lName_fld.getText().trim().isEmpty())){
                     client.setLastName(lName_fld.getText());
-                    Model.getInstance().getDaoDriver().getClientsDao().updateClient(client);
-                }
-                if (!(password_fld.getText().trim().isEmpty())){
-                    String pass = Model.HashPassword(password_fld.getText());
-                    client.setPassword(pass);
                     Model.getInstance().getDaoDriver().getClientsDao().updateClient(client);
                 }
                 setdataLabel();

@@ -35,11 +35,11 @@
       </VBox>
    </VBox>
    <VBox fillWidth="false" layoutX="209.0" layoutY="14.0" prefHeight="246.0" prefWidth="303.0" styleClass="login_form_container" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-      <Label fx:id="payee_address_lbl" text="Payee Address:" />
+      <Label fx:id="payee_address_lbl" text="Tên đăng nhập:" />
       <TextField fx:id="payee_address_fid" prefHeight="34.0" prefWidth="280.0" styleClass="input_field" />
-      <Label text="Password:" />
+      <Label text="Mật khẩu:" />
       <PasswordField fx:id="password_fid" prefHeight="34.0" prefWidth="280.0" styleClass="input_field" />
-      <Button fx:id="login_btn" mnemonicParsing="false" text="Login" />
+      <Button fx:id="login_btn" mnemonicParsing="false" text="Đăng nhập" />
       <Label fx:id="error_lbl" layoutX="20.0" layoutY="363.0" prefHeight="19.0" prefWidth="172.0" styleClass="error_lbl" />
    </VBox>
 </AnchorPane>

@@ -13,19 +13,19 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="account_view_container" stylesheets="@../../assets/Styles/Accounts.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.Client.AccountsController">
-   <Text layoutX="29.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checking Account" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
+   <Text layoutX="29.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài Khoản Chính" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0" />
    <VBox layoutX="33.0" layoutY="66.0" prefHeight="273.0" prefWidth="426.0" AnchorPane.leftAnchor="33.0" AnchorPane.topAnchor="66.0">
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account Number:" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Số tài khoản:" />
       <Label fx:id="ch_acc_num" text="3452 4950" />
-      <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction Limit:" />
+      <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giới hạn giao dịch:" />
       <Label fx:id="transaction_limit" layoutX="10.0" layoutY="28.0" text="10" />
-      <Text layoutX="10.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Created:" />
+      <Text layoutX="10.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày tạo:" />
       <Label fx:id="ch_acc_date" layoutX="10.0" layoutY="63.0" text="2023-12-01" />
-      <Text layoutX="10.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance:" />
+      <Text layoutX="10.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số tiền:" />
       <Label fx:id="ch_acc_bal" layoutX="10.0" layoutY="98.0" text="\$3,000.00" />
    </VBox>
-   <Text layoutX="33.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List Saving Account" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="400.0" />
-   <Text layoutX="501.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Move Funds To Cheking Account:" translateY="8.0" AnchorPane.rightAnchor="138.62616577148435" AnchorPane.topAnchor="139.4000005722046" />
+   <Text layoutX="33.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Danh sách tài khoản tiết kiệm" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="400.0" />
+   <Text layoutX="526.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rút tiền về tài khoản chính" translateY="8.0" AnchorPane.rightAnchor="158.56290283203123" AnchorPane.topAnchor="139.0" />
    <TextField fx:id="amount_to_ch" layoutX="501.0" layoutY="165.0" prefHeight="26.0" prefWidth="221.0" translateY="10.0" AnchorPane.leftAnchor="501.0" AnchorPane.rightAnchor="136.60000000000002" AnchorPane.topAnchor="165.0" />
    <AnchorPane layoutX="14.0" layoutY="435.0" prefHeight="292.0" prefWidth="850.0" styleClass="clients_container">
       <ListView fx:id="savings_listview" layoutX="14.0" layoutY="60.0" prefHeight="195.0" prefWidth="800.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0">
@@ -36,9 +36,9 @@
       </ListView>
       <HBox alignment="CENTER" layoutX="14.0" prefHeight="57.0" prefWidth="800.0" styleClass="search_box" stylesheets="@../../assets/Styles/Clients.css" AnchorPane.topAnchor="0.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search By Saving Number:" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tìm kiếm tài khoản tiết kiệm:" />
             <TextField fx:id="sav_acc_num_fld" />
-            <Button fx:id="search_btn" mnemonicParsing="false" text="Search">
+            <Button fx:id="search_btn" mnemonicParsing="false" text="Tìm kiếm">
                <graphic>
                   <FontIcon iconColor="WHITE" iconLiteral="fa-search" iconSize="20" />
                </graphic>
@@ -47,6 +47,6 @@
       </HBox>
    </AnchorPane>
    <Line endX="712.2000122070312" layoutX="118.0" layoutY="377.0" startX="-84.59999084472656" translateY="2.0" AnchorPane.leftAnchor="32.90000915527344" AnchorPane.rightAnchor="33.70000305175779" />
-   <Button fx:id="trans_to_ch_btn" layoutX="501.0" layoutY="224.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="189.0" text="Transfer" AnchorPane.leftAnchor="501.0" />
+   <Button fx:id="trans_to_ch_btn" layoutX="501.0" layoutY="224.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="189.0" text="Rút tiền" AnchorPane.leftAnchor="501.0" />
    <FontIcon iconColor="WHITE" iconLiteral="fas-arrow-up" iconSize="20" layoutX="542.0" layoutY="249.0" />
 </AnchorPane>

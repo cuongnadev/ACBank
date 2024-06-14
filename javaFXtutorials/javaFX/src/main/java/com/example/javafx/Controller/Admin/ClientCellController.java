@@ -72,45 +72,21 @@ public class ClientCellController implements Initializable {
         new Thread(() -> {
             Platform.runLater(() -> {
                 String payeeAddress = pAddress_lbl.getText().trim();
-                String password;
 
-                // Tạo một hộp thoại đầu vào để nhập mật khẩu
-
-                TextInputDialog dialog = new TextInputDialog();
-                dialog.setTitle("Enter Password");
-                dialog.setHeaderText(null);
-                dialog.setContentText("Please enter your password:");
-                // Hiển thị hộp thoại và chờ người dùng nhập mật khẩu
-                Optional<String> result = dialog.showAndWait();
-                if (result.isPresent()) {
-                    password = result.get().trim();
-
-                    //connect server
-                    try {
-                        Socket socket = new Socket("localhost", 44105);
-                        clientHandler = new ClientHandler(socket);
-                        Model.getInstance().getClientExecutor().execute(clientHandler);
-                        Model.getInstance().getClientHandlers().put(clientId, clientHandler);
-                        for (Map.Entry<String, ClientHandler> entry :  Model.getInstance().getClientHandlers().entrySet()) {
-                            String key = entry.getKey();
-                            ClientHandler value = entry.getValue();
-                            System.out.println("Key: " + key + ", Value: " + value);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    String messageForm = "evaluateAccount_" + payeeAddress + "_" + password;
-
-                    System.out.println("[Client Log] --> " + messageForm);
-                    clientHandler.sendMessage(messageForm);
-                }else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("confirmation Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("User canceled the password input.");
-                    alert.showAndWait();
+                //connect server
+                try {
+                    Socket socket = new Socket("localhost", 44105);
+                    clientHandler = new ClientHandler(socket);
+                    Model.getInstance().getClientExecutor().execute(clientHandler);
+                    Model.getInstance().getClientHandlers().put(clientId, clientHandler);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+
+                String messageForm = "evaluateAccount_" + payeeAddress;
+
+                System.out.println("[Client Log] --> " + messageForm);
+                clientHandler.sendMessage(messageForm);
             });
         }).start();
     }

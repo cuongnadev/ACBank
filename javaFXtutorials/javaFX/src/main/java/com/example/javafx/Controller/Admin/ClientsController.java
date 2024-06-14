@@ -33,11 +33,10 @@ public class ClientsController implements Initializable {
     public void onSearch(){
         List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         String payeeAdress = pAddress_fld.getText().trim();
-        String nameAdmin = Model.getInstance().getAdmin().getUserName();
-        Boolean check = false;
+        boolean check = false;
         clients_listview1.getItems().clear();
         for (Clients client : clientsList){
-            if (payeeAdress.equals(client.getPayeeAddress()) && nameAdmin.equals(client.getAdminName())){
+            if (payeeAdress.equals(client.getPayeeAddress())){
                 check = true;
                 Clients newClient = new Clients(
                         client.getFirstName(),
@@ -50,7 +49,7 @@ public class ClientsController implements Initializable {
                 clients_listview1.setCellFactory(listView -> new ClientCellFactory());
             }
         }
-        if (check == false){
+        if (!check){
             showAlert("Error! Enter payee address no valid.");
             pAddress_fld.setText("");
         }

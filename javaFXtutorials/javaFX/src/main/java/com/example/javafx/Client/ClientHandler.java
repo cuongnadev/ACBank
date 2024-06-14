@@ -46,22 +46,28 @@ public class ClientHandler implements Runnable{
 
                         } else if (messageSplit[0].equals("transferMoney")) {
                             if (messageSplit[1].equals("success")) {
-                                Model.getInstance().getViewFactory().getDashboardController().refreshDataTransaction();
-                                Model.getInstance().getViewFactory().getDashboardController().setDataLabel();
-                                showAlertSuccessful("Money transfer successful to " + messageSplit[2] + " for $" + messageSplit[3]);
+                                Clients client = Model.getInstance().getDaoDriver().getClientsDao().getClientByID(Integer.parseInt(messageSplit[3]));
+                                Platform.runLater(() -> {
+                                    Model.getInstance().getViewFactory().getDashboardController().refreshDataTransaction(messageSplit[2]);
+                                    Model.getInstance().getViewFactory().getDashboardController().setDataLabel(messageSplit[2]);
+                                    showAlertSuccessful("Money transfer successful to " + client.getLastName() + " for $" + messageSplit[3]);
+                                });
                             } else if (messageSplit[1].equals("failed")) {
                                 showAlertErorr("Money transfer failed.");
                             }
 
                         } else if (messageSplit[0].equals("receiveMoney")) {
-                            Model.getInstance().getViewFactory().getDashboardController().refreshDataTransaction();
-                            Model.getInstance().getViewFactory().getDashboardController().setDataLabel();
-                            showAlertSuccessful("You have received $" + messageSplit[2] + " from " + messageSplit[1]);
+                            Clients client = Model.getInstance().getDaoDriver().getClientsDao().getClientByID(Integer.parseInt(messageSplit[1]));
+                            Platform.runLater(() -> {
+                                Model.getInstance().getViewFactory().getDashboardController().refreshDataTransaction(messageSplit[2]);
+                                Model.getInstance().getViewFactory().getDashboardController().setDataLabel(messageSplit[2]);
+                                showAlertSuccessful("You have received $" + messageSplit[3] + " from " + client.getLastName());
+                            });
                         } else {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("confirmation Message");
                             alert.setHeaderText(null);
-                            alert.setContentText("Lỗi, giá tài khoản thất bại.");
+                            alert.setContentText("Lỗi, đánh giá tài khoản thất bại.");
                             alert.showAndWait();
                         }
                     }
@@ -83,10 +89,6 @@ public class ClientHandler implements Runnable{
             e.printStackTrace();
             System.out.println("Sending file error in SocketManager class");
         }
-    }
-
-    public String receiverMessage() throws IOException {
-        return clientReader.readLine();
     }
 
     public void close() {

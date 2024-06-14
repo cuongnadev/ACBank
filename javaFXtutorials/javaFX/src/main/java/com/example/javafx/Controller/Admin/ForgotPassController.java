@@ -31,9 +31,7 @@ public class ForgotPassController implements Initializable {
 
     private void onSend() {
         List<ForgotPass> forgotPassList = Model.getInstance().getDaoDriver().getForgotpassDao().getAllForgots();
-        List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
         String pAddress = pAddress_fld.getText().trim();
-        boolean check = false;
         // kiem tra du lieu
         for (ForgotPass forgotPass : forgotPassList) {
             if (pAddress.equals(forgotPass.getpAddress())) {
@@ -41,19 +39,15 @@ public class ForgotPassController implements Initializable {
                 pAddress_fld.setText("");
                 return;
             } else {
-                for (Clients client : clientsList) {
-                    if(!client.getPayeeAddress().equals(pAddress)){
-                        check = true;
-                        break;
-                    }
-                }
-                if(check) {
+                Clients client = Model.getInstance().getDaoDriver().getClientsDao().getClientByPayeeAddress(pAddress);
+                if(client == null) {
                     showAlert("Please enter a valid PayeeAddress!");
                     pAddress_fld.setText("");
                     return;
                 } else {
                     Stage stage = (Stage) label_lbl.getScene().getWindow();
-                    ForgotPass newForgotPass = new ForgotPass(pAddress_fld.getText(), LocalDate.now().toString() , email_fld.getText());
+                    String nameAdmin = Model.getInstance().getAdmin().getUserName();
+                    ForgotPass newForgotPass = new ForgotPass(pAddress_fld.getText(), LocalDate.now().toString() , email_fld.getText(), nameAdmin);
                     Model.getInstance().getDaoDriver().getForgotpassDao().saveForgotpass(newForgotPass);
                     showAlertSuccessful("The request has been successful, please wait for admin approval");
                     Model.getInstance().getViewFactory().getSignUpListController().refreshClientsListView();

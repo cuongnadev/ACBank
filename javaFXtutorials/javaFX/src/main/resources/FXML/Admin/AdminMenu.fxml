@@ -11,30 +11,30 @@
    <AnchorPane prefHeight="730.0" prefWidth="160.0" styleClass="left_container">
       <VBox prefHeight="80.0" prefWidth="160.0" styleClass="title_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <FontIcon iconLiteral="fa-bank" iconSize="30" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ACBank" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TCBank" />
       </VBox>
       <VBox layoutY="142.0" prefHeight="400.0" prefWidth="160.0" styleClass="menu_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-         <Button fx:id="clients_btn" mnemonicParsing="false" text="Clients">
+         <Button fx:id="clients_btn" mnemonicParsing="false" text="Khách hàng">
             <graphic>
                <FontIcon iconLiteral="fa-list" iconSize="20" />
             </graphic>
          </Button>
-         <Button fx:id="receipts_btn" mnemonicParsing="false" text="Receipt">
+         <Button fx:id="receipts_btn" mnemonicParsing="false" text="Biên lai">
             <graphic>
                <FontIcon iconLiteral="fa-list" iconSize="20" />
             </graphic>
          </Button>
-         <Button fx:id="signuplist_btn" layoutX="30.0" layoutY="140.0" mnemonicParsing="false" text="SignUpList">
+         <Button fx:id="signuplist_btn" layoutX="30.0" layoutY="140.0" mnemonicParsing="false" text="Đăng kí">
             <graphic>
                <FontIcon iconLiteral="fa-address-book-o" iconSize="20" />
             </graphic>
          </Button>
-         <Button fx:id="search_btn" mnemonicParsing="false" text="Deposit">
+         <Button fx:id="search_btn" mnemonicParsing="false" text="Gửi tiền">
             <graphic>
                <FontIcon iconLiteral="fa-search" iconSize="20" />
             </graphic>
          </Button>
-         <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout">
+         <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Thoát">
             <graphic>
                <FontIcon iconLiteral="fas-external-link-alt" iconSize="20" />
             </graphic>

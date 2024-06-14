@@ -19,13 +19,17 @@ public class ForgotPass {
     @Column(name = "Email")
     private String email;
 
+    @Column(name = "AdminName")
+    private String adminName;
+
     public ForgotPass() {
     }
 
-    public ForgotPass (String pAddress , String date , String email){
+    public ForgotPass(String pAddress, String date, String email, String adminName) {
         this.pAddress = pAddress;
         this.date = date;
         this.email = email;
+        this.adminName = adminName;
     }
 
     public int getId() {
@@ -58,5 +62,13 @@ public class ForgotPass {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 }

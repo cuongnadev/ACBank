@@ -15,10 +15,10 @@
       <Label fx:id="ch_acc_lbl" layoutX="89.0" layoutY="10.0" styleClass="acc_display_lbl" text="12345678" />
       <Label fx:id="date_lbl" layoutX="196.0" layoutY="10.0" text="2023-12-03" />
    </HBox>
-   <Button fx:id="delete_btn" layoutX="684.0" layoutY="13.0" mnemonicParsing="false" styleClass="delete_btn" text="Delete" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="12.0">
+   <Button fx:id="delete_btn" layoutX="684.0" layoutY="13.0" mnemonicParsing="false" styleClass="delete_btn" text="Xóa" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="12.0">
       <graphic>
          <FontIcon iconLiteral="far-window-close" iconSize="15" />
       </graphic>
    </Button>
-   <Button fx:id="accept_btn" layoutX="584.0" layoutY="12.0" mnemonicParsing="false" styleClass="duyet_btn" text="Accept" />
+   <Button fx:id="accept_btn" layoutX="584.0" layoutY="12.0" mnemonicParsing="false" styleClass="duyet_btn" text="Truy cập" />
 </AnchorPane>

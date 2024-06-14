@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="284.0" prefWidth="380.0" stylesheets="@../../assets/Styles/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="284.0" prefWidth="357.0" stylesheets="@../../assets/Styles/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <Text layoutX="37.0" layoutY="-8.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Client Account" />
-    <VBox fillWidth="false" layoutX="26.0" layoutY="25.0" prefHeight="146.0" prefWidth="330.0" styleClass="login_form_container" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="50.0">
-        <Label layoutX="10.0" layoutY="175.0" text="PayeeAddress*:" />
-        <TextField fx:id="pAddress_fld" layoutX="10.0" layoutY="112.0" prefHeight="26.0" prefWidth="310.0" />
+    <VBox fillWidth="false" layoutX="26.0" layoutY="25.0" prefHeight="209.0" prefWidth="281.0" styleClass="login_form_container" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="50.0">
+        <Label layoutX="10.0" layoutY="175.0" text="Tên đăng nhập*:" />
+        <TextField fx:id="pAddress_fld" layoutX="10.0" layoutY="112.0" prefHeight="26.0" prefWidth="279.0" />
       <Label layoutX="20.0" layoutY="20.0" text="Email:" />
-      <TextField fx:id="email_fld" layoutX="20.0" layoutY="55.0" prefHeight="26.0" prefWidth="310.0" />
-        <Button fx:id="send_btn" mnemonicParsing="false" text="Send" />
+      <TextField fx:id="email_fld" layoutX="20.0" layoutY="55.0" prefHeight="26.0" prefWidth="278.0" />
+        <Button fx:id="send_btn" mnemonicParsing="false" prefHeight="32.0" prefWidth="307.0" text="Gửi" />
     </VBox>
-    <Label layoutX="145.0" layoutY="9.0" text="Forgot Password" />
+    <Label layoutX="137.0" layoutY="14.0" text="Quên mật khẩu" />
    <Label fx:id="label_lbl" layoutX="26.0" layoutY="192.0" />
 </AnchorPane>

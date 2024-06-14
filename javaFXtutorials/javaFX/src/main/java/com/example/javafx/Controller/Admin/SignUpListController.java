@@ -46,21 +46,24 @@ public class SignUpListController implements Initializable {
     public List<SignUp> getSignUpOfSQLite() {
         signUp_listview.getItems().clear();
         List<SignUp> signUpList = Model.getInstance().getDaoDriver().getSignUpDao().getAllsignUps();
-
+        String nameAdmin = Model.getInstance().getAdmin().getUserName();
         List<SignUp> signUps = new ArrayList<>();
         for (SignUp signUp : signUpList) {
-            SignUp newSignUp = new SignUp(
-                    signUp.getFirstName(),
-                    signUp.getLastName(),
-                    signUp.getPassword(),
-                    signUp.getpAddress(),
-                    signUp.getChAccBalance(),
-                    signUp.getSvAccBalance(),
-                    signUp.getDate(),
-                    signUp.getCheckingNumber(),
-                    signUp.getSavingNumber());
+            if(nameAdmin.equals(signUp.getAdminName())) {
+                SignUp newSignUp = new SignUp(
+                        signUp.getFirstName(),
+                        signUp.getLastName(),
+                        signUp.getPassword(),
+                        signUp.getpAddress(),
+                        signUp.getChAccBalance(),
+                        signUp.getSvAccBalance(),
+                        signUp.getDate(),
+                        signUp.getCheckingNumber(),
+                        signUp.getSavingNumber(),
+                        signUp.getAdminName());
 
-            signUps.add(newSignUp);
+                signUps.add(newSignUp);
+            }
         }
         // Sắp xếp danh sách theo ngày giảm dần
         signUpList.sort((t1, t2) -> t2.getDate().compareTo(t1.getDate()));
@@ -92,15 +95,18 @@ public class SignUpListController implements Initializable {
     private List<ForgotPass> getForgotPassOfSQLite() {
         forgotPass_listview.getItems().clear();
         List<ForgotPass> forgotPassList = Model.getInstance().getDaoDriver().getForgotpassDao().getAllForgots();
-
+        String nameAdmin = Model.getInstance().getAdmin().getUserName();
         List<ForgotPass> forgotPasses = new ArrayList<>();
         for (ForgotPass forgotPass : forgotPassList) {
-            ForgotPass pass = new ForgotPass(
-                    forgotPass.getpAddress(),
-                    forgotPass.getDate(),
-                    forgotPass.getEmail());
+            if(nameAdmin.equals(forgotPass.getAdminName())) {
+                ForgotPass pass = new ForgotPass(
+                        forgotPass.getpAddress(),
+                        forgotPass.getDate(),
+                        forgotPass.getEmail(),
+                        nameAdmin);
 
-            forgotPasses.add(pass);
+                forgotPasses.add(pass);
+            }
         }
         return forgotPasses;
     }

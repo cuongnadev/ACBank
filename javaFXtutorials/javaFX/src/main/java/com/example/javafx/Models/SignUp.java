@@ -28,10 +28,13 @@ public class SignUp {
     @Column(name = "SavingNumber")
     private String SavingNumber;
 
+    @Column(name = "AdminName")
+    private String adminName;
+
     public SignUp() {
     }
 
-    public SignUp(String firstName, String lastName, String password, String pAddress, Double chAccBalance, Double svAccBalance, String date, String checkingNumber, String savingNumber) {
+    public SignUp(String firstName, String lastName, String password, String pAddress, Double chAccBalance, Double svAccBalance, String date, String checkingNumber, String savingNumber, String adminName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -41,6 +44,7 @@ public class SignUp {
         this.date = date;
         CheckingNumber = checkingNumber;
         SavingNumber = savingNumber;
+        this.adminName = adminName;
     }
 
     public int getId() {
@@ -121,5 +125,13 @@ public class SignUp {
 
     public void setSavingNumber(String savingNumber) {
         SavingNumber = savingNumber;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 }

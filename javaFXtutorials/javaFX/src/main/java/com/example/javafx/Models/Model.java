@@ -2,7 +2,6 @@ package com.example.javafx.Models;
 
 
 import com.example.javafx.Client.ClientHandler;
-import com.example.javafx.Client.SocketManager;
 import com.example.javafx.Dao.DaoDriver;
 import com.example.javafx.Server.BankServer;
 import com.example.javafx.View.ViewFactory;
@@ -116,11 +115,12 @@ public class Model {
     public void setClientLoginSuccessFlag (boolean flag){
         this.clientLoginSuccessFlag = flag;
     }
-    public void evaluateClientCred(String pAddress , String password){
+    public void evaluateClientCred(String pAddress){
         List<Clients> clientsList = this.getDaoDriver().getClientsDao().getAllClients();
+        String nameAdmin = Model.getInstance().getAdmin().getUserName();
         try {
             for (Clients client : clientsList) {
-                if(client.getPayeeAddress().equals(pAddress) && client.getPassword().equals(HashPassword(password))) {
+                if(client.getPayeeAddress().equals(pAddress) && client.getAdminName().equals(nameAdmin)) {
                     this.currentClient.setId(client.getId());
                     this.currentClient.setPayeeAddress(client.getPayeeAddress());
                     this.currentClient.setPassword(client.getPassword());

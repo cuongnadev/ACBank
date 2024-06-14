@@ -20,7 +20,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        payee_address_lbl.setText("UserName:");
+        payee_address_lbl.setText("Tên Đăng Nhập:");
         login_btn.setOnAction(event -> {
             try {
                 onLogin();
@@ -43,11 +43,12 @@ public class LoginController implements Initializable {
                 //khoi dong may chu
                 Model.getInstance().startServer();
 
+                //show admin
                 Model.getInstance().getViewFactory().showAdminWindow();
 
                 //Close the login stage
                 Model.getInstance().getViewFactory().closeStage(stage);
-            }else{
+            }else {
                 payee_address_fid.setText("");
                 password_fid.setText("");
                 error_lbl.setText("No Such Login Credentials.");

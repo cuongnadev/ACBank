@@ -49,7 +49,7 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        refreshDataTransaction();
+        refreshDataTransaction(clientId);
         List<Transaction> transactions = getTransactionOfSQLiteLimit(4);
         transaction_listview.getItems().addAll(transactions);
         transaction_listview.setCellFactory(listView -> new TransactionCellFactory(clientId));
@@ -67,12 +67,12 @@ public class DashboardController implements Initializable {
     public void setClientId(String clientId) { // Thêm setter này
         this.clientId = clientId;
         if(clientId != null) { // Cập nhật dữ liệu khi clientId được thiết lập
-            setDataLabel();
-            refreshDataTransaction();
+            setDataLabel(clientId);
+            refreshDataTransaction(clientId);
         }
     }
 
-    public void setDataLabel(){
+    public void setDataLabel(String clientId){
         Platform.runLater(() -> {
             int Id = Integer.parseInt(clientId);
             List<Clients> clientsList = Model.getInstance().getDaoDriver().getClientsDao().getAllClients();
@@ -83,7 +83,7 @@ public class DashboardController implements Initializable {
                 if(client.getId() == Id) {
                     pAddress = client.getPayeeAddress();
                     String LName = client.getLastName();
-                    user_name.setText("Hi, "+ LName);
+                    user_name.setText("Chào, "+ LName);
                     break;
                 }
             }
@@ -92,7 +92,7 @@ public class DashboardController implements Initializable {
             LocalDate currentDate = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String formattedDate = currentDate.format(formatter);
-            login_today.setText("Today, " + formattedDate);
+            login_today.setText("Hôm nay, " + formattedDate);
             for (CheckingAccount checkingAccount : checkingAccountList){
                 if (pAddress.equals(checkingAccount.getOwner())){
                     checking_acc_num.setText(checkingAccount.getAccountNumber());
@@ -139,17 +139,12 @@ public class DashboardController implements Initializable {
                 return;
             }
 
+            Clients client = Model.getInstance().getDaoDriver().getClientsDao().getClientByPayeeAddress(pAddress_receiver);
+            String receiverId = String.valueOf(client.getId());
+            String messageForm = "transferMoney_" + clientId + "_" + receiverId + "_" + amount + "_" + message;
 
-            for (Clients client : Model.getInstance().getOnlineClientList()) {
-                if(client.getPayeeAddress().equals(pAddress_receiver)) {
-                    String receiverId = String.valueOf(client.getId());
-
-                    String messageForm = "transferMoney_" + clientId + "_" + receiverId + "_" + amount + "_" + message;
-
-                    System.out.println("[Client Log] --> " + messageForm);
-                    clientHandler.sendMessage(messageForm);
-                }
-            }
+            System.out.println("[Client Log] --> " + messageForm);
+            clientHandler.sendMessage(messageForm);
         }
     }
 
@@ -179,7 +174,7 @@ public class DashboardController implements Initializable {
         return transactions.subList(0, Math.min(limit, transactions.size()));
     }
 
-    public void refreshDataTransaction(){
+    public void refreshDataTransaction(String clientId){
         Platform.runLater(() -> {
             List<Transaction> transactions = getTransactionOfSQLiteLimit(4);
             transaction_listview.getItems().setAll(transactions);
@@ -192,14 +187,6 @@ public class DashboardController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-
-    private void showAlertSuccessful(String successfulMoneyTransfer) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null);
-        alert.setContentText(successfulMoneyTransfer);
         alert.showAndWait();
     }
 }

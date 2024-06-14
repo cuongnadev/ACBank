@@ -87,12 +87,13 @@ public class SignUpController implements Initializable {
                 showAlert("Please enter valid Balance.");
                 break;
             } else {
+                String nameAdmin = Model.getInstance().getAdmin().getUserName();
                 // Thêm client mới vào hàng chờ chờ admin duyệt
                 String CheckingNumber = "3021 " + RanDomNumber();
                 String SavingNumber = "3021 " + RanDomNumber();
                 String pword = Model.HashPassword(password);
                 SignUp newSignUp = new SignUp(firstName, lastName, pword, pAddress, chAccBalance,
-                        svAccBalance, LocalDate.now().toString(), CheckingNumber, SavingNumber);
+                        svAccBalance, LocalDate.now().toString(), CheckingNumber, SavingNumber, nameAdmin);
                 Model.getInstance().getDaoDriver().getSignUpDao().saveSignUp(newSignUp);
                 error_lbl.setText("Client Create Successfully.");
                 error_lbl.setTextFill(Color.BLUE);
@@ -109,7 +110,7 @@ public class SignUpController implements Initializable {
     private String RanDomAddress(String firstName , String lastName){
         Random random = new Random();
         int ranDomNumber = random.nextInt(100);
-        return  "@" + Character.toUpperCase(firstName.charAt(0)) + lastName.toLowerCase() + ranDomNumber;
+        return  Character.toUpperCase(firstName.charAt(0)) + lastName.toLowerCase() + "@" + ranDomNumber;
     }
     public int RanDomNumber(){
         Random random = new Random();

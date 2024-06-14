@@ -10,7 +10,7 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="clients_container" stylesheets="@../../assets/Styles/Clients.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.Admin.ClientsController">
-   <Text layoutX="3.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clients" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+   <Text layoutX="3.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Danh sách khách hàng" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
    <ListView fx:id="clients_listview" layoutX="14.0" layoutY="45.0" prefHeight="350.0" prefWidth="800.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="40.0" />
    <AnchorPane layoutX="2.0" layoutY="346.0" prefHeight="335.0" prefWidth="850.0" styleClass="clients_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <ListView fx:id="clients_listview1" layoutX="14.0" layoutY="60.0" prefHeight="200.0" prefWidth="800.0" AnchorPane.bottomAnchor="75.0">
@@ -20,9 +20,9 @@
          </styleClass>
       </ListView>
       <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="60.0" prefWidth="800.0" styleClass="search_box" stylesheets="@../../assets/Styles/Clients.css" AnchorPane.topAnchor="0.0">
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search By Payee Address:" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tìm kiếm khách hàng" />
          <TextField fx:id="pAddress_fld" />
-         <Button fx:id="search_btn" mnemonicParsing="false" text="Search">
+         <Button fx:id="search_btn" mnemonicParsing="false" text="Tìm">
             <graphic>
                <FontIcon iconColor="WHITE" iconLiteral="fa-search" iconSize="20" />
             </graphic>

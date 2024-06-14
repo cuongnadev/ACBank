@@ -32,10 +32,10 @@ public class ReceiptController implements Initializable {
         List<Receipt> receiptList = Model.getInstance().getDaoDriver().getReceiptDao().getAllReceipts();
         String payeeAdress = IDReceipt_fld.getText().trim();
         String adminName = Model.getInstance().getAdmin().getUserName();
-        Boolean check = false;
+        boolean check = false;
         receipts_listview1.getItems().clear();
         for (Receipt receipt : receiptList){
-            if (payeeAdress.equals(receipt.getIDReceipt()) && adminName.equals(receipt.getAdminName())){
+            if (payeeAdress.equals(receipt.getIDReceipt())){
                 check = true;
                 Receipt newReceipt = new Receipt(receipt.getIDReceipt(),
                         receipt.getSender(),
@@ -50,7 +50,7 @@ public class ReceiptController implements Initializable {
                 receipts_listview1.setCellFactory(listView -> new ReceiptCellFactory());
             }
         }
-        if (check == false){
+        if (!check){
             showAlert("Error! Enter payee address no valid.");
             IDReceipt_fld.setText("");
         }

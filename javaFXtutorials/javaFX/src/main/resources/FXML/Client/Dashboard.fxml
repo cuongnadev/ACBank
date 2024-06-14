@@ -14,10 +14,10 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../assets/Styles/Dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.Client.DashboardController">
-   <Text fx:id="user_name" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name" text="Hi, Cuong" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
-   <Label fx:id="login_today" styleClass="date_lbl" text="Today,2023-11-28" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="27.0" />
-   <Text layoutX="825.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="Accounts Surmmary" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="90.0" />
-   <Text layoutX="729.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="My Accounts" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
+   <Text fx:id="user_name" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name" text="Chào, Cuong" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
+   <Label fx:id="login_today" styleClass="date_lbl" text="Hôm nay,2023-11-28" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="27.0" />
+   <Text layoutX="825.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="Tóm tắt tài khoản" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="90.0" />
+   <Text layoutX="729.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="Tài khoản của tôi" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
    <HBox layoutX="20.0" layoutY="136.0" prefHeight="180.0" prefWidth="620.0" styleClass="accounts_view" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0">
 
       <AnchorPane prefHeight="150.0" prefWidth="295.0">
@@ -30,7 +30,7 @@
          <Label fx:id="checking_acc_num" layoutX="94.0" layoutY="118.0" styleClass="account_number" text="4558" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="138.0" />
          <VBox layoutX="181.0" layoutY="-10.0" prefHeight="100.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" />
          <FontIcon iconLiteral="fa-bank" iconSize="30" layoutX="245.0" layoutY="39.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
-         <Text layoutX="17.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checking Account" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
+         <Text layoutX="17.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài khoản chính" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
       </AnchorPane>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="295.0">
          <styleClass>
@@ -42,28 +42,28 @@
          <Label fx:id="saving_acc_num" layoutX="94.0" layoutY="118.0" styleClass="account_number" text="4558" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="138.0" />
          <VBox layoutX="181.0" layoutY="-10.0" prefHeight="100.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" />
          <FontIcon iconLiteral="fa-bank" iconSize="30" layoutX="245.0" layoutY="39.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
-         <Text layoutX="17.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saving Account" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
+         <Text layoutX="17.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài khoản tiết kiệm" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
       </AnchorPane>
    </HBox>
    <VBox layoutX="736.0" layoutY="120.0" prefHeight="180.0" prefWidth="210.0" styleClass="summary_view" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0">
       <VBox prefHeight="200.0" prefWidth="100.0" styleClass="acc_summary_container">
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Income" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thu nhập" />
          <Label fx:id="income_lbl" styleClass="income_amount" text="+ $4000.00" />
          <Line endX="160.0" />
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Expenses" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Chi phí" />
          <Label fx:id="expense_lbl" styleClass="expense_amount" text="- $1500.00" />
       </VBox>
    </VBox>
-   <Text layoutX="28.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="Latest Transactions" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="340.0" />
-   <Text layoutX="748.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="Send Money" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="340.0" />
+   <Text layoutX="28.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="Giao dịch mới nhất" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="340.0" />
+   <Text layoutX="748.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="Chuyển tiền" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="340.0" />
    <ListView fx:id="transaction_listview" layoutX="14.0" layoutY="370.0" prefHeight="365.0" prefWidth="570.0" styleClass="transaction_listview" AnchorPane.bottomAnchor="14.399999999999977" AnchorPane.leftAnchor="14.0" />
    <VBox layoutX="596.0" layoutY="370.0" prefHeight="365.0" prefWidth="240.0" styleClass="new_trans_container" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
-      <Label text="Payee Address" />
+      <Label text="Tên đăng nhập:" />
       <TextField fx:id="payee_fld" />
-      <Label text="Amoint in $:" />
+      <Label text="Số tiền ($):" />
       <TextField fx:id="amount_fld" layoutX="10.0" layoutY="28.0" />
-      <Label layoutX="10.0" layoutY="53.0" text="Message:(Optional)" />
+      <Label layoutX="10.0" layoutY="53.0" text="Tin nhắn:" />
       <TextArea fx:id="massage_fld" prefHeight="70.0" prefWidth="200.0" />
-      <Button fx:id="send_money_btn" mnemonicParsing="false" text="Send Money" />
+      <Button fx:id="send_money_btn" mnemonicParsing="false" text="Chuyển tiền" />
    </VBox>
 </AnchorPane>
