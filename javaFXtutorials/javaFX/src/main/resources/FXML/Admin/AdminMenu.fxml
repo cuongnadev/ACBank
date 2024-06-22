@@ -29,7 +29,7 @@
                <FontIcon iconLiteral="fa-address-book-o" iconSize="20" />
             </graphic>
          </Button>
-         <Button fx:id="search_btn" mnemonicParsing="false" text="Gửi tiền">
+         <Button fx:id="search_btn" mnemonicParsing="false" text="Nạp rút">
             <graphic>
                <FontIcon iconLiteral="fa-search" iconSize="20" />
             </graphic>

@@ -29,19 +29,9 @@
     -fx-background-color: #113322FF;
 }
 
-#choice-box-popup-menu {
-    -fx-background-color: #ECF39E;
-}
-
-
-/*Login Form Styles*/
-
-#choice-prompt-text {
-    -fx-font-weight: 400;
-}
 
 .login_form_container {
-    -fx-spacing: 15;
+    -fx-spacing: 16;
     -fx-alignment: top_left;
     -fx-border-width: 2.5px;
     -fx-border-color: #113322FF;
@@ -68,6 +58,7 @@
     -fx-pref-height: 30;
     -fx-pref-width: 280;
     -fx-font-size: 1.2em;
+    -fx-translate-y: 5;
 }
 
 .login_form_container Button:hover {

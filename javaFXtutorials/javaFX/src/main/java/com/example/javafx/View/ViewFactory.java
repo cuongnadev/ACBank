@@ -13,6 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ViewFactory {
     public ViewFactory(){
         this.loginAccountType = AccountType.ADMIN;
@@ -24,6 +27,7 @@ public class ViewFactory {
 
     //Client View
     private final ObjectProperty<ClientMenuOptions> clientSelectedMenuItem;
+    private final Map<String, ClientSession> clientSessions = new HashMap<>();
     private AnchorPane dashboardView;
     private AnchorPane transactionsView;
     private AnchorPane accountsView;
@@ -173,7 +177,6 @@ public class ViewFactory {
             try {
                 transactionsView = new FXMLLoader(getClass().getResource("/FXML/Client/Transactions.fxml")).load();
                 getTransactionsController().setClientId(Id);
-//                getTransactionCellController().setClientId(Id);
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -181,12 +184,14 @@ public class ViewFactory {
         return transactionsView;
     }
     public AnchorPane getAccountsView(String Id){
+
         try {
             accountsView = new FXMLLoader(getClass().getResource("/FXML/Client/Accounts.fxml")).load();
             getAccountsController().setClientId(Id);
         } catch (Exception e){
             e.printStackTrace();
         }
+
         return accountsView;
     }
     public AnchorPane getProfileView(String Id){
@@ -203,11 +208,22 @@ public class ViewFactory {
 
     public void showClientWindow(String Id){
         ClientSession clientSession = new ClientSession(Id);
+        clientSessions.put(Id, clientSession);
+        System.out.println("Client Sessions:");
+        clientSessions.forEach((key, value) -> {
+            System.out.println("Client ID: " + key + ", Client Session: " + value);
+        });
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Client/Client.fxml"));
         ClientController clientController = new ClientController(clientSession);
         loader.setController(clientController);
         createStage(loader);
     }
+    public ClientSession getClientSession(String clientId) {
+        clientSessions.get(clientId);
+        System.out.println("Client ID: " + clientId + ", Client Session: " + clientSessions.get(clientId));
+        return clientSessions.get(clientId);
+    }
+
     public void showSignUpWindow(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Client/SignUp.fxml"));
         SignUpController signUpController = new SignUpController();
@@ -280,7 +296,13 @@ public class ViewFactory {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Admin/Admin.fxml"));
         AdminController adminController = new AdminController();
         loader.setController(adminController);
-        createStage(loader);
+        Stage stage = createStage(loader);
+        stage.setOnCloseRequest(event -> {
+            // Stop the server
+            Model.getInstance().stopServer();
+            // Exit the application
+            System.exit(0);
+        });
     }
 
 
@@ -292,7 +314,7 @@ public class ViewFactory {
         createStage(loader);
     }
 
-    private void createStage(FXMLLoader loader) {
+    private Stage createStage(FXMLLoader loader) {
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
@@ -305,9 +327,11 @@ public class ViewFactory {
         stage.setResizable(false);
         stage.setTitle("ACBank");
         stage.show();
+        return stage;
     }
 
     public void closeStage(Stage stage){
         stage.close();
     }
+
 }

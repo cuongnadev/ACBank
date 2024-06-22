@@ -13,16 +13,16 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="260.0" prefWidth="530.0" styleClass="login_container" stylesheets="@../assets/Styles/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.LoginController">
+<AnchorPane prefHeight="270.0" prefWidth="530.0" styleClass="login_container" stylesheets="@../assets/Styles/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.Controller.LoginController">
    <VBox prefHeight="400.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.8000000000000114" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <VBox prefHeight="85.0" prefWidth="200.0" styleClass="login_logo_container">
-         <FontIcon iconLiteral="fa-bank" iconSize="6" styleClass="iconFX" text="">
+      <VBox prefHeight="75.0" prefWidth="200.0" styleClass="login_logo_container">
+         <FontIcon iconLiteral="fa-bank" iconSize="6" selectionStart="0" styleClass="iconFX" text="">
             <VBox.margin>
-               <Insets top="5.0" />
+               <Insets top="10.0" />
             </VBox.margin></FontIcon>
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ACBank" />
       </VBox>
-      <VBox prefHeight="195.0" prefWidth="200.0" styleClass="login_logo_container">
+      <VBox prefHeight="282.0" prefWidth="200.0" styleClass="login_logo_container">
          <ImageView fitHeight="132.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../assets/Images/peoplebank.png" />
          </ImageView>

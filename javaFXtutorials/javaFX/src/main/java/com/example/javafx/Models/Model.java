@@ -86,6 +86,13 @@ public class Model {
         }
     }
 
+    public void stopServer() {
+        if (server != null) {
+            server.stop();
+            server = null;
+        }
+    }
+
 
     public BankServer getServer() {
         return server;
