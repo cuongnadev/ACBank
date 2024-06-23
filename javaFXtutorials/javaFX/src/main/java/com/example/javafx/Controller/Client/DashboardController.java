@@ -124,6 +124,11 @@ public class DashboardController implements Initializable {
         if(clientHandler != null) {
             // Step 1: Lấy dữ liệu từ field
             String pAddress_receiver = payee_fld.getText().trim();
+            Clients client_receiver = Model.getInstance().getDaoDriver().getClientsDao().getClientByPayeeAddress(pAddress_receiver);
+            if(String.valueOf(client_receiver.getId()).equals(clientId)) {
+                showAlertErorr("You cannot transfer money to yourself!");
+                return;
+            }
             double amount;
             try {
                 amount = Double.parseDouble(amount_fld.getText().trim());
